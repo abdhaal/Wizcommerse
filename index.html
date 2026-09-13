@@ -1,195 +1,1406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wiz-Commerce — Shop with Trust</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Wiz Commerce - Smart, Trusted and Transparent Online Shopping">
+
+    <title>Wiz Commerce | Smart & Trusted Shopping</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<div class="page-skeleton" id="pageSkeleton"><div class="skeleton-mark">Wiz-Commerce</div></div>
+<!-- =====================================================
+     ANNOUNCEMENT BAR
+===================================================== -->
 
-<header class="navbar" id="navbar">
-  <div class="navbar-inner">
-    <a href="#top" class="logo">Wiz<span>Commerce</span></a>
-    <nav class="nav-links">
-      <a href="#why" class="anchor-link">Why IMA?</a>
-      <a href="#categories" class="anchor-link">Categories</a>
-      <a href="#deals" class="anchor-link">Deals</a>
-      <a href="#earn" class="anchor-link">Earn</a>
-      <a href="#confidence" class="anchor-link">How it works</a>
-    </nav>
-    <button class="btn btn-primary btn-sm ripple">Sign in</button>
-  </div>
+<div class="announcement-bar">
+    🛡️ Shop with Confidence — Verified Products & Trusted Sellers
+</div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-container">
+
+        <!-- LOGO -->
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-icon">W</span>
+
+            <div class="logo-text">
+                <strong>Wiz</strong>
+                <span>Commerce</span>
+            </div>
+
+        </a>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products, brands and categories..."
+            >
+
+            <button id="searchBtn">
+                🔍
+            </button>
+
+        </div>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <a href="ai-advisor.html"
+               class="header-action">
+
+                <span>🤖</span>
+                <small>AI Advisor</small>
+
+            </a>
+
+
+            <a href="compare.html"
+               class="header-action">
+
+                <span>⚖️</span>
+                <small>Compare</small>
+
+            </a>
+
+
+            <a href="orders.html"
+               class="header-action">
+
+                <span>📦</span>
+                <small>Orders</small>
+
+            </a>
+
+
+            <a href="cart.html"
+               class="cart-action">
+
+                🛒
+
+                <span id="cartCount">
+                    0
+                </span>
+
+            </a>
+
+
+            <a href="login.html"
+               class="account-action">
+
+                👤
+
+            </a>
+
+        </div>
+
+    </div>
+
 </header>
 
-<main id="top">
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="badge" id="heroBadge" data-anim="fade-up" style="--d:0ms">TRUSTED ONLINE SHOPPING</span>
-      <h1 class="hero-title" data-anim="fade-up" style="--d:90ms">
-        Shop what creators<br>actually stand behind.
-      </h1>
-      <p class="hero-sub" data-anim="fade-up" style="--d:180ms">
-        Real videos, verified sellers, and prices you can check yourself —
-        IMA Shopping Centre is built so you never have to guess.
-      </p>
-      <div class="hero-cta" data-anim="fade-up" style="--d:270ms">
-        <button class="btn btn-primary ripple">Start Shopping</button>
-        <button class="btn btn-ghost ripple">Become a Creator</button>
-      </div>
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="navigation">
+
+    <div class="nav-container">
+
+        <a href="products.html">
+            All Products
+        </a>
+
+        <a href="products.html?category=electronics">
+            Electronics
+        </a>
+
+        <a href="products.html?category=fashion">
+            Fashion
+        </a>
+
+        <a href="products.html?category=home">
+            Home & Kitchen
+        </a>
+
+        <a href="products.html?category=beauty">
+            Beauty
+        </a>
+
+        <a href="products.html?category=accessories">
+            Accessories
+        </a>
+
+        <a href="products.html?sort=bestseller">
+            🔥 Best Sellers
+        </a>
+
+        <a href="products.html?sort=deals">
+            🏷️ Deals
+        </a>
+
     </div>
-    <div class="hero-glow" aria-hidden="true"></div>
-  </section>
 
-  <!-- WHY IMA / TRUST FEATURES -->
-  <section class="section" id="why">
-    <h2 class="section-title reveal">Why shoppers trust IMA</h2>
-    <p class="section-sub reveal">Four checks every listing has to pass before it reaches you.</p>
+</nav>
 
-    <div class="trust-grid">
-      <article class="trust-card reveal-stagger">
-        <div class="trust-icon">▶</div>
-        <h3>Real Product Videos</h3>
-        <p>Every listing includes unedited footage of the actual product, filmed by the seller.</p>
-      </article>
-      <article class="trust-card reveal-stagger">
-        <div class="trust-icon">✓</div>
-        <h3>Verified Sellers</h3>
-        <p>Sellers pass an identity and business check before their first listing goes live.</p>
-      </article>
-      <article class="trust-card reveal-stagger">
-        <div class="trust-icon">★</div>
-        <h3>Genuine Reviews</h3>
-        <p>Only buyers who completed a purchase can leave a review — no exceptions.</p>
-      </article>
-      <article class="trust-card reveal-stagger">
-        <div class="trust-icon">₹</div>
-        <h3>Transparent Pricing</h3>
-        <p>See the full price history for any item before you decide to buy.</p>
-      </article>
-    </div>
-  </section>
 
-  <!-- CATEGORIES -->
-  <section class="section alt" id="categories">
-    <h2 class="section-title reveal">Shop by category</h2>
-    <p class="section-sub reveal">Curated the same way, no matter what you're after.</p>
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
 
-    <div class="category-grid">
-      <a href="#" class="category-card reveal-stagger">
-        <span class="cat-icon">💻</span>
-        <h3>Electronics</h3>
-        <span class="explore">Explore <span class="arrow">→</span></span>
-      </a>
-      <a href="#" class="category-card reveal-stagger">
-        <span class="cat-icon">👗</span>
-        <h3>Fashion</h3>
-        <span class="explore">Explore <span class="arrow">→</span></span>
-      </a>
-      <a href="#" class="category-card reveal-stagger">
-        <span class="cat-icon">🏠</span>
-        <h3>Home</h3>
-        <span class="explore">Explore <span class="arrow">→</span></span>
-      </a>
-      <a href="#" class="category-card reveal-stagger">
-        <span class="cat-icon">🍳</span>
-        <h3>Kitchen</h3>
-        <span class="explore">Explore <span class="arrow">→</span></span>
-      </a>
-      <a href="#" class="category-card reveal-stagger">
-        <span class="cat-icon">💄</span>
-        <h3>Beauty</h3>
-        <span class="explore">Explore <span class="arrow">→</span></span>
-      </a>
-    </div>
-  </section>
+<section class="hero">
 
-  <!-- DEALS OF THE DAY -->
-  <section class="section" id="deals">
-    <h2 class="section-title reveal">Deals of the day</h2>
-    <p class="section-sub reveal">Refreshed every morning at 9 AM.</p>
-  </section>
+    <div class="hero-container">
 
-  <div class="marquee-wrap">
-    <div class="marquee-track" id="marqueeTrack">
-      <!-- product cards injected twice by JS for seamless loop -->
-    </div>
-  </div>
 
-  <!-- TRENDING -->
-  <section class="section alt" id="trending">
-    <h2 class="section-title reveal">Trending this week</h2>
-    <p class="section-sub reveal">What buyers are adding to cart right now.</p>
-    <div class="trending-grid" id="trendingGrid"></div>
-  </section>
+        <!-- HERO CONTENT -->
 
-  <!-- CREATOR EARNINGS -->
-  <section class="section" id="earn">
-    <div class="earnings-panel reveal">
-      <div class="earnings-main">
-        <span class="earnings-label">Your earnings this month</span>
-        <span class="earnings-amount" data-target="12450" id="earningsAmount">₹0</span>
-      </div>
-      <div class="earnings-stats">
-        <div class="stat-row reveal-stagger">
-          <span class="stat-label">Clicks</span>
-          <span class="stat-value">8,214</span>
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                🛡️ A New Way to Shop Online
+
+            </div>
+
+
+            <h1>
+
+                Shop Smart.
+                <span>Shop Safe.</span>
+                Shop with Confidence.
+
+            </h1>
+
+
+            <p>
+
+                Real product videos, verified buyer reviews,
+                trusted sellers, transparent pricing and
+                AI-powered product recommendations.
+
+            </p>
+
+
+            <!-- HERO BUTTONS -->
+
+            <div class="hero-buttons">
+
+                <a href="products.html"
+                   class="btn btn-primary">
+
+                    Start Shopping →
+
+                </a>
+
+
+                <a href="ai-advisor.html"
+                   class="btn btn-secondary">
+
+                    🤖 Ask Wiz AI
+
+                </a>
+
+            </div>
+
+
+            <!-- HERO TRUST -->
+
+            <div class="hero-trust">
+
+                <div>
+
+                    <strong>100%</strong>
+
+                    <span>
+                        Transparent Pricing
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>✓</strong>
+
+                    <span>
+                        Verified Sellers
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>⭐</strong>
+
+                    <span>
+                        Verified Reviews
+                    </span>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="stat-row reveal-stagger">
-          <span class="stat-label">Orders</span>
-          <span class="stat-value">142</span>
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="hero-card">
+
+
+                <div class="hero-product-image">
+
+                    🛍️
+
+                </div>
+
+
+                <div class="hero-product-info">
+
+                    <span class="verified-label">
+
+                        ✓ Verified Product
+
+                    </span>
+
+
+                    <h3>
+
+                        Smart Shopping
+
+                    </h3>
+
+
+                    <p>
+
+                        Powered by Trust
+
+                    </p>
+
+
+                    <div class="hero-score">
+
+
+                        <div>
+
+                            <small>
+                                Wiz Trust Score
+                            </small>
+
+                            <strong>
+                                94/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="score-circle">
+
+                            94
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="stat-row reveal-stagger">
-          <span class="stat-label">Commission</span>
-          <span class="stat-value">7.5%</span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TRUST FEATURES
+===================================================== -->
+
+<section class="trust-section">
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <span>
+                WHY WIZ COMMERCE?
+            </span>
+
+            <h2>
+                Shopping Made More Trustworthy
+            </h2>
+
+            <p>
+                We solve the problems customers face
+                in traditional online shopping.
+            </p>
+
         </div>
-      </div>
+
+
+        <div class="trust-grid">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon">
+                    🎥
+                </div>
+
+                <h3>
+                    Real Product Videos
+                </h3>
+
+                <p>
+                    See how the actual product looks
+                    and works before you buy.
+                </p>
+
+                <a href="products.html">
+                    Explore Products →
+                </a>
+
+            </div>
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon review-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Verified Buyer Reviews
+                </h3>
+
+                <p>
+                    Reviews are linked to real purchases
+                    to reduce fake reviews.
+                </p>
+
+                <a href="reviews.html">
+                    See Reviews →
+                </a>
+
+            </div>
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon trust-icon-blue">
+                    🛡️
+                </div>
+
+                <h3>
+                    Product Trust Score
+                </h3>
+
+                <p>
+                    Understand product reliability
+                    through a simple trust score.
+                </p>
+
+                <a href="products.html">
+                    Check Trust →
+                </a>
+
+            </div>
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon seller-icon">
+                    🏪
+                </div>
+
+                <h3>
+                    Verified Sellers
+                </h3>
+
+                <p>
+                    Check seller verification and
+                    seller trust before purchasing.
+                </p>
+
+                <a href="seller.html">
+                    View Sellers →
+                </a>
+
+            </div>
+
+
+            <!-- FEATURE 5 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon price-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Transparent Pricing
+                </h3>
+
+                <p>
+                    See the complete final price
+                    before placing your order.
+                </p>
+
+                <a href="checkout.html">
+                    See Checkout →
+                </a>
+
+            </div>
+
+
+            <!-- FEATURE 6 -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon ai-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI Product Advisor
+                </h3>
+
+                <p>
+                    Get personalised recommendations
+                    based on your needs and budget.
+                </p>
+
+                <a href="ai-advisor.html">
+                    Try Wiz AI →
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
-  </section>
 
-  <!-- BUY WITH CONFIDENCE -->
-  <section class="section alt" id="confidence">
-    <h2 class="section-title reveal">Buy with confidence</h2>
-    <p class="section-sub reveal">Four steps stand between every listing and your doorstep.</p>
+</section>
 
-    <div class="steps" id="stepsTrack">
-      <div class="steps-line"><div class="steps-line-fill" id="stepsLineFill"></div></div>
-      <div class="step reveal-stagger">
-        <span class="step-num">1</span>
-        <h3>Browse verified listings</h3>
-        <p>Only sellers who passed ID checks appear in search.</p>
-      </div>
-      <div class="step reveal-stagger">
-        <span class="step-num">2</span>
-        <h3>Watch the real video</h3>
-        <p>See the exact unit style before you add to cart.</p>
-      </div>
-      <div class="step reveal-stagger">
-        <span class="step-num">3</span>
-        <h3>Pay through escrow</h3>
-        <p>Your payment holds until the order is confirmed delivered.</p>
-      </div>
-      <div class="step reveal-stagger">
-        <span class="step-num">4</span>
-        <h3>Rate the real experience</h3>
-        <p>Only completed buyers can leave a review.</p>
-      </div>
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="categories-section">
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <span>
+                EXPLORE
+            </span>
+
+            <h2>
+                Shop by Category
+            </h2>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <a href="products.html?category=electronics"
+               class="category-card">
+
+                <div class="category-image">
+                    📱
+                </div>
+
+                <h3>
+                    Electronics
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+
+            <a href="products.html?category=fashion"
+               class="category-card">
+
+                <div class="category-image">
+                    👕
+                </div>
+
+                <h3>
+                    Fashion
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+
+            <a href="products.html?category=home"
+               class="category-card">
+
+                <div class="category-image">
+                    🏠
+                </div>
+
+                <h3>
+                    Home & Kitchen
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+
+            <a href="products.html?category=beauty"
+               class="category-card">
+
+                <div class="category-image">
+                    💄
+                </div>
+
+                <h3>
+                    Beauty
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+
+            <a href="products.html?category=accessories"
+               class="category-card">
+
+                <div class="category-image">
+                    ⌚
+                </div>
+
+                <h3>
+                    Accessories
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+
+            <a href="products.html?category=home"
+               class="category-card">
+
+                <div class="category-image">
+                    🛋️
+                </div>
+
+                <h3>
+                    Home Essentials
+                </h3>
+
+                <span>
+                    Explore →
+                </span>
+
+            </a>
+
+        </div>
+
     </div>
+
   </section>
+  <!-- =====================================================
+     FEATURED PRODUCTS
+===================================================== -->
 
-  <footer class="footer">
-    <p>Wiz-Commerce — a model built on the IMA Shopping Centre platform, for demonstration purposes.</p>
-  </footer>
+<section class="products-section">
 
-</main>
+    <div class="section-container">
 
-<script src="script.js"></script>
+
+        <div class="products-heading">
+
+            <div>
+
+                <span>
+                    TOP PICKS
+                </span>
+
+                <h2>
+                    Trusted Products
+                </h2>
+
+            </div>
+
+
+            <a href="products.html">
+                View All →
+            </a>
+
+        </div>
+
+
+        <div class="product-grid">
+
+
+            <!-- PRODUCT 1 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        BEST SELLER
+                    </span>
+
+
+                    <div class="product-placeholder">
+                        💡
+                    </div>
+
+
+                    <button class="video-btn">
+                        ▶ Real Video
+                    </button>
+
+                </div>
+
+
+                <div class="product-content">
+
+                    <div class="product-category">
+                        Electronics
+                    </div>
+
+
+                    <h3>
+                        Smart LED Bulb
+                    </h3>
+
+
+                    <div class="rating">
+
+                        ⭐ 4.6
+
+                        <span>
+                            (128 Verified)
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        ₹299
+
+                        <del>
+                            ₹499
+                        </del>
+
+                        <span>
+                            40% OFF
+                        </span>
+
+                    </div>
+
+
+                    <div class="trust-score">
+
+                        <span>
+                            🛡️ Trust Score
+                        </span>
+
+                        <strong>
+                            94/100
+                        </strong>
+
+                    </div>
+
+
+                    <div class="seller-info">
+                        ✓ Wiz Verified Seller
+                    </div>
+
+
+                    <div class="product-buttons">
+
+                        <button
+                            class="compare-btn"
+                            onclick="addToCompare('Smart LED Bulb')">
+
+                            Compare
+
+                        </button>
+
+
+                        <button
+                            class="cart-btn"
+                            onclick="addToCart('Smart LED Bulb')">
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        HIGH TRUST
+                    </span>
+
+
+                    <div class="product-placeholder">
+                        🌀
+                    </div>
+
+
+                    <button class="video-btn">
+                        ▶ Real Video
+                    </button>
+
+                </div>
+
+
+                <div class="product-content">
+
+                    <div class="product-category">
+                        Electronics
+                    </div>
+
+
+                    <h3>
+                        Portable Mini Fan
+                    </h3>
+
+
+                    <div class="rating">
+
+                        ⭐ 4.5
+
+                        <span>
+                            (87 Verified)
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        ₹399
+
+                        <del>
+                            ₹699
+                        </del>
+
+                        <span>
+                            43% OFF
+                        </span>
+
+                    </div>
+
+
+                    <div class="trust-score">
+
+                        <span>
+                            🛡️ Trust Score
+                        </span>
+
+                        <strong>
+                            91/100
+                        </strong>
+
+                    </div>
+
+
+                    <div class="seller-info">
+                        ✓ Verified Seller
+                    </div>
+
+
+                    <div class="product-buttons">
+
+                        <button
+                            class="compare-btn"
+                            onclick="addToCompare('Portable Mini Fan')">
+
+                            Compare
+
+                        </button>
+
+
+                        <button
+                            class="cart-btn"
+                            onclick="addToCart('Portable Mini Fan')">
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        TOP RATED
+                    </span>
+
+
+                    <div class="product-placeholder">
+                        🍱
+                    </div>
+
+
+                    <button class="video-btn">
+                        ▶ Real Video
+                    </button>
+
+                </div>
+
+
+                <div class="product-content">
+
+                    <div class="product-category">
+                        Home & Kitchen
+                    </div>
+
+
+                    <h3>
+                        Kitchen Storage Box
+                    </h3>
+
+
+                    <div class="rating">
+
+                        ⭐ 4.4
+
+                        <span>
+                            (64 Verified)
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        ₹249
+
+                        <del>
+                            ₹399
+                        </del>
+
+                        <span>
+                            38% OFF
+                        </span>
+
+                    </div>
+
+
+                    <div class="trust-score">
+
+                        <span>
+                            🛡️ Trust Score
+                        </span>
+
+                        <strong>
+                            89/100
+                        </strong>
+
+                    </div>
+
+
+                    <div class="seller-info">
+                        ✓ Verified Seller
+                    </div>
+
+
+                    <div class="product-buttons">
+
+                        <button
+                            class="compare-btn"
+                            onclick="addToCompare('Kitchen Storage Box')">
+
+                            Compare
+
+                        </button>
+
+
+                        <button
+                            class="cart-btn"
+                            onclick="addToCart('Kitchen Storage Box')">
+
+                            Add to Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOW WIZ COMMERCE WORKS
+===================================================== -->
+
+<section class="how-section">
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <span>
+                SIMPLE & SMART
+            </span>
+
+            <h2>
+                How Wiz Commerce Works
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+                    Find products using search,
+                    categories or AI Advisor.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Verify
+                </h3>
+
+                <p>
+                    Check videos, reviews,
+                    seller and trust score.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Buy
+                </h3>
+
+                <p>
+                    See the complete final price
+                    before checkout.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="step-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Track
+                </h3>
+
+                <p>
+                    Track delivery, returns
+                    and refunds easily.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CUSTOMER TRUST SECTION
+===================================================== -->
+
+<section class="customer-section">
+
+    <div class="section-container">
+
+
+        <div class="customer-content">
+
+            <span>
+                BUILT FOR CUSTOMERS
+            </span>
+
+
+            <h2>
+                Buy with Confidence,
+                Not Doubt.
+            </h2>
+
+
+            <p>
+                Wiz Commerce brings transparency
+                to every step of online shopping —
+                from product discovery to refund.
+            </p>
+
+
+            <a href="products.html"
+               class="btn btn-primary">
+
+                Start Shopping →
+
+            </a>
+
+        </div>
+
+
+        <div class="customer-stats">
+
+
+            <div>
+
+                <strong>
+                    ✓
+                </strong>
+
+                <span>
+                    Verified Products
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    ⭐
+                </strong>
+
+                <span>
+                    Verified Reviews
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    🛡️
+                </strong>
+
+                <span>
+                    Trusted Sellers
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    💰
+                </strong>
+
+                <span>
+                    No Hidden Charges
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <a href="index.html"
+               class="logo footer-logo">
+
+                <span class="logo-icon">
+                    W
+                </span>
+
+
+                <div class="logo-text">
+
+                    <strong>
+                        Wiz
+                    </strong>
+
+                    <span>
+                        Commerce
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <p>
+                Smart shopping powered by
+                trust, transparency and technology.
+            </p>
+
+        </div>
+
+
+        <!-- SHOP -->
+
+        <div class="footer-column">
+
+            <h3>
+                Shop
+            </h3>
+
+            <a href="products.html">
+                All Products
+            </a>
+
+            <a href="products.html?sort=bestseller">
+                Best Sellers
+            </a>
+
+            <a href="products.html?sort=deals">
+                Deals
+            </a>
+
+            <a href="compare.html">
+                Compare Products
+            </a>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="footer-column">
+
+            <h3>
+                Customer
+            </h3>
+
+            <a href="orders.html">
+                Track Order
+            </a>
+
+            <a href="return.html">
+                Returns
+            </a>
+
+            <a href="refund-tracking.html">
+                Refund Tracking
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+
+        </div>
+
+
+        <!-- FEATURES -->
+
+        <div class="footer-column">
+
+            <h3>
+                Wiz Features
+            </h3>
+
+            <a href="ai-advisor.html">
+                AI Product Advisor
+            </a>
+
+            <a href="reviews.html">
+                Verified Reviews
+            </a>
+
+            <a href="seller.html">
+                Verified Sellers
+            </a>
+
+            <a href="products.html">
+                Trust Scores
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Wiz Commerce.
+            All rights reserved.
+        </p>
+
+
+        <div>
+
+            <span>
+                🔒 Secure Shopping
+            </span>
+
+            <span>
+                🛡️ Trusted Platform
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/app.js"></script>
+
 </body>
-        </html>
+  </html>
