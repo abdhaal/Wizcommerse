@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiz-Commerce — Shop with Trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page-skeleton" id="pageSkeleton"><div class="skeleton-mark">Wiz-Commerce</div></div>
+
+<header class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#top" class="logo">Wiz<span>Commerce</span></a>
+    <nav class="nav-links">
+      <a href="#why" class="anchor-link">Why IMA?</a>
+      <a href="#categories" class="anchor-link">Categories</a>
+      <a href="#deals" class="anchor-link">Deals</a>
+      <a href="#earn" class="anchor-link">Earn</a>
+      <a href="#confidence" class="anchor-link">How it works</a>
+    </nav>
+    <button class="btn btn-primary btn-sm ripple">Sign in</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="badge" id="heroBadge" data-anim="fade-up" style="--d:0ms">TRUSTED ONLINE SHOPPING</span>
+      <h1 class="hero-title" data-anim="fade-up" style="--d:90ms">
+        Shop what creators<br>actually stand behind.
+      </h1>
+      <p class="hero-sub" data-anim="fade-up" style="--d:180ms">
+        Real videos, verified sellers, and prices you can check yourself —
+        IMA Shopping Centre is built so you never have to guess.
+      </p>
+      <div class="hero-cta" data-anim="fade-up" style="--d:270ms">
+        <button class="btn btn-primary ripple">Start Shopping</button>
+        <button class="btn btn-ghost ripple">Become a Creator</button>
+      </div>
+    </div>
+    <div class="hero-glow" aria-hidden="true"></div>
+  </section>
+
+  <!-- WHY IMA / TRUST FEATURES -->
+  <section class="section" id="why">
+    <h2 class="section-title reveal">Why shoppers trust IMA</h2>
+    <p class="section-sub reveal">Four checks every listing has to pass before it reaches you.</p>
+
+    <div class="trust-grid">
+      <article class="trust-card reveal-stagger">
+        <div class="trust-icon">▶</div>
+        <h3>Real Product Videos</h3>
+        <p>Every listing includes unedited footage of the actual product, filmed by the seller.</p>
+      </article>
+      <article class="trust-card reveal-stagger">
+        <div class="trust-icon">✓</div>
+        <h3>Verified Sellers</h3>
+        <p>Sellers pass an identity and business check before their first listing goes live.</p>
+      </article>
+      <article class="trust-card reveal-stagger">
+        <div class="trust-icon">★</div>
+        <h3>Genuine Reviews</h3>
+        <p>Only buyers who completed a purchase can leave a review — no exceptions.</p>
+      </article>
+      <article class="trust-card reveal-stagger">
+        <div class="trust-icon">₹</div>
+        <h3>Transparent Pricing</h3>
+        <p>See the full price history for any item before you decide to buy.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section alt" id="categories">
+    <h2 class="section-title reveal">Shop by category</h2>
+    <p class="section-sub reveal">Curated the same way, no matter what you're after.</p>
+
+    <div class="category-grid">
+      <a href="#" class="category-card reveal-stagger">
+        <span class="cat-icon">💻</span>
+        <h3>Electronics</h3>
+        <span class="explore">Explore <span class="arrow">→</span></span>
+      </a>
+      <a href="#" class="category-card reveal-stagger">
+        <span class="cat-icon">👗</span>
+        <h3>Fashion</h3>
+        <span class="explore">Explore <span class="arrow">→</span></span>
+      </a>
+      <a href="#" class="category-card reveal-stagger">
+        <span class="cat-icon">🏠</span>
+        <h3>Home</h3>
+        <span class="explore">Explore <span class="arrow">→</span></span>
+      </a>
+      <a href="#" class="category-card reveal-stagger">
+        <span class="cat-icon">🍳</span>
+        <h3>Kitchen</h3>
+        <span class="explore">Explore <span class="arrow">→</span></span>
+      </a>
+      <a href="#" class="category-card reveal-stagger">
+        <span class="cat-icon">💄</span>
+        <h3>Beauty</h3>
+        <span class="explore">Explore <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- DEALS OF THE DAY -->
+  <section class="section" id="deals">
+    <h2 class="section-title reveal">Deals of the day</h2>
+    <p class="section-sub reveal">Refreshed every morning at 9 AM.</p>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- product cards injected twice by JS for seamless loop -->
+    </div>
+  </div>
+
+  <!-- TRENDING -->
+  <section class="section alt" id="trending">
+    <h2 class="section-title reveal">Trending this week</h2>
+    <p class="section-sub reveal">What buyers are adding to cart right now.</p>
+    <div class="trending-grid" id="trendingGrid"></div>
+  </section>
+
+  <!-- CREATOR EARNINGS -->
+  <section class="section" id="earn">
+    <div class="earnings-panel reveal">
+      <div class="earnings-main">
+        <span class="earnings-label">Your earnings this month</span>
+        <span class="earnings-amount" data-target="12450" id="earningsAmount">₹0</span>
+      </div>
+      <div class="earnings-stats">
+        <div class="stat-row reveal-stagger">
+          <span class="stat-label">Clicks</span>
+          <span class="stat-value">8,214</span>
+        </div>
+        <div class="stat-row reveal-stagger">
+          <span class="stat-label">Orders</span>
+          <span class="stat-value">142</span>
+        </div>
+        <div class="stat-row reveal-stagger">
+          <span class="stat-label">Commission</span>
+          <span class="stat-value">7.5%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUY WITH CONFIDENCE -->
+  <section class="section alt" id="confidence">
+    <h2 class="section-title reveal">Buy with confidence</h2>
+    <p class="section-sub reveal">Four steps stand between every listing and your doorstep.</p>
+
+    <div class="steps" id="stepsTrack">
+      <div class="steps-line"><div class="steps-line-fill" id="stepsLineFill"></div></div>
+      <div class="step reveal-stagger">
+        <span class="step-num">1</span>
+        <h3>Browse verified listings</h3>
+        <p>Only sellers who passed ID checks appear in search.</p>
+      </div>
+      <div class="step reveal-stagger">
+        <span class="step-num">2</span>
+        <h3>Watch the real video</h3>
+        <p>See the exact unit style before you add to cart.</p>
+      </div>
+      <div class="step reveal-stagger">
+        <span class="step-num">3</span>
+        <h3>Pay through escrow</h3>
+        <p>Your payment holds until the order is confirmed delivered.</p>
+      </div>
+      <div class="step reveal-stagger">
+        <span class="step-num">4</span>
+        <h3>Rate the real experience</h3>
+        <p>Only completed buyers can leave a review.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Wiz-Commerce — a model built on the IMA Shopping Centre platform, for demonstration purposes.</p>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+        </html>
