@@ -60,7 +60,7 @@ const products = [
         trustScore: 89,
         seller: "Kitchen Hub",
         verifiedSeller: true,
-        image: "assets/images/storage-box.jpg",
+        image: "assets/images/storage-box.png",
         delivery: "2-5 Days",
         warranty: "6 Months",
         returnDays: 7
@@ -78,7 +78,7 @@ const products = [
         trustScore: 96,
         seller: "Tech World",
         verifiedSeller: true,
-        image: "assets/images/speaker.jpg",
+        image: "assets/images/speaker.png",
         delivery: "2-4 Days",
         warranty: "1 Year",
         returnDays: 7
@@ -96,7 +96,7 @@ const products = [
         trustScore: 93,
         seller: "Digital Store",
         verifiedSeller: true,
-        image: "assets/images/smartwatch.jpg",
+        image: "assets/images/smartwatch.png",
         delivery: "3-5 Days",
         warranty: "1 Year",
         returnDays: 7
@@ -114,7 +114,7 @@ const products = [
         trustScore: 88,
         seller: "Fashion Point",
         verifiedSeller: true,
-        image: "assets/images/shirt.jpg",
+        image: "assets/images/shirt.png",
         delivery: "3-6 Days",
         warranty: "No Warranty",
         returnDays: 7
