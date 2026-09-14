@@ -1,78 +1,361 @@
 /* =====================================================
    WIZ COMMERCE
-   CHECKOUT JS
+   CHECKOUT.JS
    PART 1/4
 ===================================================== */
 
 
 /* =====================================================
-   GET CART
+   GLOBAL VARIABLES
 ===================================================== */
 
-function getCart() {
+let checkoutCart = [];
 
-    return JSON.parse(
-        localStorage.getItem(
-            "wizCheckoutCart"
-        )
-    ) ||
-    JSON.parse(
-        localStorage.getItem(
-            "wizCart"
-        )
-    ) ||
-    [];
+let selectedDelivery = "standard";
+
+let selectedPayment = "upi";
+
+
+/* =====================================================
+   LOCAL STORAGE HELPERS
+===================================================== */
+
+function getStoredCart() {
+
+    const possibleKeys = [
+        "wizCart",
+        "cart",
+        "shoppingCart",
+        "imaCart"
+    ];
+
+    for (const key of possibleKeys) {
+
+        const data =
+            localStorage.getItem(key);
+
+        if (!data)
+            continue;
+
+        try {
+
+            const parsed =
+                JSON.parse(data);
+
+            if (Array.isArray(parsed)) {
+
+                return parsed;
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Cart parse error:",
+                error
+            );
+
+        }
+
+    }
+
+    return [];
 
 }
 
 
 /* =====================================================
-   CHECKOUT STATE
+   SAVE CART
 ===================================================== */
 
-let selectedDelivery =
-    "standard";
+function saveCart(cart) {
 
+    localStorage.setItem(
+        "wizCart",
+        JSON.stringify(cart)
+    );
 
-let selectedPayment =
-    "cod";
+}
 
 
 /* =====================================================
-   LOAD CHECKOUT PRODUCTS
+   NORMALIZE CART ITEM
 ===================================================== */
 
-function loadCheckoutProducts() {
+function normalizeCartItem(item) {
 
-    const cart =
-        getCart();
+    const productName =
+        item.name ||
+        item.title ||
+        item.productName ||
+        "Product";
 
 
-    const container =
-        document.getElementById(
-            "checkoutProducts"
+    const quantity =
+        Number(
+            item.quantity ||
+            item.qty ||
+            1
         );
 
 
-    if (!container) return;
+    const price =
+        Number(
+            item.price ||
+            item.salePrice ||
+            item.currentPrice ||
+            0
+        );
 
 
-    if (cart.length === 0) {
+    const oldPrice =
+        Number(
+            item.oldPrice ||
+            item.originalPrice ||
+            item.mrp ||
+            price
+        );
+
+
+    return {
+
+        id:
+            item.id,
+
+        name:
+            productName,
+
+        price:
+            price,
+
+        oldPrice:
+            oldPrice,
+
+        quantity:
+            quantity > 0
+                ? quantity
+                : 1,
+
+        image:
+            item.image ||
+            item.img ||
+            "",
+
+        category:
+            item.category ||
+            "",
+
+        seller:
+            item.seller ||
+            "Wiz Verified Seller"
+
+    };
+
+}
+
+
+/* =====================================================
+   LOAD CART
+===================================================== */
+
+function loadCheckoutCart() {
+
+    const rawCart =
+        getStoredCart();
+
+
+    checkoutCart =
+        rawCart.map(
+            normalizeCartItem
+        );
+
+
+    if (
+        checkoutCart.length === 0
+    ) {
+
+        showEmptyCheckout();
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   EMPTY CHECKOUT
+===================================================== */
+
+function showEmptyCheckout() {
+
+    const container =
+        document.getElementById(
+            "checkoutItems"
+        );
+
+
+    if (container) {
 
         container.innerHTML = `
 
-            <div
-                style="
-                    padding:20px;
-                    text-align:center;
-                    color:#64748b;
-                    font-size:12px;
-                "
-            >
-                Your cart is empty.
+            <div class="empty-checkout">
+
+                <div style="
+                    font-size:45px;
+                    margin-bottom:12px;
+                ">
+                    🛒
+                </div>
+
+                <h2>
+                    Your cart is empty
+                </h2>
+
+                <p>
+                    Add products to continue
+                    checkout.
+                </p>
+
+                <button
+                    onclick="goToProducts()"
+                    style="
+                        margin-top:15px;
+                        padding:12px 20px;
+                        border:0;
+                        border-radius:8px;
+                        background:#1769e0;
+                        color:white;
+                        cursor:pointer;
+                    "
+                >
+                    Continue Shopping
+                </button>
+
             </div>
 
         `;
+
+    }
+
+
+    const placeButton =
+        document.querySelector(
+            ".place-order-btn"
+        );
+
+
+    if (placeButton) {
+
+        placeButton.disabled =
+            true;
+
+        placeButton.style.opacity =
+            "0.5";
+
+    }
+
+}
+
+
+/* =====================================================
+   CALCULATE PRODUCT TOTAL
+===================================================== */
+
+function getProductTotal() {
+
+    return checkoutCart.reduce(
+        (
+            total,
+            item
+        ) => {
+
+            return total +
+                (
+                    Number(item.price) *
+                    Number(item.quantity)
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =====================================================
+   CALCULATE ORIGINAL TOTAL
+===================================================== */
+
+function getOriginalTotal() {
+
+    return checkoutCart.reduce(
+        (
+            total,
+            item
+        ) => {
+
+            return total +
+                (
+                    Number(item.oldPrice) *
+                    Number(item.quantity)
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =====================================================
+   CALCULATE DISCOUNT
+===================================================== */
+
+function getDiscount() {
+
+    const original =
+        getOriginalTotal();
+
+
+    const productTotal =
+        getProductTotal();
+
+
+    return Math.max(
+        0,
+        original - productTotal
+    );
+
+           }
+/* =====================================================
+   PART 2/4
+   RENDER PRODUCTS + PRICE
+===================================================== */
+
+
+/* =====================================================
+   RENDER CHECKOUT PRODUCTS
+===================================================== */
+
+function renderCheckoutProducts() {
+
+    const container =
+        document.getElementById(
+            "checkoutItems"
+        );
+
+
+    if (!container)
+        return;
+
+
+    if (
+        checkoutCart.length === 0
+    ) {
 
         return;
 
@@ -80,84 +363,103 @@ function loadCheckoutProducts() {
 
 
     container.innerHTML =
-        cart.map(
-            item => `
+        checkoutCart.map(
+            item => {
 
-            <div
-                class="checkout-product"
-            >
-
-                <div
-                    class="checkout-product-icon"
-                >
-                    ${item.icon || "📦"}
-                </div>
+                const total =
+                    item.price *
+                    item.quantity;
 
 
-                <div
-                    class="checkout-product-info"
-                >
+                return `
 
-                    <strong>
-                        ${item.name}
-                    </strong>
+                    <div class="checkout-product">
 
-                    <span>
-                        Qty: ${item.quantity}
-                    </span>
+                        <div class="checkout-product-image">
 
-                </div>
+                            ${
+                                item.image
+                                ?
+                                `
+                                <img
+                                    src="${item.image}"
+                                    alt="${item.name}"
+                                >
+                                `
+                                :
+                                `
+                                <div>
+                                    📦
+                                </div>
+                                `
+                            }
+
+                        </div>
 
 
-                <div
-                    class="checkout-product-price"
-                >
-                    ₹${item.price * item.quantity}
-                </div>
+                        <div class="checkout-product-info">
 
-            </div>
+                            <h3>
+                                ${item.name}
+                            </h3>
 
-        `
+                            <p>
+                                ${item.seller}
+                            </p>
+
+                            <span>
+                                Qty: ${item.quantity}
+                            </span>
+
+                        </div>
+
+
+                        <div class="checkout-product-price">
+
+                            <strong>
+                                ₹${formatPrice(total)}
+                            </strong>
+
+                            ${
+                                item.oldPrice >
+                                item.price
+                                ?
+                                `
+                                <small>
+                                    ₹${formatPrice(
+                                        item.oldPrice *
+                                        item.quantity
+                                    )}
+                                </small>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
         ).join("");
 
 }
 
 
 /* =====================================================
-   CALCULATE BASE PRICE
+   CALCULATE CHECKOUT
 ===================================================== */
 
 function calculateCheckout() {
 
-    const cart =
-        getCart();
+    const productTotal =
+        getProductTotal();
 
 
-    let productTotal =
-        0;
-
-
-    let originalTotal =
-        0;
-
-
-    cart.forEach(
-        item => {
-
-            productTotal +=
-                item.price *
-                item.quantity;
-
-
-            originalTotal +=
-                (
-                    item.oldPrice ||
-                    item.price
-                ) *
-                item.quantity;
-
-        }
-    );
+    const originalTotal =
+        getOriginalTotal();
 
 
     const discount =
@@ -168,19 +470,30 @@ function calculateCheckout() {
         );
 
 
-    const delivery =
+    /*
+       STANDARD DELIVERY = FREE
+       EXPRESS DELIVERY = ₹49
+    */
+
+    let delivery = 0;
+
+
+    if (
         selectedDelivery ===
         "express"
-            ? 79
-            : 0;
+    ) {
+
+        delivery = 49;
+
+    }
 
 
-    const platform =
-        productTotal > 0
-            ? Math.round(
-                productTotal * 0.02
-            )
-            : 0;
+    /*
+       Platform charge
+       Demo amount
+    */
+
+    const platform = 0;
 
 
     const finalPrice =
@@ -191,78 +504,117 @@ function calculateCheckout() {
 
     return {
 
-        productTotal,
+        originalTotal:
+            originalTotal,
 
-        originalTotal,
+        productTotal:
+            productTotal,
 
-        discount,
+        discount:
+            discount,
 
-        delivery,
+        delivery:
+            delivery,
 
-        platform,
+        platform:
+            platform,
 
-        finalPrice
+        finalPrice:
+            finalPrice
 
     };
 
-      }
-/* =====================================================
-   PART 2/4
-   Summary + Address + Delivery
-===================================================== */
+}
 
 
 /* =====================================================
-   UPDATE SUMMARY
+   UPDATE PRICE UI
 ===================================================== */
 
-function updateCheckoutSummary() {
+function updateCheckoutPrices() {
 
-    const data =
+    const pricing =
         calculateCheckout();
 
 
-    setText(
-        "summaryProductPrice",
-        `₹${data.originalTotal}`
+    setPrice(
+        "originalTotal",
+        pricing.originalTotal
     );
 
 
-    setText(
-        "summaryDiscount",
-        `- ₹${data.discount}`
+    setPrice(
+        "productTotal",
+        pricing.productTotal
     );
 
 
-    setText(
-        "summaryDelivery",
-        data.delivery === 0
-            ? "FREE"
-            : `₹${data.delivery}`
+    setPrice(
+        "discountAmount",
+        pricing.discount
     );
 
 
-    setText(
-        "summaryPlatform",
-        `₹${data.platform}`
+    setDeliveryPrice(
+        "deliveryCharge",
+        pricing.delivery
     );
 
 
-    setText(
-        "summaryFinal",
-        `₹${data.finalPrice}`
+    setPrice(
+        "platformCharge",
+        pricing.platform
+    );
+
+
+    setPrice(
+        "finalPrice",
+        pricing.finalPrice
+    );
+
+
+    /*
+       Support alternative IDs
+    */
+
+    setPrice(
+        "subtotal",
+        pricing.productTotal
+    );
+
+
+    setPrice(
+        "totalAmount",
+        pricing.finalPrice
+    );
+
+
+    setPrice(
+        "grandTotal",
+        pricing.finalPrice
+    );
+
+
+    setPrice(
+        "checkoutTotal",
+        pricing.finalPrice
+    );
+
+
+    updatePlaceOrderButton(
+        pricing.finalPrice
     );
 
 }
 
 
 /* =====================================================
-   SET TEXT
+   SET PRICE
 ===================================================== */
 
-function setText(
+function setPrice(
     id,
-    value
+    amount
 ) {
 
     const element =
@@ -271,10 +623,54 @@ function setText(
         );
 
 
-    if (element) {
+    if (!element)
+        return;
+
+
+    element.textContent =
+        `₹${formatPrice(amount)}`;
+
+}
+
+
+/* =====================================================
+   DELIVERY PRICE
+===================================================== */
+
+function setDeliveryPrice(
+    id,
+    amount
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (!element)
+        return;
+
+
+    if (
+        Number(amount) === 0
+    ) {
 
         element.textContent =
-            value;
+            "FREE";
+
+        element.classList.add(
+            "free"
+        );
+
+    } else {
+
+        element.textContent =
+            `₹${formatPrice(amount)}`;
+
+        element.classList.remove(
+            "free"
+        );
 
     }
 
@@ -282,212 +678,57 @@ function setText(
 
 
 /* =====================================================
-   SAVE ADDRESS
+   FORMAT PRICE
 ===================================================== */
 
-function saveAddress() {
-
-    const name =
-        document.getElementById(
-            "fullName"
-        )?.value.trim();
-
-
-    const mobile =
-        document.getElementById(
-            "mobile"
-        )?.value.trim();
-
-
-    const pincode =
-        document.getElementById(
-            "pincode"
-        )?.value.trim();
-
-
-    const address =
-        document.getElementById(
-            "address"
-        )?.value.trim();
-
-
-    const city =
-        document.getElementById(
-            "city"
-        )?.value.trim();
-
-
-    const state =
-        document.getElementById(
-            "state"
-        )?.value.trim();
-
-
-    if (
-        !name ||
-        !mobile ||
-        !pincode ||
-        !address ||
-        !city ||
-        !state
-    ) {
-
-        showToast(
-            "⚠️ Please complete your address"
-        );
-
-        return false;
-
-    }
-
-
-    if (
-        !/^[0-9]{10}$/.test(
-            mobile
-        )
-    ) {
-
-        showToast(
-            "⚠️ Enter a valid 10 digit mobile number"
-        );
-
-        return false;
-
-    }
-
-
-    if (
-        !/^[0-9]{6}$/.test(
-            pincode
-        )
-    ) {
-
-        showToast(
-            "⚠️ Enter a valid 6 digit PIN code"
-        );
-
-        return false;
-
-    }
-
-
-    const savedAddress = {
-
-        name,
-
-        mobile,
-
-        pincode,
-
-        address,
-
-        city,
-
-        state
-
-    };
-
-
-    localStorage.setItem(
-        "wizDeliveryAddress",
-        JSON.stringify(
-            savedAddress
-        )
-    );
-
-
-    showToast(
-        "✓ Delivery address saved"
-    );
-
-
-    return true;
-
-}
-
-
-/* =====================================================
-   LOAD SAVED ADDRESS
-===================================================== */
-
-function loadSavedAddress() {
-
-    const saved =
-        JSON.parse(
-            localStorage.getItem(
-                "wizDeliveryAddress"
-            )
-        );
-
-
-    if (!saved) return;
-
-
-    setInput(
-        "fullName",
-        saved.name
-    );
-
-
-    setInput(
-        "mobile",
-        saved.mobile
-    );
-
-
-    setInput(
-        "pincode",
-        saved.pincode
-    );
-
-
-    setInput(
-        "address",
-        saved.address
-    );
-
-
-    setInput(
-        "city",
-        saved.city
-    );
-
-
-    setInput(
-        "state",
-        saved.state
-    );
-
-}
-
-
-/* =====================================================
-   SET INPUT
-===================================================== */
-
-function setInput(
-    id,
-    value
+function formatPrice(
+    amount
 ) {
 
-    const element =
-        document.getElementById(
-            id
-        );
-
-
-    if (element) {
-
-        element.value =
-            value;
-
-    }
+    return Number(
+        amount || 0
+    ).toLocaleString(
+        "en-IN"
+    );
 
 }
 
 
 /* =====================================================
-   SELECT DELIVERY
+   UPDATE PLACE ORDER BUTTON
+===================================================== */
+
+function updatePlaceOrderButton(
+    amount
+) {
+
+    const button =
+        document.querySelector(
+            ".place-order-btn"
+        );
+
+
+    if (!button)
+        return;
+
+
+    button.innerHTML = `
+
+        <span>
+            🔒
+        </span>
+
+        <span>
+            Place Order · ₹${formatPrice(amount)}
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DELIVERY METHOD
 ===================================================== */
 
 function selectDelivery(
@@ -505,35 +746,22 @@ function selectDelivery(
         .forEach(
             option => {
 
-                const input =
-                    option.querySelector(
-                        "input"
-                    );
-
-
                 option.classList.toggle(
-                    "selected",
-                    input &&
-                    input.value === type
+                    "active",
+                    option.dataset.delivery ===
+                    type
                 );
 
             }
         );
 
 
-    updateCheckoutSummary();
-
-
-    showToast(
-        type === "express"
-            ? "⚡ Express delivery selected"
-            : "🚚 Standard delivery selected"
-    );
+    updateCheckoutPrices();
 
 }
 /* =====================================================
    PART 3/4
-   Payment + Order Validation
+   ADDRESS + PAYMENT + ORDER
 ===================================================== */
 
 
@@ -541,12 +769,29 @@ function selectDelivery(
    SELECT PAYMENT
 ===================================================== */
 
-function selectPayment(
-    type
+function selectCheckoutPayment(
+    method
 ) {
 
     selectedPayment =
-        type;
+        method;
+
+
+    document
+        .querySelectorAll(
+            ".checkout-payment-option"
+        )
+        .forEach(
+            option => {
+
+                option.classList.toggle(
+                    "active",
+                    option.dataset.payment ===
+                    method
+                );
+
+            }
+        );
 
 
     document
@@ -556,69 +801,184 @@ function selectPayment(
         .forEach(
             option => {
 
-                const input =
-                    option.querySelector(
-                        "input"
-                    );
-
-
                 option.classList.toggle(
-                    "selected",
-                    input &&
-                    input.value === type
+                    "active",
+                    option.dataset.payment ===
+                    method
                 );
 
             }
         );
 
+}
 
-    const paymentInfo =
-        document.getElementById(
-            "paymentInfo"
+
+/* =====================================================
+   GET ADDRESS
+===================================================== */
+
+function getCheckoutAddress() {
+
+    const saved =
+        localStorage.getItem(
+            "wizDeliveryAddress"
         );
 
 
-    if (!paymentInfo)
-        return;
+    if (saved) {
+
+        try {
+
+            return JSON.parse(
+                saved
+            );
+
+        } catch (error) {
+
+            console.log(
+                "Address parse error"
+            );
+
+        }
+
+    }
 
 
-    const messages = {
+    /*
+       Try form fields
+    */
 
-        cod:
-            "💵 You can pay safely when your order is delivered.",
-
-        upi:
-            "📱 UPI payment will be securely processed.",
-
-        card:
-            "💳 Your card details will be securely processed."
-
-    };
+    const name =
+        getValue(
+            "fullName"
+        );
 
 
-    paymentInfo.textContent =
-        messages[type] ||
-        messages.cod;
+    const phone =
+        getValue(
+            "phone"
+        );
+
+
+    const address =
+        getValue(
+            "address"
+        );
+
+
+    const city =
+        getValue(
+            "city"
+        );
+
+
+    const state =
+        getValue(
+            "state"
+        );
+
+
+    const pincode =
+        getValue(
+            "pincode"
+        );
+
+
+    if (
+        name ||
+        phone ||
+        address ||
+        city ||
+        state ||
+        pincode
+    ) {
+
+        return {
+
+            name,
+            phone,
+            address,
+            city,
+            state,
+            pincode
+
+        };
+
+    }
+
+
+    return null;
 
 }
 
 
 /* =====================================================
-   VALIDATE CHECKOUT
+   GET INPUT VALUE
 ===================================================== */
 
-function validateCheckout() {
+function getValue(
+    id
+) {
 
-    const cart =
-        getCart();
+    const element =
+        document.getElementById(
+            id
+        );
 
 
-    if (
-        cart.length === 0
-    ) {
+    return element
+        ? element.value.trim()
+        : "";
 
-        showToast(
-            "⚠️ Your cart is empty"
+}
+
+
+/* =====================================================
+   SAVE ADDRESS
+===================================================== */
+
+function saveDeliveryAddress() {
+
+    const name =
+        getValue(
+            "fullName"
+        );
+
+
+    const phone =
+        getValue(
+            "phone"
+        );
+
+
+    const address =
+        getValue(
+            "address"
+        );
+
+
+    const city =
+        getValue(
+            "city"
+        );
+
+
+    const state =
+        getValue(
+            "state"
+        );
+
+
+    const pincode =
+        getValue(
+            "pincode"
+        );
+
+
+    if (!name) {
+
+        showCheckoutToast(
+            "⚠️ Enter your full name"
         );
 
         return false;
@@ -626,31 +986,99 @@ function validateCheckout() {
     }
 
 
-    const address =
-        JSON.parse(
-            localStorage.getItem(
-                "wizDeliveryAddress"
-            )
+    if (
+        phone.length < 10
+    ) {
+
+        showCheckoutToast(
+            "⚠️ Enter valid phone number"
         );
+
+        return false;
+
+    }
 
 
     if (!address) {
 
-        showToast(
-            "⚠️ Please save your delivery address"
+        showCheckoutToast(
+            "⚠️ Enter delivery address"
         );
-
-
-        document
-            .getElementById(
-                "fullName"
-            )
-            ?.focus();
-
 
         return false;
 
     }
+
+
+    if (!city) {
+
+        showCheckoutToast(
+            "⚠️ Enter city"
+        );
+
+        return false;
+
+    }
+
+
+    if (!state) {
+
+        showCheckoutToast(
+            "⚠️ Enter state"
+        );
+
+        return false;
+
+    }
+
+
+    if (
+        pincode.length !== 6
+    ) {
+
+        showCheckoutToast(
+            "⚠️ Enter valid pincode"
+        );
+
+        return false;
+
+    }
+
+
+    const deliveryAddress = {
+
+        name:
+            name,
+
+        phone:
+            phone,
+
+        address:
+            address,
+
+        city:
+            city,
+
+        state:
+            state,
+
+        pincode:
+            pincode
+
+    };
+
+
+    localStorage.setItem(
+        "wizDeliveryAddress",
+        JSON.stringify(
+            deliveryAddress
+        )
+    );
+
+
+    renderSavedAddress(
+        deliveryAddress
+    );
 
 
     return true;
@@ -659,84 +1087,128 @@ function validateCheckout() {
 
 
 /* =====================================================
-   GENERATE ORDER ID
+   RENDER SAVED ADDRESS
 ===================================================== */
 
-function generateOrderId() {
+function renderSavedAddress(
+    address
+) {
 
-    const random =
-        Math.floor(
-            100000 +
-            Math.random() *
-            900000
+    const element =
+        document.getElementById(
+            "savedAddress"
         );
 
 
-    return `WIZ${random}`;
+    if (!element)
+        return;
+
+
+    element.innerHTML = `
+
+        <strong>
+            ${address.name}
+        </strong>
+
+        <p>
+            ${address.address},
+            ${address.city},
+            ${address.state}
+            - ${address.pincode}
+        </p>
+
+        <small>
+            📞 ${address.phone}
+        </small>
+
+    `;
 
 }
 
 
 /* =====================================================
-   SAVE ORDER
+   LOAD SAVED ADDRESS
 ===================================================== */
 
-function saveOrder(
-    orderId
-) {
-
-    const cart =
-        getCart();
-
+function loadSavedAddress() {
 
     const address =
-        JSON.parse(
-            localStorage.getItem(
-                "wizDeliveryAddress"
-            )
-        );
+        getCheckoutAddress();
 
 
-    const price =
-        calculateCheckout();
+    if (!address)
+        return;
 
 
-    const order = {
-
-        orderId,
-
-        items:
-            cart,
-
-        address,
-
-        delivery:
-            selectedDelivery,
-
-        payment:
-            selectedPayment,
-
-        pricing:
-            price,
-
-        status:
-            "Order Confirmed",
-
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-        "wizLastOrder",
-        JSON.stringify(
-            order
-        )
+    renderSavedAddress(
+        address
     );
 
 
-    return order;
+    /*
+       Fill form fields
+    */
+
+    setValue(
+        "fullName",
+        address.name
+    );
+
+
+    setValue(
+        "phone",
+        address.phone
+    );
+
+
+    setValue(
+        "address",
+        address.address
+    );
+
+
+    setValue(
+        "city",
+        address.city
+    );
+
+
+    setValue(
+        "state",
+        address.state
+    );
+
+
+    setValue(
+        "pincode",
+        address.pincode
+    );
+
+
+}
+
+
+/* =====================================================
+   SET INPUT VALUE
+===================================================== */
+
+function setValue(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.value =
+            value || "";
+
+    }
 
 }
 
@@ -747,49 +1219,98 @@ function saveOrder(
 
 function placeOrder() {
 
-    // Check cart
-    const cart = getCart();
+    /*
+       Make sure cart exists
+    */
 
-    if (!cart || cart.length === 0) {
+    if (
+        checkoutCart.length === 0
+    ) {
 
-        showToast("⚠️ Your cart is empty");
+        showCheckoutToast(
+            "⚠️ Your cart is empty"
+        );
 
         return;
+
     }
 
 
-    // Check address
+    /*
+       Save address first
+    */
+
     const address =
-        JSON.parse(
-            localStorage.getItem("wizDeliveryAddress")
-        );
+        getCheckoutAddress();
 
 
     if (!address) {
 
-        showToast(
-            "⚠️ Please save your delivery address"
+        showCheckoutToast(
+            "⚠️ Please enter delivery address"
         );
 
-        document
-            .getElementById("fullName")
-            ?.focus();
+        const addressSection =
+            document.querySelector(
+                ".address-section"
+            );
+
+
+        if (addressSection) {
+
+            addressSection.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
 
         return;
+
     }
 
 
-    // Calculate amount
-    const price =
+    /*
+       Validate address
+    */
+
+    if (
+        !address.name ||
+        !address.phone ||
+        !address.address ||
+        !address.city ||
+        !address.state ||
+        !address.pincode
+    ) {
+
+        showCheckoutToast(
+            "⚠️ Please complete delivery address"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Calculate final price
+    */
+
+    const pricing =
         calculateCheckout();
 
 
-    // Create temporary payment order
+    /*
+       Create payment order
+    */
+
     const paymentOrder = {
 
-        items: cart,
+        items:
+            checkoutCart,
 
-        address: address,
+        address:
+            address,
 
         delivery:
             selectedDelivery,
@@ -798,7 +1319,7 @@ function placeOrder() {
             selectedPayment,
 
         pricing:
-            price,
+            pricing,
 
         createdAt:
             new Date().toISOString()
@@ -806,50 +1327,175 @@ function placeOrder() {
     };
 
 
-    // Save payment data
+    /*
+       Save for payment page
+    */
+
     localStorage.setItem(
         "wizPaymentOrder",
-        JSON.stringify(paymentOrder)
+        JSON.stringify(
+            paymentOrder
+        )
     );
-
-
-    // Open Payment Page
-    window.location.href =
-        "payment.html";
-
-}
 
 
     /*
-       Demo:
-       Remove purchased products
-       from cart.
+       Disable button
     */
 
-    localStorage.removeItem(
-        "wizCart"
-    );
+    const button =
+        document.querySelector(
+            ".place-order-btn"
+        );
 
 
-    localStorage.removeItem(
-        "wizCheckoutCart"
-    );
+    if (button) {
+
+        button.disabled =
+            true;
+
+        button.innerHTML = `
+            <span>
+                ⏳
+            </span>
+
+            <span>
+                Opening Payment...
+            </span>
+        `;
+
+    }
 
 
-    localStorage.removeItem(
-        "wizCheckoutTotal"
-    );
+    /*
+       Open Payment Page
+    */
 
+    setTimeout(
+        () => {
 
-    showToast(
-        "✓ Order placed successfully"
+            window.location.href =
+                "payment.html";
+
+        },
+        400
     );
 
 }
 /* =====================================================
    PART 4/4
-   Navigation + Animation + Initialize
+   TOAST + INIT + NAVIGATION
 ===================================================== */
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showCheckoutToast(
+    message
+) {
+
+    let toast =
+        document.getElementById(
+            "checkoutToast"
+        );
+
+
+    /*
+       Create toast automatically
+       if HTML doesn't contain one
+    */
+
+    if (!toast) {
+
+        toast =
+            document.createElement(
+                "div"
+            );
+
+        toast.id =
+            "checkoutToast";
+
+        toast.style.position =
+            "fixed";
+
+        toast.style.bottom =
+            "20px";
+
+        toast.style.right =
+            "20px";
+
+        toast.style.background =
+            "#111827";
+
+        toast.style.color =
+            "#ffffff";
+
+        toast.style.padding =
+            "13px 18px";
+
+        toast.style.borderRadius =
+            "9px";
+
+        toast.style.fontSize =
+            "12px";
+
+        toast.style.zIndex =
+            "99999";
+
+        toast.style.transition =
+            "0.3s";
+
+        document.body.appendChild(
+            toast
+        );
+
+    }
+
+
+    toast.textContent =
+        message;
+
+    toast.style.opacity =
+        "1";
+
+    toast.style.transform =
+        "translateY(0)";
+
+
+    clearTimeout(
+        window.checkoutToastTimer
+    );
+
+
+    window.checkoutToastTimer =
+        setTimeout(
+            () => {
+
+                toast.style.opacity =
+                    "0";
+
+                toast.style.transform =
+                    "translateY(10px)";
+
+            },
+            2500
+        );
+
+}
+
+
+/* =====================================================
+   PRODUCTS PAGE
+===================================================== */
+
+function goToProducts() {
+
+    window.location.href =
+        "products.html";
+
+}
 
 
 /* =====================================================
@@ -865,136 +1511,153 @@ function goBackToCart() {
 
 
 /* =====================================================
-   TRACK ORDER
+   AUTO PLACE ORDER BUTTON
 ===================================================== */
 
-function trackOrder() {
+function setupPlaceOrderButton() {
 
-    const order =
-        JSON.parse(
-            localStorage.getItem(
-                "wizLastOrder"
-            )
+    const button =
+        document.querySelector(
+            ".place-order-btn"
         );
 
 
-    if (!order) {
-
-        showToast(
-            "Order information not found"
-        );
-
+    if (!button)
         return;
-
-    }
 
 
     /*
-       Demo tracking page.
-       We will create the real
-       order tracking page next.
+       Remove old onclick
+       event conflicts
     */
 
-    window.location.href =
-        `order-tracking.html?id=${order.orderId}`;
+    button.onclick =
+        null;
+
+
+    button.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            placeOrder();
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-   CONTINUE SHOPPING
+   DELIVERY OPTIONS
 ===================================================== */
 
-function continueShopping() {
+function setupDeliveryOptions() {
 
-    window.location.href =
-        "products.html";
+    document
+        .querySelectorAll(
+            ".delivery-option"
+        )
+        .forEach(
+            option => {
 
-}
+                option.addEventListener(
+                    "click",
+                    () => {
 
+                        const type =
+                            option.dataset.delivery ||
+                            "standard";
 
-/* =====================================================
-   TOAST
-===================================================== */
+                        selectDelivery(
+                            type
+                        );
 
-function showToast(
-    message
-) {
-
-    const toast =
-        document.getElementById(
-            "checkoutToast"
-        );
-
-
-    if (!toast) return;
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        window.checkoutToastTimer
-    );
-
-
-    window.checkoutToastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
+                    }
                 );
 
-            },
-            2300
+            }
         );
 
 }
 
 
 /* =====================================================
-   PAGE ANIMATION
+   PAYMENT OPTIONS
 ===================================================== */
 
-function setupCheckoutAnimation() {
+function setupPaymentOptions() {
 
-    const cards =
+    document
+        .querySelectorAll(
+            ".checkout-payment-option, .payment-option"
+        )
+        .forEach(
+            option => {
+
+                option.addEventListener(
+                    "click",
+                    () => {
+
+                        const method =
+                            option.dataset.payment ||
+                            "upi";
+
+                        selectCheckoutPayment(
+                            method
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   CHECKOUT PAGE ANIMATION
+===================================================== */
+
+function checkoutAnimation() {
+
+    const elements =
         document.querySelectorAll(
-            ".checkout-card, .checkout-summary, .trust-check, .delivery-confidence, .return-promise"
+            ".checkout-card, .checkout-summary, .checkout-product"
         );
 
 
-    cards.forEach(
-        (card, index) => {
+    elements.forEach(
+        (
+            element,
+            index
+        ) => {
 
-            card.style.opacity =
+            element.style.opacity =
                 "0";
 
-            card.style.transform =
-                "translateY(18px)";
+            element.style.transform =
+                "translateY(15px)";
 
 
             setTimeout(
                 () => {
 
-                    card.style.opacity =
+                    element.style.transition =
+                        "opacity .4s ease, transform .4s ease";
+
+                    element.style.opacity =
                         "1";
 
-                    card.style.transform =
+                    element.style.transform =
                         "translateY(0)";
 
-                    card.style.transition =
-                        "opacity .45s ease, transform .45s ease";
-
                 },
-                index * 90
+                index * 70
             );
 
         }
@@ -1004,24 +1667,102 @@ function setupCheckoutAnimation() {
 
 
 /* =====================================================
-   INITIALIZE
+   INITIALIZE CHECKOUT
+===================================================== */
+
+function initializeCheckout() {
+
+    console.log(
+        "🛒 Wiz Commerce Checkout Loading..."
+    );
+
+
+    /*
+       Load cart
+    */
+
+    const hasCart =
+        loadCheckoutCart();
+
+
+    if (!hasCart) {
+
+        return;
+
+    }
+
+
+    /*
+       Render products
+    */
+
+    renderCheckoutProducts();
+
+
+    /*
+       Load address
+    */
+
+    loadSavedAddress();
+
+
+    /*
+       Default delivery
+    */
+
+    selectedDelivery =
+        "standard";
+
+
+    /*
+       Default payment
+    */
+
+    selectedPayment =
+        "upi";
+
+
+    /*
+       Calculate all prices
+    */
+
+    updateCheckoutPrices();
+
+
+    /*
+       Setup buttons
+    */
+
+    setupPlaceOrderButton();
+
+    setupDeliveryOptions();
+
+    setupPaymentOptions();
+
+
+    /*
+       Animation
+    */
+
+    checkoutAnimation();
+
+
+    console.log(
+        "✅ Checkout Ready"
+    );
+
+}
+
+
+/* =====================================================
+   DOM READY
 ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function() {
 
-        loadCheckoutProducts();
-
-        loadSavedAddress();
-
-        updateCheckoutSummary();
-
-        setupCheckoutAnimation();
-
-        console.log(
-            "🛒 Wiz Commerce Checkout Loaded"
-        );
+        initializeCheckout();
 
     }
 );
@@ -1031,26 +1772,23 @@ document.addEventListener(
    GLOBAL FUNCTIONS
 ===================================================== */
 
-window.goBackToCart =
-    goBackToCart;
-
-window.saveAddress =
-    saveAddress;
+window.placeOrder =
+    placeOrder;
 
 window.selectDelivery =
     selectDelivery;
 
-window.selectPayment =
-    selectPayment;
+window.selectCheckoutPayment =
+    selectCheckoutPayment;
 
-window.placeOrder =
-    placeOrder;
+window.saveDeliveryAddress =
+    saveDeliveryAddress;
 
-window.trackOrder =
-    trackOrder;
+window.goBackToCart =
+    goBackToCart;
 
-window.continueShopping =
-    continueShopping;
+window.goToProducts =
+    goToProducts;
 
-window.showToast =
-    showToast;
+window.calculateCheckout =
+    calculateCheckout;
