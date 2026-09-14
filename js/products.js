@@ -435,7 +435,17 @@ function createProductCard(product) {
         product
     );
 
+   card.addEventListener("click", (event) => {
 
+    // Buttons click செய்தால் details page போகக்கூடாது
+    if (event.target.closest("button")) {
+        return;
+    }
+
+    window.location.href =
+        `product-details.html?id=${product.id}`;
+
+});
     return card;
 }
 
