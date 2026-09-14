@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Wiz Commerce - Live Refund Tracking"
+    >
+
+    <title>
+        Refund Tracking | Wiz Commerce
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="refund-tracking.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="tracking-header">
+
+        <div class="brand">
+
+            <span class="brand-icon">
+                🛍️
+            </span>
+
+            <span>
+                Wiz Commerce
+            </span>
+
+        </div>
+
+        <a
+            href="my-orders.html"
+            class="back-button"
+        >
+            ← My Orders
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="tracking-container">
+
+        <!-- PAGE TITLE -->
+
+        <section class="page-title">
+
+            <div class="title-icon">
+                🔔
+            </div>
+
+            <div>
+
+                <h1>
+                    Refund Tracking
+                </h1>
+
+                <p>
+                    Track your return and refund status in real time
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             RETURN SUMMARY
+        ====================================== -->
+
+        <section class="summary-card">
+
+            <div class="summary-left">
+
+                <div
+                    class="product-image"
+                    id="productImage"
+                >
+                    📦
+                </div>
+
+                <div class="summary-info">
+
+                    <span>
+                        Return ID
+                    </span>
+
+                    <strong id="returnId">
+                        RET-000000
+                    </strong>
+
+                    <h2 id="productName">
+                        Wiz Commerce Product
+                    </h2>
+
+                    <p>
+                        Order ID:
+                        <strong id="orderId">
+                            WIZ-ORDER
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="refund-amount">
+
+                <span>
+                    Refund Amount
+                </span>
+
+                <strong id="refundAmount">
+                    ₹0
+                </strong>
+
+                <small id="refundStatus">
+                    Refund Pending
+                </small>
+
+            </div>
+
+        </section>
+                <!-- =====================================
+             CURRENT STATUS
+        ====================================== -->
+
+        <section class="current-status">
+
+            <div class="status-icon">
+                🔄
+            </div>
+
+            <div class="status-content">
+
+                <span>
+                    CURRENT STATUS
+                </span>
+
+                <h2 id="currentStatus">
+                    Return Requested
+                </h2>
+
+                <p id="statusMessage">
+                    Your return request has been successfully received.
+                </p>
+
+            </div>
+
+            <div class="live-badge">
+                ● LIVE
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TRACKING TIMELINE
+        ====================================== -->
+
+        <section class="timeline-card">
+
+            <div class="section-title">
+
+                <h2>
+                    Return & Refund Journey
+                </h2>
+
+                <p>
+                    Follow every step of your refund
+                </p>
+
+            </div>
+
+
+            <div class="timeline">
+
+
+                <!-- STEP 1 -->
+
+                <div
+                    class="timeline-item completed"
+                    id="step-request"
+                >
+
+                    <div class="timeline-icon">
+                        ✓
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Return Request Submitted
+                        </h3>
+
+                        <p>
+                            Your return request has been submitted successfully.
+                        </p>
+
+                        <span id="requestTime">
+                            Completed
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 2 -->
+
+                <div
+                    class="timeline-item active"
+                    id="step-pickup"
+                >
+
+                    <div class="timeline-icon">
+                        🚚
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Pickup Scheduled
+                        </h3>
+
+                        <p>
+                            Our delivery partner will collect the product.
+                        </p>
+
+                        <span id="pickupTime">
+                            Processing
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 3 -->
+
+                <div
+                    class="timeline-item"
+                    id="step-verification"
+                >
+
+                    <div class="timeline-icon">
+                        🔍
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Product Verification
+                        </h3>
+
+                        <p>
+                            The returned product will be checked for verification.
+                        </p>
+
+                        <span>
+                            Waiting
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 4 -->
+
+                <div
+                    class="timeline-item"
+                    id="step-refund"
+                >
+
+                    <div class="timeline-icon">
+                        💰
+                    </div>
+
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Refund Processing
+                        </h3>
+
+                        <p>
+                            Your refund will be processed after verification.
+                        </p>
+
+                        <span>
+                            Waiting
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 5 -->
+
+                <div
+                    class="timeline-item"
+                    id="step-completed"
+                >
+
+                    <div class="timeline-icon">
+                        ✓
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Refund Completed
+                        </h3>
+
+                        <p>
+                            Refund amount has been credited successfully.
+                        </p>
+
+                        <span>
+                            Waiting
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+                <!-- =====================================
+             REFUND DETAILS
+        ====================================== -->
+
+        <section class="details-grid">
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <span>
+                        Refund Method
+                    </span>
+
+                    <strong id="refundMethod">
+                        Original Payment Method
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    📅
+                </div>
+
+                <div>
+
+                    <span>
+                        Expected Refund
+                    </span>
+
+                    <strong id="expectedDate">
+                        Calculating...
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                        📦
+                </div>
+
+                <div>
+
+                    <span>
+                        Return Reason
+                    </span>
+
+                    <strong id="returnReason">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    🛡️
+                </div>
+
+                <div>
+
+                    <span>
+                        Protection
+                    </span>
+
+                    <strong>
+                        Wiz Buyer Protection
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SUPPORT CARD
+        ====================================== -->
+
+        <section class="support-card">
+
+            <div class="support-icon">
+                💬
+            </div>
+
+            <div class="support-content">
+
+                <h2>
+                    Need Help?
+                </h2>
+
+                <p>
+                    Our customer support team is ready to help you
+                    with your return or refund.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="supportBtn"
+            >
+                💬 Contact Support
+            </button>
+
+        </section>
+                <!-- =====================================
+             REFUND GUARANTEE
+        ====================================== -->
+
+        <section class="guarantee-card">
+
+            <div class="guarantee-icon">
+                🛡️
+            </div>
+
+            <div>
+
+                <h2>
+                    Wiz Refund Protection
+                </h2>
+
+                <p>
+                    We keep you updated at every stage of the
+                    return and refund process.
+                </p>
+
+            </div>
+
+            <span class="protected">
+                ✓ Protected
+            </span>
+
+        </section>
+
+
+        <!-- =====================================
+             ACTION BUTTONS
+        ====================================== -->
+
+        <section class="bottom-actions">
+
+            <button
+                type="button"
+                id="continueShoppingBtn"
+                class="primary-action"
+            >
+                🛍️ Continue Shopping
+            </button>
+
+            <button
+                type="button"
+                id="ordersBtn"
+                class="secondary-action"
+            >
+                📦 View My Orders
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             SUPPORT MODAL
+        ====================================== -->
+
+        <div
+            class="support-modal"
+            id="supportModal"
+        >
+
+            <div class="modal-overlay"></div>
+
+            <div class="support-box">
+
+                <button
+                    type="button"
+                    id="closeSupport"
+                    class="close-modal"
+                >
+                    ×
+                </button>
+
+                <div class="modal-icon">
+                    💬
+                </div>
+
+                <h2>
+                    Wiz Customer Support
+                </h2>
+
+                <p>
+                    How can we help you today?
+                </p>
+
+                <button
+                    class="support-option"
+                    type="button"
+                >
+                    💬 Chat with Support
+                </button>
+
+                <button
+                    class="support-option"
+                    type="button"
+                >
+                    📧 Email Support
+                </button>
+
+                <button
+                    class="support-option"
+                    type="button"
+                >
+                    📞 Request a Call
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <strong>
+                💙 Wiz Commerce
+            </strong>
+
+            <span>
+                Transparent Shopping • Easy Returns • Fast Refunds
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="refund-tracking.js"></script>
+
+</body>
+
+</html>
