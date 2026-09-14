@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Payment - Wiz Commerce
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="payment.css"
+    >
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="payment-header">
+
+    <div class="payment-brand">
+
+        <button
+            class="back-btn"
+            onclick="goBackToCheckout()"
+        >
+            ←
+        </button>
+
+        <div>
+
+            <h1>
+                Wiz Commerce
+            </h1>
+
+            <p>
+                Secure Payment
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="secure-payment">
+
+        🔒 100% Secure
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     PAYMENT PROGRESS
+===================================================== -->
+
+<div class="payment-progress">
+
+    <div class="payment-step completed">
+
+        <span>✓</span>
+
+        <p>
+            Checkout
+        </p>
+
+    </div>
+
+
+    <div class="payment-progress-line active"></div>
+
+
+    <div class="payment-step active">
+
+        <span>2</span>
+
+        <p>
+            Payment
+        </p>
+
+    </div>
+
+
+    <div class="payment-progress-line"></div>
+
+
+    <div class="payment-step">
+
+        <span>3</span>
+
+        <p>
+            Confirmation
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<main class="payment-container">
+
+
+    <!-- =================================================
+         LEFT SIDE
+    ================================================== -->
+
+    <section class="payment-left">
+
+
+        <!-- PAYMENT METHODS -->
+
+        <div class="payment-card">
+
+            <div class="payment-title">
+
+                <div>
+
+                    <span class="title-icon">
+                        💳
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Choose Payment Method
+                        </h2>
+
+                        <p>
+                            Select your preferred payment option
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- METHODS -->
+
+            <div class="payment-methods">
+
+
+                <button
+                    class="method-btn active"
+                    data-method="upi"
+                    onclick="selectPaymentMethod('upi')"
+                >
+
+                    <span class="method-icon">
+                        📱
+                    </span>
+
+                    <span class="method-text">
+
+                        <strong>
+                            UPI
+                        </strong>
+
+                        <small>
+                            Google Pay, PhonePe, Paytm
+                        </small>
+
+                    </span>
+
+                    <span class="method-arrow">
+                        ›
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="method-btn"
+                    data-method="card"
+                    onclick="selectPaymentMethod('card')"
+                >
+
+                    <span class="method-icon">
+                        💳
+                    </span>
+
+                    <span class="method-text">
+
+                        <strong>
+                            Credit / Debit Card
+                        </strong>
+
+                        <small>
+                            Visa, Mastercard, RuPay
+                        </small>
+
+                    </span>
+
+                    <span class="method-arrow">
+                        ›
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="method-btn"
+                    data-method="netbanking"
+                    onclick="selectPaymentMethod('netbanking')"
+                >
+
+                    <span class="method-icon">
+                        🏦
+                    </span>
+
+                    <span class="method-text">
+
+                        <strong>
+                            Net Banking
+                        </strong>
+
+                        <small>
+                            All major banks supported
+                        </small>
+
+                    </span>
+
+                    <span class="method-arrow">
+                        ›
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="method-btn"
+                    data-method="cod"
+                    onclick="selectPaymentMethod('cod')"
+                >
+
+                    <span class="method-icon">
+                        💵
+                    </span>
+
+                    <span class="method-text">
+
+                        <strong>
+                            Cash on Delivery
+                        </strong>
+
+                        <small>
+                            Pay when your order arrives
+                        </small>
+
+                    </span>
+
+                    <span class="method-arrow">
+                        ›
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PAYMENT FORM
+        ================================================== -->
+
+        <div
+            class="payment-card payment-form-card"
+            id="paymentFormCard"
+        >
+
+            <div class="form-header">
+
+                <h2 id="formTitle">
+                    Pay using UPI
+                </h2>
+
+                <p id="formSubtitle">
+                    Enter your UPI ID to continue
+                </p>
+
+            </div>
+
+
+            <!-- UPI FORM -->
+
+            <div
+                id="upiForm"
+                class="payment-form"
+            >
+
+                <label>
+                    UPI ID
+                </label>
+
+                <input
+                    type="text"
+                    id="upiId"
+                    placeholder="example@upi"
+                >
+
+                <div class="upi-examples">
+
+                    <span>
+                        GPay
+                    </span>
+
+                    <span>
+                        PhonePe
+                    </span>
+
+                    <span>
+                        Paytm
+                    </span>
+
+                    <span>
+                        BHIM
+                    </span>
+
+                </div>
+
+  </div>
+  <!-- =====================================================
+     CARD FORM
+===================================================== -->
+
+<div
+    id="cardForm"
+    class="payment-form hidden"
+>
+
+    <label>
+        Card Number
+    </label>
+
+    <input
+        type="text"
+        id="cardNumber"
+        maxlength="19"
+        placeholder="1234 5678 9012 3456"
+        oninput="formatCardNumber(this)"
+    >
+
+
+    <div class="card-row">
+
+        <div>
+
+            <label>
+                Expiry
+            </label>
+
+            <input
+                type="text"
+                id="cardExpiry"
+                maxlength="5"
+                placeholder="MM/YY"
+                oninput="formatExpiry(this)"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                CVV
+            </label>
+
+            <input
+                type="password"
+                id="cardCvv"
+                maxlength="3"
+                placeholder="•••"
+            >
+
+        </div>
+
+    </div>
+
+
+    <label>
+        Card Holder Name
+    </label>
+
+    <input
+        type="text"
+        id="cardName"
+        placeholder="Name on card"
+    >
+
+
+    <div class="secure-note">
+
+        🔒 Your card details are protected.
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NET BANKING
+===================================================== -->
+
+<div
+    id="netbankingForm"
+    class="payment-form hidden"
+>
+
+    <label>
+        Select Your Bank
+    </label>
+
+    <select id="bankName">
+
+        <option value="">
+            Select Bank
+        </option>
+
+        <option>
+            State Bank of India
+        </option>
+
+        <option>
+            HDFC Bank
+        </option>
+
+        <option>
+            ICICI Bank
+        </option>
+
+        <option>
+            Axis Bank
+        </option>
+
+        <option>
+            Bank of Baroda
+        </option>
+
+        <option>
+            Canara Bank
+        </option>
+
+    </select>
+
+
+    <div class="bank-note">
+
+        🏦 You will be redirected to your bank
+        for secure authentication.
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     COD
+===================================================== -->
+
+<div
+    id="codForm"
+    class="payment-form hidden"
+>
+
+    <div class="cod-box">
+
+        <div class="cod-icon">
+            💵
+        </div>
+
+        <div>
+
+            <h3>
+                Cash on Delivery
+            </h3>
+
+            <p>
+                Pay the final amount when your
+                order is delivered.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="cod-warning">
+
+        ℹ️ Please keep the exact amount ready
+        at the time of delivery.
+
+    </div>
+
+</div>
+
+
+<!-- PAYMENT BUTTON -->
+
+<button
+    class="pay-now-btn"
+    id="payNowBtn"
+    onclick="processPayment()"
+>
+
+    <span>
+        🔒
+    </span>
+
+    <span id="payButtonText">
+        Pay Now
+    </span>
+
+</button>
+
+
+<p class="payment-disclaimer">
+
+    By continuing, you agree to Wiz Commerce
+    payment terms.
+
+</p>
+
+
+</div>
+
+
+<!-- =====================================================
+     TRUST FEATURES
+===================================================== -->
+
+<div class="payment-trust">
+
+    <div class="trust-item">
+
+        <span>
+            🛡️
+        </span>
+
+        <div>
+
+            <strong>
+                Secure Payment
+            </strong>
+
+            <small>
+                Protected checkout
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+        <span>
+            ✓
+        </span>
+
+        <div>
+
+            <strong>
+                Verified Seller
+            </strong>
+
+            <small>
+                Seller trust checked
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+        <span>
+            💰
+        </span>
+
+        <div>
+
+            <strong>
+                No Hidden Charges
+            </strong>
+
+            <small>
+                Transparent final price
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    </section>
+    <!-- =====================================================
+     RIGHT SIDE
+===================================================== -->
+
+<aside class="payment-right">
+
+
+    <!-- ORDER SUMMARY -->
+
+    <div class="order-summary">
+
+        <div class="summary-heading">
+
+            <h2>
+                Order Summary
+            </h2>
+
+            <span>
+                ✓ Verified
+            </span>
+
+        </div>
+
+
+        <div
+            id="paymentProducts"
+            class="payment-products"
+        >
+
+            <!-- Products loaded by JS -->
+
+        </div>
+
+
+        <div class="summary-line"></div>
+
+
+        <div class="price-row">
+
+            <span>
+                Product Price
+            </span>
+
+            <strong id="paymentProductPrice">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Discount
+            </span>
+
+            <strong
+                id="paymentDiscount"
+                class="discount"
+            >
+                - ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Delivery
+            </span>
+
+            <strong id="paymentDelivery">
+                FREE
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Platform Charge
+            </span>
+
+            <strong id="paymentPlatform">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-line"></div>
+
+
+        <div class="final-price">
+
+            <span>
+                Final Amount
+            </span>
+
+            <strong id="paymentFinal">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <!-- TRANSPARENT PRICE -->
+
+        <div class="transparent-box">
+
+            <div>
+                ✓
+            </div>
+
+            <section>
+
+                <strong>
+                    Transparent Final Price
+                </strong>
+
+                <p>
+                    No extra charges at payment.
+                </p>
+
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELIVERY ADDRESS -->
+
+    <div class="small-summary-card">
+
+        <div class="small-card-icon">
+            📍
+        </div>
+
+        <div>
+
+            <h3>
+                Delivering To
+            </h3>
+
+            <p id="deliveryAddress">
+                Address will appear here
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELIVERY -->
+
+    <div class="small-summary-card">
+
+        <div class="small-card-icon">
+            🚚
+        </div>
+
+        <div>
+
+            <h3>
+                Delivery
+            </h3>
+
+            <p id="deliveryInfo">
+                Standard Delivery · 3–5 Days
+            </p>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+</main>
+
+
+<!-- =====================================================
+     PROCESSING OVERLAY
+===================================================== -->
+
+<div
+    id="processingOverlay"
+    class="processing-overlay"
+>
+
+    <div class="processing-box">
+
+        <div class="loader"></div>
+
+        <h2>
+            Processing Payment
+        </h2>
+
+        <p>
+            Please wait...
+        </p>
+
+    </div>
+
+</div>
+<!-- =====================================================
+     SUCCESS MODAL
+===================================================== -->
+
+<div
+    id="paymentSuccess"
+    class="success-overlay"
+>
+
+    <div class="success-card">
+
+        <div class="success-circle">
+            ✓
+        </div>
+
+        <h2>
+            Payment Successful!
+        </h2>
+
+        <p>
+            Your order has been confirmed successfully.
+        </p>
+
+
+        <div class="success-order">
+
+            <span>
+                Order ID
+            </span>
+
+            <strong id="successOrderId">
+                WIZ000000
+            </strong>
+
+        </div>
+
+
+        <div class="success-amount">
+
+            <span>
+                Paid Amount
+            </span>
+
+            <strong id="successAmount">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="success-delivery">
+
+            🚚 Expected Delivery
+
+            <strong>
+                3–5 Days
+            </strong>
+
+        </div>
+
+
+        <button
+            onclick="trackOrder()"
+            class="track-btn"
+        >
+            📍 Track My Order
+        </button>
+
+
+        <button
+            onclick="continueShopping()"
+            class="shop-btn"
+        >
+            Continue Shopping
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="paymentToast"
+    class="payment-toast"
+></div>
+
+
+<script src="payment.js"></script>
+
+</body>
+
+</html>
