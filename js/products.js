@@ -1,14 +1,13 @@
-"use strict";
+/* =========================================================
+   WIZ COMMERCE
+   PRODUCTS JS
+   Product Listing + Search + Category + View Details
+========================================================= */
 
-/* =====================================================
-   WIZ COMMERCE - PRODUCTS.JS
-   Complete Single-Part Version
-===================================================== */
 
-
-/* =====================================================
+/* =========================================================
    PRODUCT DATA
-===================================================== */
+========================================================= */
 
 const products = [
 
@@ -22,12 +21,10 @@ const products = [
         rating: 4.6,
         reviews: 128,
         trustScore: 94,
-        seller: "IMA Verified Store",
+        seller: "Wiz Verified Store",
         verifiedSeller: true,
         image: "assets/images/bulb.png",
-        delivery: "2-4 Days",
-        warranty: "1 Year",
-        returnDays: 7
+        icon: "💡"
     },
 
     {
@@ -43,110 +40,115 @@ const products = [
         seller: "Smart Deals",
         verifiedSeller: true,
         image: "assets/images/fan.png",
-        delivery: "3-5 Days",
-        warranty: "6 Months",
-        returnDays: 7
+        icon: "🌀"
     },
 
     {
         id: 3,
         name: "Kitchen Storage Box",
-        category: "Kitchen",
+        category: "Home & Kitchen",
         price: 249,
         oldPrice: 399,
         discount: 38,
         rating: 4.4,
         reviews: 64,
         trustScore: 89,
-        seller: "Kitchen Hub",
+        seller: "Home Store",
         verifiedSeller: true,
         image: "assets/images/storage-box.png",
-        delivery: "2-5 Days",
-        warranty: "6 Months",
-        returnDays: 7
+        icon: "📦"
     },
 
     {
         id: 4,
         name: "Wireless Bluetooth Speaker",
         category: "Electronics",
-        price: 599,
-        oldPrice: 999,
-        discount: 40,
+        price: 699,
+        oldPrice: 1199,
+        discount: 42,
         rating: 4.7,
         reviews: 214,
         trustScore: 96,
-        seller: "Tech World",
+        seller: "Wiz Audio",
         verifiedSeller: true,
         image: "assets/images/speaker.png",
-        delivery: "2-4 Days",
-        warranty: "1 Year",
-        returnDays: 7
+        icon: "🔊"
     },
 
     {
         id: 5,
-        name: "Smart Watch",
-        category: "Electronics",
-        price: 799,
-        oldPrice: 1499,
-        discount: 47,
-        rating: 4.5,
-        reviews: 176,
-        trustScore: 93,
-        seller: "Digital Store",
+        name: "Premium Cotton T-Shirt",
+        category: "Fashion",
+        price: 349,
+        oldPrice: 599,
+        discount: 42,
+        rating: 4.3,
+        reviews: 156,
+        trustScore: 88,
+        seller: "Fashion Hub",
         verifiedSeller: true,
-        image: "assets/images/smartwatch.png",
-        delivery: "3-5 Days",
-        warranty: "1 Year",
-        returnDays: 7
+        image: "assets/images/tshirt.png",
+        icon: "👕"
     },
 
     {
         id: 6,
-        name: "Cotton Casual Shirt",
-        category: "Fashion",
+        name: "Rechargeable Emergency Light",
+        category: "Electronics",
         price: 449,
         oldPrice: 799,
         discount: 44,
-        rating: 4.3,
-        reviews: 92,
-        trustScore: 88,
-        seller: "Fashion Point",
+        rating: 4.5,
+        reviews: 103,
+        trustScore: 92,
+        seller: "Bright Store",
         verifiedSeller: true,
-        image: "assets/images/shirt.png",
-        delivery: "3-6 Days",
-        warranty: "No Warranty",
-        returnDays: 7
+        image: "assets/images/emergency-light.png",
+        icon: "🔦"
+    },
+
+    {
+        id: 7,
+        name: "Stainless Steel Water Bottle",
+        category: "Home & Kitchen",
+        price: 299,
+        oldPrice: 499,
+        discount: 40,
+        rating: 4.6,
+        reviews: 91,
+        trustScore: 93,
+        seller: "Daily Needs",
+        verifiedSeller: true,
+        image: "assets/images/bottle.png",
+        icon: "🥤"
+    },
+
+    {
+        id: 8,
+        name: "Smart Watch",
+        category: "Electronics",
+        price: 899,
+        oldPrice: 1599,
+        discount: 44,
+        rating: 4.4,
+        reviews: 189,
+        trustScore: 90,
+        seller: "Tech World",
+        verifiedSeller: true,
+        image: "assets/images/watch.png",
+        icon: "⌚"
     }
 
 ];
 
 
-/* =====================================================
-   DOM ELEMENTS
-===================================================== */
-
-const productGrid =
-    document.getElementById("productGrid");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const categorySelect =
-    document.getElementById("categorySelect");
-
-const noProducts =
-    document.getElementById("noProducts");
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* =========================================================
+   DOM READY
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    () => {
 
         renderProducts(products);
 
@@ -154,26 +156,50 @@ document.addEventListener(
 
         setupCategoryFilter();
 
+        updateCartCount();
+
     }
 );
 
 
-/* =====================================================
+/* =========================================================
+   PRODUCT CONTAINER
+========================================================= */
+
+function getProductContainer() {
+
+    return (
+        document.getElementById("productsGrid") ||
+        document.getElementById("productGrid") ||
+        document.querySelector(".products-grid") ||
+        document.querySelector(".product-grid")
+    );
+
+}
+
+
+/* =========================================================
    RENDER PRODUCTS
-===================================================== */
+========================================================= */
 
 function renderProducts(productList) {
 
-    if (!productGrid) {
+    const container =
+        getProductContainer();
+
+
+    if (!container) {
+
         console.error(
-            "productGrid element not found."
+            "Product container not found."
         );
 
         return;
+
     }
 
 
-    productGrid.innerHTML = "";
+    container.innerHTML = "";
 
 
     if (
@@ -181,175 +207,182 @@ function renderProducts(productList) {
         productList.length === 0
     ) {
 
-        if (noProducts) {
-            noProducts.style.display =
-                "block";
-        }
+        container.innerHTML = `
+
+            <div class="no-products">
+
+                <div style="font-size:50px;">
+                    🔍
+                </div>
+
+                <h3>
+                    No products found
+                </h3>
+
+                <p>
+                    Try another search or category.
+                </p>
+
+            </div>
+
+        `;
 
         return;
 
     }
 
 
-    if (noProducts) {
-        noProducts.style.display =
-            "none";
-    }
-
-
     productList.forEach(
-        function (product) {
+        product => {
 
-            productGrid.innerHTML +=
-                createProductCard(product);
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            container.appendChild(
+                card
+            );
 
         }
     );
 
+
+    setupProductAnimations();
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CREATE PRODUCT CARD
-===================================================== */
+========================================================= */
 
-function createProductCard(product) {
+function createProductCard(
+    product
+) {
 
-    return `
+    const card =
+        document.createElement(
+            "article"
+        );
 
-        <div
-            class="product-card"
-            data-id="${product.id}"
-        >
 
-            <div class="product-image">
+    card.className =
+        "product-card";
 
-                <img
-                    src="${product.image}"
-                    alt="${escapeHTML(product.name)}"
-                    onerror="
-                        this.style.display='none';
-                    "
-                >
 
-                <span class="discount-badge">
-                    ${product.discount}% OFF
+    card.dataset.productId =
+        product.id;
+
+
+    card.innerHTML = `
+
+        <div class="product-image">
+
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+                loading="lazy"
+            >
+
+            <span
+                class="product-fallback"
+                style="display:none;"
+            >
+                ${product.icon || "📦"}
+            </span>
+
+            <span class="discount-badge">
+                ${product.discount}% OFF
+            </span>
+
+        </div>
+
+
+        <div class="product-info">
+
+            <div class="product-category">
+                ${product.category}
+            </div>
+
+
+            <h3 class="product-title">
+                ${product.name}
+            </h3>
+
+
+            <div class="product-rating">
+
+                ⭐ ${product.rating}
+
+                <span>
+                    (${product.reviews})
                 </span>
 
             </div>
 
 
-            <div class="product-info">
+            <div class="product-price">
 
-                <span class="product-category">
-                    ${escapeHTML(product.category)}
+                <strong>
+                    ₹${product.price}
+                </strong>
+
+                <del>
+                    ₹${product.oldPrice}
+                </del>
+
+            </div>
+
+
+            <div class="trust-row">
+
+                <span>
+                    🛡️ Trust Score
                 </span>
 
+                <strong>
+                    ${product.trustScore}/100
+                </strong>
 
-                <h3 class="product-name">
-                    ${escapeHTML(product.name)}
-                </h3>
-
-
-                <div class="rating">
-
-                    ⭐ ${product.rating}
-
-                    <span>
-                        (${product.reviews})
-                    </span>
-
-                </div>
+            </div>
 
 
-                <div class="price-row">
+            <div class="seller-row">
 
-                    <strong class="product-price">
-                        ₹${formatPrice(product.price)}
-                    </strong>
+                <span>
+                    ${product.seller}
+                </span>
 
-                    <del>
-                        ₹${formatPrice(product.oldPrice)}
-                    </del>
+                ${
+                    product.verifiedSeller
+                    ? `<span class="verified">
+                            ✓ Verified
+                       </span>`
+                    : ""
+                }
 
-                </div>
-
-
-                <div class="trust-row">
-
-                    <span>
-                        🛡️ Trust Score
-                    </span>
-
-                    <strong>
-                        ${product.trustScore}/100
-                    </strong>
-
-                </div>
+            </div>
 
 
-                <div class="seller-row">
-
-                    <span>
-                        🏪
-                        ${escapeHTML(product.seller)}
-                    </span>
-
-                    ${
-                        product.verifiedSeller
-                            ? `
-                                <span
-                                    class="verified-badge"
-                                >
-                                    ✓ Verified
-                                </span>
-                              `
-                            : ""
-                    }
-
-                </div>
-
-
-                <div class="product-actions">
-
-                    <button
-                        type="button"
-                        class="compare-btn"
-                        onclick="
-                            addProductToCompare(
-                                ${product.id}
-                            )
-                        "
-                    >
-                        📊 Compare
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="cart-btn"
-                        onclick="
-                            addToCart(
-                                ${product.id}
-                            )
-                        "
-                    >
-                        🛒 Cart
-                    </button>
-
-                </div>
-
+            <div class="product-actions">
 
                 <button
                     type="button"
                     class="view-product-btn"
-                    onclick="
-                        openProductDetails(
-                            ${product.id}
-                        )
-                    "
+                    data-product-id="${product.id}"
                 >
                     View Product
+                </button>
+
+
+                <button
+                    type="button"
+                    class="quick-cart-btn"
+                    data-product-id="${product.id}"
+                >
+                    🛒 Add to Cart
                 </button>
 
             </div>
@@ -358,275 +391,360 @@ function createProductCard(product) {
 
     `;
 
+
+    /* =========================================
+       IMAGE FALLBACK
+    ========================================= */
+
+    const image =
+        card.querySelector(
+            "img"
+        );
+
+
+    const fallback =
+        card.querySelector(
+            ".product-fallback"
+        );
+
+
+    if (image) {
+
+        image.addEventListener(
+            "error",
+            () => {
+
+                image.style.display =
+                    "none";
+
+                if (fallback) {
+
+                    fallback.style.display =
+                        "flex";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       VIEW PRODUCT BUTTON
+    ========================================= */
+
+    const viewButton =
+        card.querySelector(
+            ".view-product-btn"
+        );
+
+
+    if (viewButton) {
+
+        viewButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                const id =
+                    Number(
+                        viewButton.dataset.productId
+                    );
+
+
+                viewProduct(id);
+
+            }
+        );
+
+    }
+
+
+    /* =========================================
+       ADD TO CART BUTTON
+    ========================================= */
+
+    const cartButton =
+        card.querySelector(
+            ".quick-cart-btn"
+        );
+
+
+    if (cartButton) {
+
+        cartButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                const id =
+                    Number(
+                        cartButton.dataset.productId
+                    );
+
+
+                addProductToCart(id);
+
+            }
+        );
+
+    }
+
+
+    return card;
+
 }
 
 
-/* =====================================================
+/* =========================================================
+   VIEW PRODUCT
+   THIS FIXES THE ID PROBLEM
+========================================================= */
+
+function viewProduct(
+    productId
+) {
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(productId)
+        );
+
+
+    if (!product) {
+
+        console.error(
+            "Product not found:",
+            productId
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "Opening product:",
+        product.name,
+        "ID:",
+        product.id
+    );
+
+
+    window.location.href =
+        `product-details.html?id=${product.id}`;
+
+}
+
+
+/* =========================================================
+   GLOBAL VIEW PRODUCT
+========================================================= */
+
+window.viewProduct =
+    viewProduct;
+
+
+/* =========================================================
    SEARCH
-===================================================== */
+========================================================= */
 
 function setupSearch() {
 
+    const searchInput =
+        document.getElementById(
+            "productSearch"
+        ) ||
+        document.getElementById(
+            "searchInput"
+        ) ||
+        document.querySelector(
+            ".product-search"
+        );
+
+
     if (!searchInput) {
+
         return;
+
     }
 
 
     searchInput.addEventListener(
         "input",
-        applyFilters
+        () => {
+
+            const keyword =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const filtered =
+                products.filter(
+                    product => {
+
+                        return (
+
+                            product.name
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                            ||
+
+                            product.category
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                            ||
+
+                            product.seller
+                                .toLowerCase()
+                                .includes(
+                                    keyword
+                                )
+
+                        );
+
+                    }
+                );
+
+
+            renderProducts(
+                filtered
+            );
+
+        }
     );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORY FILTER
-===================================================== */
+========================================================= */
 
 function setupCategoryFilter() {
 
+    const categorySelect =
+        document.getElementById(
+            "categoryFilter"
+        ) ||
+        document.getElementById(
+            "categorySelect"
+        );
+
+
     if (!categorySelect) {
+
         return;
+
     }
 
 
     categorySelect.addEventListener(
         "change",
-        applyFilters
-    );
+        () => {
 
-}
-
-
-/* =====================================================
-   APPLY SEARCH + CATEGORY
-===================================================== */
-
-function applyFilters() {
-
-    const searchValue =
-        searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
+            const category =
+                categorySelect.value;
 
 
-    const categoryValue =
-        categorySelect
-            ? categorySelect.value
-            : "All";
+            if (
+                !category ||
+                category === "All"
+            ) {
 
-
-    const filteredProducts =
-        products.filter(
-            function (product) {
-
-                const matchesSearch =
-                    product.name
-                        .toLowerCase()
-                        .includes(
-                            searchValue
-                        );
-
-
-                const matchesCategory =
-                    categoryValue === "All" ||
-                    product.category ===
-                    categoryValue;
-
-
-                return (
-                    matchesSearch &&
-                    matchesCategory
+                renderProducts(
+                    products
                 );
 
+                return;
+
             }
-        );
 
 
-    renderProducts(
-        filteredProducts
+            const filtered =
+                products.filter(
+                    product =>
+                        product.category ===
+                        category
+                );
+
+
+            renderProducts(
+                filtered
+            );
+
+        }
     );
 
 }
 
 
-/* =====================================================
-   OPEN PRODUCT DETAILS
-===================================================== */
+/* =========================================================
+   CART
+========================================================= */
 
-function openProductDetails(
-    productId
-) {
-
-    const product =
-        products.find(
-            function (item) {
-
-                return Number(item.id) ===
-                    Number(productId);
-
-            }
-        );
-
-
-    if (!product) {
-
-        alert(
-            "Product not found."
-        );
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "product-details.html?id=" +
-        product.id;
-
-}
-
-
-/* =====================================================
-   ADD TO COMPARE
-===================================================== */
-
-function addProductToCompare(
-    productId
-) {
-
-    const product =
-        products.find(
-            function (item) {
-
-                return Number(item.id) ===
-                    Number(productId);
-
-            }
-        );
-
-
-    if (!product) {
-
-        alert(
-            "Product not found."
-        );
-
-        return;
-
-    }
-
-
-    let compareProducts = [];
-
+function getCart() {
 
     try {
 
-        compareProducts =
-            JSON.parse(
-                localStorage.getItem(
-                    "wizCompare"
-                )
-            ) || [];
+        return JSON.parse(
+            localStorage.getItem(
+                "wizCart"
+            )
+        ) || [];
 
     } catch (error) {
 
         console.error(
-            "Compare storage error:",
+            "Cart error:",
             error
         );
 
-        compareProducts = [];
+        return [];
 
     }
-
-
-    const alreadyAdded =
-        compareProducts.some(
-            function (item) {
-
-                return Number(item.id) ===
-                    Number(product.id);
-
-            }
-        );
-
-
-    if (alreadyAdded) {
-
-        alert(
-            "This product is already added to Compare."
-        );
-
-        window.location.href =
-            "compare.html";
-
-        return;
-
-    }
-
-
-    if (
-        compareProducts.length >= 4
-    ) {
-
-        alert(
-            "You can compare maximum 4 products."
-        );
-
-        return;
-
-    }
-
-
-    compareProducts.push(product);
-
-
-    localStorage.setItem(
-        "wizCompare",
-        JSON.stringify(
-            compareProducts
-        )
-    );
-
-
-    alert(
-        "✓ Product added to Compare"
-    );
-
-
-    window.location.href =
-        "compare.html";
 
 }
 
 
-/* =====================================================
-   ADD TO CART
-===================================================== */
+/* =========================================================
+   ADD PRODUCT TO CART
+========================================================= */
 
-function addToCart(
+function addProductToCart(
     productId
 ) {
 
     const product =
         products.find(
-            function (item) {
-
-                return Number(item.id) ===
-                    Number(productId);
-
-            }
+            item =>
+                Number(item.id) ===
+                Number(productId)
         );
 
 
     if (!product) {
 
-        alert(
-            "Product not found."
+        showProductToast(
+            "Product not found"
         );
 
         return;
@@ -634,38 +752,15 @@ function addToCart(
     }
 
 
-    let cart = [];
-
-
-    try {
-
-        cart =
-            JSON.parse(
-                localStorage.getItem(
-                    "wizCart"
-                )
-            ) || [];
-
-    } catch (error) {
-
-        console.error(
-            "Cart storage error:",
-            error
-        );
-
-        cart = [];
-
-    }
+    const cart =
+        getCart();
 
 
     const existing =
         cart.find(
-            function (item) {
-
-                return Number(item.id) ===
-                    Number(product.id);
-
-            }
+            item =>
+                Number(item.id) ===
+                Number(product.id)
         );
 
 
@@ -673,16 +768,36 @@ function addToCart(
 
         existing.quantity =
             Number(
-                existing.quantity || 1
+                existing.quantity || 0
             ) + 1;
 
     } else {
 
         cart.push({
 
-            ...product,
+            id:
+                product.id,
 
-            quantity: 1
+            name:
+                product.name,
+
+            price:
+                product.price,
+
+            oldPrice:
+                product.oldPrice,
+
+            category:
+                product.category,
+
+            image:
+                product.image,
+
+            icon:
+                product.icon,
+
+            quantity:
+                1
 
         });
 
@@ -695,24 +810,124 @@ function addToCart(
     );
 
 
-    showToast(
-        "✓ Product added to cart"
+    updateCartCount();
+
+
+    showProductToast(
+        `✓ ${product.name} added to cart`
     );
 
 }
 
 
-/* =====================================================
-   TOAST MESSAGE
-===================================================== */
+window.addProductToCart =
+    addProductToCart;
 
-function showToast(
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
+
+    const cart =
+        getCart();
+
+
+    const count =
+        cart.reduce(
+            (
+                total,
+                item
+            ) => {
+
+                return (
+                    total +
+                    Number(
+                        item.quantity || 0
+                    )
+                );
+
+            },
+            0
+        );
+
+
+    document
+        .querySelectorAll(
+            ".cart-count"
+        )
+        .forEach(
+            element => {
+
+                element.textContent =
+                    count;
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   PRODUCT ANIMATION
+========================================================= */
+
+function setupProductAnimations() {
+
+    const cards =
+        document.querySelectorAll(
+            ".product-card"
+        );
+
+
+    cards.forEach(
+        (
+            card,
+            index
+        ) => {
+
+            card.style.opacity =
+                "0";
+
+            card.style.transform =
+                "translateY(20px)";
+
+
+            card.style.transition =
+                "opacity .4s ease, transform .4s ease";
+
+
+            setTimeout(
+                () => {
+
+                    card.style.opacity =
+                        "1";
+
+                    card.style.transform =
+                        "translateY(0)";
+
+                },
+                index * 80
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showProductToast(
     message
 ) {
 
     let toast =
         document.getElementById(
-            "wizToast"
+            "productsToast"
         );
 
 
@@ -725,44 +940,39 @@ function showToast(
 
 
         toast.id =
-            "wizToast";
+            "productsToast";
 
 
-        toast.style.position =
-            "fixed";
+        toast.style.cssText = `
 
-        toast.style.bottom =
-            "25px";
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            z-index:9999;
 
-        toast.style.left =
-            "50%";
+            background:#0f172a;
+            color:#fff;
 
-        toast.style.transform =
-            "translateX(-50%)";
+            padding:13px 18px;
 
-        toast.style.background =
-            "#2563eb";
+            border-radius:10px;
 
-        toast.style.color =
-            "#ffffff";
+            font-size:14px;
+            font-weight:600;
 
-        toast.style.padding =
-            "12px 18px";
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.2);
 
-        toast.style.borderRadius =
-            "10px";
+            opacity:0;
 
-        toast.style.fontSize =
-            "13px";
+            transform:
+                translateY(15px);
 
-        toast.style.fontWeight =
-            "700";
+            transition:
+                .3s ease;
 
-        toast.style.zIndex =
-            "9999";
-
-        toast.style.boxShadow =
-            "0 8px 25px rgba(0,0,0,.2)";
+        `;
 
 
         document.body.appendChild(
@@ -776,21 +986,27 @@ function showToast(
         message;
 
 
-    toast.style.display =
-        "block";
+    toast.style.opacity =
+        "1";
+
+    toast.style.transform =
+        "translateY(0)";
 
 
     clearTimeout(
-        window.wizToastTimer
+        window.productsToastTimer
     );
 
 
-    window.wizToastTimer =
+    window.productsToastTimer =
         setTimeout(
-            function () {
+            () => {
 
-                toast.style.display =
-                    "none";
+                toast.style.opacity =
+                    "0";
+
+                toast.style.transform =
+                    "translateY(15px)";
 
             },
             2200
@@ -799,79 +1015,5 @@ function showToast(
 }
 
 
-/* =====================================================
-   FORMAT PRICE
-===================================================== */
-
-function formatPrice(
-    value
-) {
-
-    return Number(
-        value || 0
-    ).toLocaleString(
-        "en-IN"
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   GLOBAL FUNCTIONS
-===================================================== */
-
-window.products =
-    products;
-
-window.renderProducts =
-    renderProducts;
-
-window.openProductDetails =
-    openProductDetails;
-
-window.addProductToCompare =
-    addProductToCompare;
-
-window.addToCart =
-    addToCart;
-
-window.applyFilters =
-    applyFilters;
-
-window.showToast =
-    showToast;
+window.showProductToast =
+    showProductToast;
