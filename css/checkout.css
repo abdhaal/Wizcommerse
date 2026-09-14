@@ -1,0 +1,1725 @@
+/* =====================================================
+   WIZ COMMERCE
+   CHECKOUT CSS
+   PART 1/4
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        #f5f8fc;
+
+    color:
+        #172033;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.checkout-header {
+
+    min-height: 76px;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid #e5eaf1;
+
+    padding:
+        14px 6%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+}
+
+
+.checkout-brand {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        13px;
+
+}
+
+
+.back-btn {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        #eef5ff;
+
+    color:
+        #1769e0;
+
+    font-size:
+        21px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.checkout-header h1 {
+
+    font-size:
+        20px;
+
+}
+
+
+.checkout-header p {
+
+    font-size:
+        12px;
+
+    color:
+        #64748b;
+
+    margin-top:
+        3px;
+
+}
+
+
+.secure-label {
+
+    color:
+        #15803d;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.checkout-progress {
+
+    width:
+        650px;
+
+    max-width:
+        90%;
+
+    margin:
+        28px auto;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+}
+
+
+.progress-step {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    color:
+        #94a3b8;
+
+}
+
+
+.progress-step span {
+
+    width:
+        31px;
+
+    height:
+        31px;
+
+    border-radius:
+        50%;
+
+    background:
+        #e2e8f0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+.progress-step p {
+
+    font-size:
+        10px;
+
+}
+
+
+.progress-step.active {
+
+    color:
+        #1769e0;
+
+}
+
+
+.progress-step.active span {
+
+    background:
+        #1769e0;
+
+    color:
+        #ffffff;
+
+}
+
+
+.progress-line {
+
+    height:
+        2px;
+
+    width:
+        90px;
+
+    background:
+        #dbe3ee;
+
+    margin:
+        0 8px;
+
+    margin-bottom:
+        17px;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.checkout-container {
+
+    width:
+        88%;
+
+    max-width:
+        1250px;
+
+    margin:
+        0 auto 50px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 370px;
+
+    gap:
+        25px;
+
+}
+
+
+.checkout-left {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        18px;
+
+}
+
+
+.checkout-card {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e5eaf1;
+
+    border-radius:
+        17px;
+
+    padding:
+        24px;
+
+}
+
+
+.card-heading {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        23px;
+
+}
+
+
+.card-heading > div {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.step-number {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    border-radius:
+        50%;
+
+    background:
+        #eef5ff;
+
+    color:
+        #1769e0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-weight:
+        700;
+
+}
+
+
+.card-heading h2 {
+
+    font-size:
+        17px;
+
+}
+
+
+.card-heading p {
+
+    font-size:
+        11px;
+
+    color:
+        #64748b;
+
+    margin-top:
+        4px;
+
+}
+
+
+.verified-badge {
+
+    font-size:
+        10px;
+
+    color:
+        #1769e0;
+
+    background:
+        #eef5ff;
+
+    padding:
+        6px 9px;
+
+    border-radius:
+        6px;
+
+    font-weight:
+        600;
+
+}
+/* =====================================================
+   ADDRESS FORM
+===================================================== */
+
+.address-form {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        15px;
+
+}
+
+
+.form-row {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        14px;
+
+}
+
+
+.input-group {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        6px;
+
+}
+
+
+.input-group label {
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+}
+
+
+.input-group input,
+.input-group textarea {
+
+    width:
+        100%;
+
+    border:
+        1px solid #dbe3ee;
+
+    border-radius:
+        8px;
+
+    padding:
+        11px;
+
+    font-family:
+        inherit;
+
+    font-size:
+        13px;
+
+    outline:
+        none;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.input-group input:focus,
+.input-group textarea:focus {
+
+    border-color:
+        #1769e0;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23,105,224,.08);
+
+}
+
+
+.input-group textarea {
+
+    resize:
+        vertical;
+
+}
+
+
+.save-address-btn {
+
+    align-self:
+        flex-start;
+
+    border:
+        none;
+
+    background:
+        #1769e0;
+
+    color:
+        #ffffff;
+
+    padding:
+        11px 18px;
+
+    border-radius:
+        8px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =====================================================
+   DELIVERY
+===================================================== */
+
+.delivery-options {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+
+}
+
+
+.delivery-option {
+
+    border:
+        1px solid #e1e7ef;
+
+    border-radius:
+        11px;
+
+    padding:
+        14px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        20px 40px 1fr auto;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.delivery-option.selected {
+
+    border-color:
+        #1769e0;
+
+    background:
+        #f7fbff;
+
+}
+
+
+.delivery-option input {
+
+    accent-color:
+        #1769e0;
+
+}
+
+
+.delivery-icon {
+
+    font-size:
+        23px;
+
+}
+
+
+.delivery-details {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+}
+
+
+.delivery-details strong {
+
+    font-size:
+        13px;
+
+}
+
+
+.delivery-details span {
+
+    color:
+        #64748b;
+
+    font-size:
+        11px;
+
+}
+
+
+.delivery-option > b {
+
+    font-size:
+        12px;
+
+    color:
+        #16a34a;
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-options {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+
+}
+
+
+.payment-option {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    padding:
+        13px;
+
+    border:
+        1px solid #e1e7ef;
+
+    border-radius:
+        10px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.payment-option.selected {
+
+    border-color:
+        #1769e0;
+
+    background:
+        #f7fbff;
+
+}
+
+
+.payment-option input {
+
+    accent-color:
+        #1769e0;
+
+}
+
+
+.payment-icon {
+
+    width:
+        35px;
+
+    font-size:
+        23px;
+
+}
+
+
+.payment-option div:last-child {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+}
+
+
+.payment-option strong {
+
+    font-size:
+        13px;
+
+}
+
+
+.payment-option span {
+
+    font-size:
+        11px;
+
+    color:
+        #64748b;
+
+}
+
+
+.payment-info {
+
+    margin-top:
+        14px;
+
+    padding:
+        12px;
+
+    background:
+        #f8fafc;
+
+    border-radius:
+        8px;
+
+    font-size:
+        11px;
+
+    color:
+        #475569;
+
+  }
+/* =====================================================
+   TRUST CHECK
+===================================================== */
+
+.trust-check {
+
+    background:
+        #f0fdf4;
+
+    border:
+        1px solid #bbf7d0;
+
+    border-radius:
+        14px;
+
+    padding:
+        16px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.trust-check-icon {
+
+    font-size:
+        27px;
+
+}
+
+
+.trust-check h3 {
+
+    font-size:
+        13px;
+
+}
+
+
+.trust-check p {
+
+    color:
+        #64748b;
+
+    font-size:
+        11px;
+
+    margin-top:
+        4px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.trust-check > span {
+
+    margin-left:
+        auto;
+
+    color:
+        #15803d;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =====================================================
+   RIGHT SUMMARY
+===================================================== */
+
+.checkout-right {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        15px;
+
+}
+
+
+.checkout-summary {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e5eaf1;
+
+    border-radius:
+        17px;
+
+    padding:
+        23px;
+
+    position:
+        sticky;
+
+    top:
+        20px;
+
+}
+
+
+.checkout-summary h2 {
+
+    font-size:
+        18px;
+
+    margin-bottom:
+        18px;
+
+}
+
+
+/* =====================================================
+   CHECKOUT PRODUCTS
+===================================================== */
+
+.checkout-products {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+
+}
+
+
+.checkout-product {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.checkout-product-icon {
+
+    width:
+        48px;
+
+    height:
+        48px;
+
+    border-radius:
+        9px;
+
+    background:
+        #eef5ff;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        22px;
+
+}
+
+
+.checkout-product-info {
+
+    flex:
+        1;
+
+}
+
+
+.checkout-product-info strong {
+
+    display:
+        block;
+
+    font-size:
+        12px;
+
+}
+
+
+.checkout-product-info span {
+
+    display:
+        block;
+
+    font-size:
+        10px;
+
+    color:
+        #64748b;
+
+    margin-top:
+        3px;
+
+}
+
+
+.checkout-product-price {
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+.summary-divider {
+
+    border-top:
+        1px dashed #dbe3ee;
+
+    margin:
+        17px 0;
+
+}
+
+
+.summary-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        12px;
+
+    font-size:
+        12px;
+
+}
+
+
+.summary-row span {
+
+    color:
+        #64748b;
+
+}
+
+
+.green {
+
+    color:
+        #16a34a;
+
+}
+
+
+.total-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+}
+
+
+.total-row span {
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+}
+
+
+.total-row strong {
+
+    font-size:
+        23px;
+
+}
+
+
+.transparent-price {
+
+    display:
+        flex;
+
+    gap:
+        9px;
+
+    padding:
+        12px;
+
+    margin:
+        17px 0;
+
+    border-radius:
+        9px;
+
+    background:
+        #f0fdf4;
+
+    border:
+        1px solid #bbf7d0;
+
+}
+
+
+.transparent-price > span {
+
+    color:
+        #16a34a;
+
+    font-weight:
+        700;
+
+}
+
+
+.transparent-price strong {
+
+    font-size:
+        11px;
+
+}
+
+
+.transparent-price p {
+
+    font-size:
+        10px;
+
+    color:
+        #64748b;
+
+    margin-top:
+        3px;
+
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+.place-order-btn {
+
+    width:
+        100%;
+
+    border:
+        none;
+
+    background:
+        #1769e0;
+
+    color:
+        white;
+
+    padding:
+        14px;
+
+    border-radius:
+        10px;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.place-order-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(23,105,224,.2);
+
+  }
+/* =====================================================
+   DELIVERY CONFIDENCE
+===================================================== */
+
+.delivery-confidence,
+.return-promise {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #e5eaf1;
+
+    border-radius:
+        13px;
+
+    padding:
+        15px;
+
+    display:
+        flex;
+
+    gap:
+        11px;
+
+    align-items:
+        center;
+
+}
+
+
+.confidence-icon,
+.return-promise > div:first-child {
+
+    font-size:
+        25px;
+
+}
+
+
+.delivery-confidence strong,
+.return-promise strong {
+
+    font-size:
+        12px;
+
+}
+
+
+.delivery-confidence p,
+.return-promise p {
+
+    color:
+        #64748b;
+
+    font-size:
+        10px;
+
+    margin-top:
+        4px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* =====================================================
+   SUCCESS MODAL
+===================================================== */
+
+.success-modal {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    background:
+        rgba(15,23,42,.65);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    transition:
+        .3s ease;
+
+    z-index:
+        9999;
+
+}
+
+
+.success-modal.show {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+}
+
+
+.success-box {
+
+    width:
+        100%;
+
+    max-width:
+        430px;
+
+    background:
+        white;
+
+    border-radius:
+        20px;
+
+    padding:
+        35px 25px;
+
+    text-align:
+        center;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        .3s ease;
+
+}
+
+
+.success-modal.show
+.success-box {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.success-icon {
+
+    width:
+        65px;
+
+    height:
+        65px;
+
+    border-radius:
+        50%;
+
+    background:
+        #dcfce7;
+
+    color:
+        #16a34a;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin:
+        0 auto 15px;
+
+    font-size:
+        32px;
+
+    font-weight:
+        700;
+
+}
+
+
+.success-box h2 {
+
+    font-size:
+        22px;
+
+}
+
+
+.success-box > p {
+
+    color:
+        #64748b;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+    margin:
+        8px auto 18px;
+
+}
+
+
+.order-number {
+
+    background:
+        #f8fafc;
+
+    padding:
+        12px;
+
+    border-radius:
+        9px;
+
+    font-size:
+        12px;
+
+}
+
+
+.success-delivery {
+
+    margin:
+        13px 0;
+
+    padding:
+        12px;
+
+    background:
+        #eff6ff;
+
+    color:
+        #334155;
+
+    border-radius:
+        9px;
+
+    font-size:
+        11px;
+
+}
+
+
+.success-delivery strong {
+
+    display:
+        block;
+
+    color:
+        #1769e0;
+
+    margin-top:
+        4px;
+
+}
+
+
+.track-order-btn {
+
+    width:
+        100%;
+
+    border:
+        none;
+
+    background:
+        #1769e0;
+
+    color:
+        white;
+
+    padding:
+        12px;
+
+    border-radius:
+        9px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+}
+
+
+.continue-shopping-btn {
+
+    width:
+        100%;
+
+    margin-top:
+        8px;
+
+    padding:
+        11px;
+
+    border:
+        1px solid #dbe3ee;
+
+    background:
+        white;
+
+    border-radius:
+        9px;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.checkout-toast {
+
+    position:
+        fixed;
+
+    right:
+        20px;
+
+    bottom:
+        20px;
+
+    background:
+        #111827;
+
+    color:
+        white;
+
+    padding:
+        12px 17px;
+
+    border-radius:
+        9px;
+
+    font-size:
+        12px;
+
+    opacity:
+        0;
+
+    transform:
+        translateY(15px);
+
+    transition:
+        .3s ease;
+
+    z-index:
+        10000;
+
+}
+
+
+.checkout-toast.show {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .checkout-container {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .checkout-summary {
+
+        position:
+            static;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .checkout-header {
+
+        padding:
+            12px 4%;
+
+    }
+
+
+    .secure-label {
+
+        display:
+            none;
+
+    }
+
+
+    .checkout-progress {
+
+        margin:
+            20px auto;
+
+    }
+
+
+    .progress-line {
+
+        width:
+            35px;
+
+    }
+
+
+    .checkout-container {
+
+        width:
+            94%;
+
+    }
+
+
+    .checkout-card {
+
+        padding:
+            17px;
+
+    }
+
+
+    .form-row {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .delivery-option {
+
+        grid-template-columns:
+            20px 32px 1fr auto;
+
+    }
+
+
+    .trust-check {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .trust-check > span {
+
+        display:
+            none;
+
+    }
+
+  }
