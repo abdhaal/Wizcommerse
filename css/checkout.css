@@ -891,41 +891,20 @@ body {
 ===================================================== */
 
 .checkout-right {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        15px;
-
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
 }
-
 
 .checkout-summary {
-
-    background:
-        #ffffff;
-
-    border:
-        1px solid #e5eaf1;
-
-    border-radius:
-        17px;
-
-    padding:
-        23px;
-
-    position:
-        sticky;
-
-    top:
-        20px;
-
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 17px;
+    padding: 23px;
+    position: relative;
+    z-index: 2;
 }
-
 
 .checkout-summary h2 {
 
@@ -1624,18 +1603,11 @@ body {
 @media (max-width: 900px) {
 
     .checkout-container {
-
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
 
-
     .checkout-summary {
-
-        position:
-            static;
-
+        position: relative;
     }
 
 }
