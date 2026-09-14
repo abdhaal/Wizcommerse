@@ -25,7 +25,7 @@ const productDatabase = {
         seller: "Wiz Verified Store",
         sellerTrustScore: 96,
         customerPhotos: 48,
-        icon: "💡",
+        image: "assets/images/bulb.png"
         deliveryDate: "18 Sep 2026"
     },
 
