@@ -944,63 +944,88 @@ function saveOrder(
 
 
 /* =====================================================
-   PLACE ORDER → PAYMENT PAGE
+   PLACE ORDER
 ===================================================== */
 
-function placeOrder(event) {
+function placeOrder() {
 
-    if (event) {
-        event.preventDefault();
+    console.log(
+        "🛒 Place Order clicked"
+    );
+
+
+    /* ================================================
+       VALIDATE
+    ================================================= */
+
+    if (
+        !validateCheckout()
+    ) {
+
+        return;
+
     }
 
-    console.log("🛒 PLACE ORDER BUTTON CLICKED");
 
-    /* Create a simple order */
+    /* ================================================
+       GENERATE ORDER ID
+    ================================================= */
 
-    const order = {
-
-        orderId:
-            "WIZ" + Date.now(),
-
-        paymentStatus:
-            "Pending",
-
-        status:
-            "Payment Pending",
-
-        createdAt:
-            new Date().toISOString()
-
-    };
+    const orderId =
+        generateOrderId();
 
 
-    /* Save order */
+    /* ================================================
+       SAVE ORDER
+    ================================================= */
 
-    localStorage.setItem(
-        "wizPaymentOrder",
-        JSON.stringify(order)
-    );
-
-
-    localStorage.setItem(
-        "currentOrder",
-        JSON.stringify(order)
-    );
+    const order =
+        saveOrder(
+            orderId
+        );
 
 
     console.log(
-        "✅ Order saved"
-    );
-
-    console.log(
-        "➡️ Opening payment.html"
+        "✅ Order created:",
+        order
     );
 
 
-    /* Open payment page */
+    /* ================================================
+       SHOW BUTTON LOADING
+    ================================================= */
 
-    window.location.href =
-        "./payment.html";
+    const button =
+        document.getElementById(
+            "placeOrderBtn"
+        );
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            "⏳ Opening Payment...";
+
+    }
+
+
+    /* ================================================
+       OPEN PAYMENT PAGE
+    ================================================= */
+
+    setTimeout(
+        function() {
+
+            window.location.href =
+                "payment.html";
+
+        },
+        400
+    );
 
 }
 /* =====================================================
