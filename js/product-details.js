@@ -1,8 +1,7 @@
 /* =========================================================
    WIZ COMMERCE
    PRODUCT DETAILS JS
-   PART 1/4
-   Dynamic Product Data + URL Product ID
+   COMPLETE FIXED VERSION
 ========================================================= */
 
 
@@ -25,7 +24,8 @@ const productDatabase = {
         seller: "Wiz Verified Store",
         sellerTrustScore: 96,
         customerPhotos: 48,
-        image: "assets/images/bulb.png",
+        image: "assets/images/bulb.jpg",
+        icon: "💡",
         deliveryDate: "18 Sep 2026"
     },
 
@@ -42,6 +42,7 @@ const productDatabase = {
         seller: "Smart Deals",
         sellerTrustScore: 94,
         customerPhotos: 32,
+        image: "assets/images/fan.jpg",
         icon: "🌀",
         deliveryDate: "18 Sep 2026"
     },
@@ -59,6 +60,7 @@ const productDatabase = {
         seller: "Home Store",
         sellerTrustScore: 92,
         customerPhotos: 27,
+        image: "assets/images/storage-box.jpg",
         icon: "📦",
         deliveryDate: "19 Sep 2026"
     },
@@ -76,6 +78,7 @@ const productDatabase = {
         seller: "Wiz Audio",
         sellerTrustScore: 97,
         customerPhotos: 82,
+        image: "assets/images/speaker.jpg",
         icon: "🔊",
         deliveryDate: "17 Sep 2026"
     },
@@ -93,6 +96,7 @@ const productDatabase = {
         seller: "Fashion Hub",
         sellerTrustScore: 90,
         customerPhotos: 63,
+        image: "assets/images/tshirt.jpg",
         icon: "👕",
         deliveryDate: "20 Sep 2026"
     },
@@ -110,6 +114,7 @@ const productDatabase = {
         seller: "Bright Store",
         sellerTrustScore: 94,
         customerPhotos: 41,
+        image: "assets/images/emergency-light.jpg",
         icon: "🔦",
         deliveryDate: "19 Sep 2026"
     },
@@ -127,6 +132,7 @@ const productDatabase = {
         seller: "Daily Needs",
         sellerTrustScore: 95,
         customerPhotos: 35,
+        image: "assets/images/water-bottle.jpg",
         icon: "🥤",
         deliveryDate: "18 Sep 2026"
     },
@@ -144,6 +150,7 @@ const productDatabase = {
         seller: "Tech World",
         sellerTrustScore: 93,
         customerPhotos: 71,
+        image: "assets/images/smartwatch.jpg",
         icon: "⌚",
         deliveryDate: "18 Sep 2026"
     }
@@ -152,14 +159,13 @@ const productDatabase = {
 
 
 /* =========================================================
-   READ PRODUCT ID FROM URL
+   GET PRODUCT ID
 ========================================================= */
 
 const urlParams =
     new URLSearchParams(
         window.location.search
     );
-
 
 const productId =
     Number(
@@ -240,6 +246,149 @@ const productIcon =
         "productIcon"
     );
 
+const productImage =
+    document.getElementById(
+        "productImage"
+    );
+
+
+/* =========================================================
+   LOAD PRODUCT IMAGE
+========================================================= */
+
+function loadProductImage() {
+
+    const imagePath =
+        selectedProduct.image;
+
+    /* -----------------------------------------
+       If HTML has productImage
+    ----------------------------------------- */
+
+    if (
+        productImage &&
+        imagePath
+    ) {
+
+        productImage.src =
+            imagePath;
+
+        productImage.alt =
+            selectedProduct.name;
+
+        productImage.style.display =
+            "block";
+
+        productImage.style.width =
+            "100%";
+
+        productImage.style.height =
+            "100%";
+
+        productImage.style.objectFit =
+            "contain";
+
+        productImage.onerror =
+            function () {
+
+                this.style.display =
+                    "none";
+
+                if (productIcon) {
+
+                    productIcon.style.display =
+                        "flex";
+
+                    productIcon.textContent =
+                        selectedProduct.icon ||
+                        "📦";
+
+                }
+
+            };
+
+        if (productIcon) {
+
+            productIcon.style.display =
+                "none";
+
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------
+       If only productIcon container exists
+    ----------------------------------------- */
+
+    if (
+        productIcon &&
+        imagePath
+    ) {
+
+        productIcon.innerHTML = `
+            
+            <img
+                src="${imagePath}"
+                alt="${selectedProduct.name}"
+                class="wiz-product-real-image"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+
+            <span
+                class="wiz-product-image-fallback"
+                style="
+                    display:none;
+                    align-items:center;
+                    justify-content:center;
+                    width:100%;
+                    height:100%;
+                    font-size:80px;
+                "
+            >
+                ${selectedProduct.icon || "📦"}
+            </span>
+
+        `;
+
+        productIcon.style.display =
+            "flex";
+
+        productIcon.style.alignItems =
+            "center";
+
+        productIcon.style.justifyContent =
+            "center";
+
+        productIcon.style.overflow =
+            "hidden";
+
+        const img =
+            productIcon.querySelector(
+                ".wiz-product-real-image"
+            );
+
+        if (img) {
+
+            img.style.width =
+                "100%";
+
+            img.style.height =
+                "100%";
+
+            img.style.objectFit =
+                "contain";
+
+            img.style.display =
+                "block";
+
+        }
+
+    }
+
+}
+
 
 /* =========================================================
    LOAD PRODUCT DETAILS
@@ -247,79 +396,100 @@ const productIcon =
 
 function loadProductDetails() {
 
-    if (productName)
+    if (productName) {
+
         productName.textContent =
             selectedProduct.name;
 
+    }
 
-    if (productCategory)
+
+    if (productCategory) {
+
         productCategory.textContent =
             selectedProduct.category.toUpperCase();
 
+    }
 
-    if (productPrice)
+
+    if (productPrice) {
+
         productPrice.textContent =
             `₹${selectedProduct.price}`;
 
+    }
 
-    if (oldPrice)
+
+    if (oldPrice) {
+
         oldPrice.textContent =
             `₹${selectedProduct.oldPrice}`;
 
+    }
 
-    if (discount)
+
+    if (discount) {
+
         discount.textContent =
             `${selectedProduct.discount}% OFF`;
 
+    }
 
-    if (rating)
+
+    if (rating) {
+
         rating.textContent =
             `⭐ ${selectedProduct.rating}`;
 
+    }
 
-    if (reviewCount)
+
+    if (reviewCount) {
+
         reviewCount.textContent =
             `${selectedProduct.reviews} Verified Buyer Reviews`;
 
+    }
 
-    if (trustScore)
+
+    if (trustScore) {
+
         trustScore.textContent =
             `${selectedProduct.trustScore}/100`;
 
+    }
 
-    if (sellerName)
+
+    if (sellerName) {
+
         sellerName.textContent =
             selectedProduct.seller;
 
+    }
 
-    if (sellerTrust)
+
+    if (sellerTrust) {
+
         sellerTrust.textContent =
             `${selectedProduct.sellerTrustScore}/100`;
 
+    }
 
-    if (customerPhotos)
+
+    if (customerPhotos) {
+
         customerPhotos.textContent =
             selectedProduct.customerPhotos;
 
+    }
 
-    if (productIcon)
-        productIcon.textContent =
-            selectedProduct.icon;
 
-   const productImage =
-    document.getElementById("productImage");
+    /* -----------------------------------------
+       LOAD REAL IMAGE
+    ----------------------------------------- */
 
-if (productImage && selectedProduct.image) {
+    loadProductImage();
 
-    productImage.src =
-        selectedProduct.image;
-
-    productImage.alt =
-        selectedProduct.name;
-
-    productImage.style.display =
-        "block";
-}
 
     document.title =
         `${selectedProduct.name} - Wiz Commerce`;
@@ -328,34 +498,29 @@ if (productImage && selectedProduct.image) {
 
 
 /* =========================================================
-   INITIAL LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        loadProductDetails();
-
-    }
-);
-/* =========================================================
-   PART 2/4
-   Cart + Wishlist + Real Product Video
-========================================================= */
-
-
-/* =========================================================
-   CART FUNCTIONS
+   CART
 ========================================================= */
 
 function getCart() {
 
-    return JSON.parse(
-        localStorage.getItem(
-            "wizCart"
-        )
-    ) || [];
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "wizCart"
+            )
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Cart data error:",
+            error
+        );
+
+        return [];
+
+    }
 
 }
 
@@ -386,11 +551,14 @@ function addToCart() {
 
         cart.push({
 
-            id: selectedProduct.id,
+            id:
+                selectedProduct.id,
 
-            name: selectedProduct.name,
+            name:
+                selectedProduct.name,
 
-            price: selectedProduct.price,
+            price:
+                selectedProduct.price,
 
             oldPrice:
                 selectedProduct.oldPrice,
@@ -398,10 +566,14 @@ function addToCart() {
             category:
                 selectedProduct.category,
 
+            image:
+                selectedProduct.image,
+
             icon:
                 selectedProduct.icon,
 
-            quantity: 1
+            quantity:
+                1
 
         });
 
@@ -438,7 +610,9 @@ function updateCartCount() {
         cart.reduce(
             (total, item) =>
                 total +
-                item.quantity,
+                Number(
+                    item.quantity || 0
+                ),
             0
         );
 
@@ -528,7 +702,7 @@ function toggleWishlist() {
 
 
 /* =========================================================
-   REAL PRODUCT VIDEO
+   VIDEO
 ========================================================= */
 
 function openVideo() {
@@ -629,7 +803,8 @@ document.addEventListener(
     event => {
 
         if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
             closeVideo();
@@ -638,37 +813,6 @@ document.addEventListener(
 
     }
 );
-
-
-/* =========================================================
-   VIDEO MODAL OUTSIDE CLICK
-========================================================= */
-
-document.addEventListener(
-    "click",
-    event => {
-
-        const modal =
-            document.getElementById(
-                "videoModal"
-            );
-
-
-        if (
-            modal &&
-            event.target === modal
-        ) {
-
-            closeVideo();
-
-        }
-
-    }
-);
-/* =========================================================
-   PART 3/4
-   AI Advisor + Smart Comparison + Trust Features
-========================================================= */
 
 
 /* =========================================================
@@ -715,7 +859,6 @@ function openAIAdvisor() {
                 whether this product is suitable.
             </p>
 
-
             <div
                 style="
                     display:grid;
@@ -746,7 +889,6 @@ function openAIAdvisor() {
                 </button>
 
             </div>
-
 
             <div
                 id="aiResult"
@@ -791,30 +933,26 @@ function aiRecommendation(
     let message = "";
 
 
-    switch (type) {
+    if (type === "budget") {
 
-        case "budget":
+        message =
+            `💰 At ₹${selectedProduct.price}, this product offers a ${selectedProduct.discount}% discount and is a budget-friendly option.`;
 
-            message =
-                `💰 At ₹${selectedProduct.price}, this product offers a ${selectedProduct.discount}% discount and is a budget-friendly option.`;
-
-            break;
+    }
 
 
-        case "quality":
+    if (type === "quality") {
 
-            message =
-                `🛡️ This product has a Trust Score of ${selectedProduct.trustScore}/100, indicating strong purchase confidence.`;
+        message =
+            `🛡️ This product has a Trust Score of ${selectedProduct.trustScore}/100, indicating strong purchase confidence.`;
 
-            break;
+    }
 
 
-        case "rating":
+    if (type === "rating") {
 
-            message =
-                `⭐ ${selectedProduct.rating}/5 rating from ${selectedProduct.reviews} verified buyers shows good customer satisfaction.`;
-
-            break;
+        message =
+            `⭐ ${selectedProduct.rating}/5 rating from ${selectedProduct.reviews} verified buyers shows good customer satisfaction.`;
 
     }
 
@@ -859,11 +997,9 @@ function openComparison() {
                 ×
             </button>
 
-
             <h2>
                 📊 Smart Product Comparison
             </h2>
-
 
             <div
                 style="
@@ -891,7 +1027,6 @@ function openComparison() {
 
                     </tr>
 
-
                     <tr>
 
                         <td style="padding:12px;">
@@ -903,7 +1038,6 @@ function openComparison() {
                         </td>
 
                     </tr>
-
 
                     <tr>
 
@@ -917,7 +1051,6 @@ function openComparison() {
 
                     </tr>
 
-
                     <tr>
 
                         <td style="padding:12px;">
@@ -930,7 +1063,6 @@ function openComparison() {
 
                     </tr>
 
-
                     <tr>
 
                         <td style="padding:12px;">
@@ -942,7 +1074,6 @@ function openComparison() {
                         </td>
 
                     </tr>
-
 
                     <tr>
 
@@ -973,7 +1104,7 @@ function openComparison() {
 
 
 /* =========================================================
-   AUTHENTICITY CHECK
+   AUTHENTICITY
 ========================================================= */
 
 function checkProductAuthenticity() {
@@ -1015,11 +1146,9 @@ function trackDelivery() {
                 ×
             </button>
 
-
             <h2>
                 🚚 Delivery Tracking
             </h2>
-
 
             <div
                 style="
@@ -1051,7 +1180,6 @@ function trackDelivery() {
 
             </div>
 
-
             <p
                 style="
                     margin-top:18px;
@@ -1073,15 +1201,11 @@ function trackDelivery() {
         modal
     );
 
-       }
-/* =========================================================
-   PART 4/4
-   Return + Refund + Animation + Final Setup
-========================================================= */
+}
 
 
 /* =========================================================
-   START RETURN
+   RETURN
 ========================================================= */
 
 function startReturn() {
@@ -1115,7 +1239,7 @@ function startReturn() {
 
 
 /* =========================================================
-   LIVE REFUND TRACKING
+   REFUND TRACKING
 ========================================================= */
 
 function trackRefund() {
@@ -1144,11 +1268,9 @@ function trackRefund() {
                 ×
             </button>
 
-
             <h2>
                 🔔 Live Refund Tracking
             </h2>
-
 
             <div
                 style="
@@ -1179,7 +1301,6 @@ function trackRefund() {
                 </div>
 
             </div>
-
 
             <p
                 style="
@@ -1233,7 +1354,7 @@ function viewCustomerPhotos() {
 
 
 /* =========================================================
-   VERIFIED REVIEW
+   REVIEW
 ========================================================= */
 
 function submitReview() {
@@ -1302,7 +1423,9 @@ function showToast(
                 rgba(0,0,0,.2);
 
             opacity:0;
-            transform:translateY(15px);
+
+            transform:
+                translateY(15px);
 
             transition:
                 .3s ease;
@@ -1364,8 +1487,10 @@ function setupScrollAnimation() {
 
 
     if (
-        !("IntersectionObserver"
-            in window)
+        !(
+            "IntersectionObserver"
+            in window
+        )
     ) {
 
         return;
@@ -1418,7 +1543,6 @@ function setupScrollAnimation() {
             element.style.transition =
                 "opacity .6s ease, transform .6s ease";
 
-
             observer.observe(
                 element
             );
@@ -1430,7 +1554,7 @@ function setupScrollAnimation() {
 
 
 /* =========================================================
-   CLOSE DYNAMIC MODALS
+   CLOSE MODALS
 ========================================================= */
 
 document.addEventListener(
@@ -1452,7 +1576,11 @@ document.addEventListener(
             );
 
 
-        modal?.remove();
+        if (modal) {
+
+            modal.remove();
+
+        }
 
     }
 );
