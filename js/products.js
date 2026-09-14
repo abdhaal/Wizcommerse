@@ -24,7 +24,7 @@ const products = [
         trustScore: 94,
         seller: "IMA Verified Store",
         verifiedSeller: true,
-        image: "assets/images/bulb.jpg",
+        image: "assets/images/bulb.png",
         delivery: "2-4 Days",
         warranty: "1 Year",
         returnDays: 7
@@ -42,7 +42,7 @@ const products = [
         trustScore: 91,
         seller: "Smart Deals",
         verifiedSeller: true,
-        image: "assets/images/fan.jpg",
+        image: "assets/images/fan.png",
         delivery: "3-5 Days",
         warranty: "6 Months",
         returnDays: 7
