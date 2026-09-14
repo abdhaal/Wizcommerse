@@ -944,88 +944,63 @@ function saveOrder(
 
 
 /* =====================================================
-   PLACE ORDER
+   PLACE ORDER → PAYMENT PAGE
 ===================================================== */
 
-function placeOrder() {
+function placeOrder(event) {
 
-    console.log(
-        "🛒 Place Order clicked"
-    );
-
-
-    /* ================================================
-       VALIDATE
-    ================================================= */
-
-    if (
-        !validateCheckout()
-    ) {
-
-        return;
-
+    if (event) {
+        event.preventDefault();
     }
 
+    console.log("🛒 PLACE ORDER BUTTON CLICKED");
 
-    /* ================================================
-       GENERATE ORDER ID
-    ================================================= */
+    /* Create a simple order */
 
-    const orderId =
-        generateOrderId();
+    const order = {
+
+        orderId:
+            "WIZ" + Date.now(),
+
+        paymentStatus:
+            "Pending",
+
+        status:
+            "Payment Pending",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
 
 
-    /* ================================================
-       SAVE ORDER
-    ================================================= */
+    /* Save order */
 
-    const order =
-        saveOrder(
-            orderId
-        );
+    localStorage.setItem(
+        "wizPaymentOrder",
+        JSON.stringify(order)
+    );
+
+
+    localStorage.setItem(
+        "currentOrder",
+        JSON.stringify(order)
+    );
 
 
     console.log(
-        "✅ Order created:",
-        order
+        "✅ Order saved"
+    );
+
+    console.log(
+        "➡️ Opening payment.html"
     );
 
 
-    /* ================================================
-       SHOW BUTTON LOADING
-    ================================================= */
+    /* Open payment page */
 
-    const button =
-        document.getElementById(
-            "placeOrderBtn"
-        );
-
-
-    if (button) {
-
-        button.disabled =
-            true;
-
-
-        button.innerHTML =
-            "⏳ Opening Payment...";
-
-    }
-
-
-    /* ================================================
-       OPEN PAYMENT PAGE
-    ================================================= */
-
-    setTimeout(
-        function() {
-
-            window.location.href =
-                "payment.html";
-
-        },
-        400
-    );
+    window.location.href =
+        "./payment.html";
 
 }
 /* =====================================================
