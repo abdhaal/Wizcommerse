@@ -24,7 +24,7 @@ const productDatabase = {
         seller: "Wiz Verified Store",
         sellerTrustScore: 96,
         customerPhotos: 48,
-        image: "assets/images/bulb.jpg",
+        image: "assets/images/bulb.png",
         icon: "💡",
         deliveryDate: "18 Sep 2026"
     },
@@ -42,7 +42,7 @@ const productDatabase = {
         seller: "Smart Deals",
         sellerTrustScore: 94,
         customerPhotos: 32,
-        image: "assets/images/fan.jpg",
+        image: "assets/images/fan.png",
         icon: "🌀",
         deliveryDate: "18 Sep 2026"
     },
@@ -60,7 +60,7 @@ const productDatabase = {
         seller: "Home Store",
         sellerTrustScore: 92,
         customerPhotos: 27,
-        image: "assets/images/storage-box.jpg",
+        image: "assets/images/storage-box.png",
         icon: "📦",
         deliveryDate: "19 Sep 2026"
     },
@@ -78,7 +78,7 @@ const productDatabase = {
         seller: "Wiz Audio",
         sellerTrustScore: 97,
         customerPhotos: 82,
-        image: "assets/images/speaker.jpg",
+        image: "assets/images/speaker.png",
         icon: "🔊",
         deliveryDate: "17 Sep 2026"
     },
@@ -96,7 +96,7 @@ const productDatabase = {
         seller: "Fashion Hub",
         sellerTrustScore: 90,
         customerPhotos: 63,
-        image: "assets/images/tshirt.jpg",
+        image: "assets/images/tshirt.png",
         icon: "👕",
         deliveryDate: "20 Sep 2026"
     },
@@ -114,7 +114,7 @@ const productDatabase = {
         seller: "Bright Store",
         sellerTrustScore: 94,
         customerPhotos: 41,
-        image: "assets/images/emergency-light.jpg",
+        image: "assets/images/emergency-light.png",
         icon: "🔦",
         deliveryDate: "19 Sep 2026"
     },
@@ -132,7 +132,7 @@ const productDatabase = {
         seller: "Daily Needs",
         sellerTrustScore: 95,
         customerPhotos: 35,
-        image: "assets/images/water-bottle.jpg",
+        image: "assets/images/water-bottle.png",
         icon: "🥤",
         deliveryDate: "18 Sep 2026"
     },
@@ -150,7 +150,7 @@ const productDatabase = {
         seller: "Tech World",
         sellerTrustScore: 93,
         customerPhotos: 71,
-        image: "assets/images/smartwatch.jpg",
+        image: "assets/images/smartwatch.png",
         icon: "⌚",
         deliveryDate: "18 Sep 2026"
     }
