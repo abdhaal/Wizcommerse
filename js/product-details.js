@@ -1,3 +1,14 @@
+/* =========================================================
+   WIZ COMMERCE
+   PRODUCT DETAILS JS
+   COMPLETE VERSION
+========================================================= */
+
+
+/* =========================================================
+   PRODUCT DATABASE
+========================================================= */
+
 const productDatabase = {
 
     1: {
@@ -13,9 +24,8 @@ const productDatabase = {
         seller: "Wiz Verified Store",
         sellerTrustScore: 96,
         customerPhotos: 48,
-
-        image: "./assets/images/bulb.png",
-
+        image: "assets/images/bulb.png",
+        icon: "💡",
         deliveryDate: "18 Sep 2026"
     },
 
@@ -32,9 +42,8 @@ const productDatabase = {
         seller: "Smart Deals",
         sellerTrustScore: 94,
         customerPhotos: 32,
-
-        image: "./assets/images/fan.png",
-
+        image: "assets/images/fan.png",
+        icon: "🌀",
         deliveryDate: "18 Sep 2026"
     },
 
@@ -51,9 +60,8 @@ const productDatabase = {
         seller: "Home Store",
         sellerTrustScore: 92,
         customerPhotos: 27,
-
-        image: "./assets/images/kitchen.png",
-
+        image: "assets/images/storage-box.png",
+        icon: "📦",
         deliveryDate: "19 Sep 2026"
     },
 
@@ -70,9 +78,8 @@ const productDatabase = {
         seller: "Wiz Audio",
         sellerTrustScore: 97,
         customerPhotos: 82,
-
-        image: "./assets/images/speaker.png",
-
+        image: "assets/images/speaker.png",
+        icon: "🔊",
         deliveryDate: "17 Sep 2026"
     },
 
@@ -89,9 +96,8 @@ const productDatabase = {
         seller: "Fashion Hub",
         sellerTrustScore: 90,
         customerPhotos: 63,
-
-        image: "./assets/images/tshirt.png",
-
+        image: "assets/images/tshirt.png",
+        icon: "👕",
         deliveryDate: "20 Sep 2026"
     },
 
@@ -108,9 +114,8 @@ const productDatabase = {
         seller: "Bright Store",
         sellerTrustScore: 94,
         customerPhotos: 41,
-
-        image: "./assets/images/emergency-light.png",
-
+        image: "assets/images/emergency-light.png",
+        icon: "🔦",
         deliveryDate: "19 Sep 2026"
     },
 
@@ -127,9 +132,8 @@ const productDatabase = {
         seller: "Daily Needs",
         sellerTrustScore: 95,
         customerPhotos: 35,
-
-        image: "./assets/images/bottle.png",
-
+        image: "assets/images/bottle.png",
+        icon: "🥤",
         deliveryDate: "18 Sep 2026"
     },
 
@@ -146,10 +150,1444 @@ const productDatabase = {
         seller: "Tech World",
         sellerTrustScore: 93,
         customerPhotos: 71,
-
-        image: "./assets/images/watch.png",
-
+        image: "assets/images/watch.png",
+        icon: "⌚",
         deliveryDate: "18 Sep 2026"
     }
 
 };
+
+
+/* =========================================================
+   GET PRODUCT ID FROM URL
+========================================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const productId =
+    Number(
+        urlParams.get("id")
+    );
+
+
+/* =========================================================
+   SELECT PRODUCT
+========================================================= */
+
+const selectedProduct =
+    productDatabase[productId] ||
+    productDatabase[1];
+
+
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const productName =
+    document.getElementById(
+        "productName"
+    );
+
+const productCategory =
+    document.getElementById(
+        "productCategory"
+    );
+
+const productPrice =
+    document.getElementById(
+        "productPrice"
+    );
+
+const oldPrice =
+    document.getElementById(
+        "oldPrice"
+    );
+
+const discount =
+    document.getElementById(
+        "discount"
+    );
+
+const rating =
+    document.getElementById(
+        "rating"
+    );
+
+const reviewCount =
+    document.getElementById(
+        "reviewCount"
+    );
+
+const trustScore =
+    document.getElementById(
+        "trustScore"
+    );
+
+const sellerName =
+    document.getElementById(
+        "sellerName"
+    );
+
+const sellerTrust =
+    document.getElementById(
+        "sellerTrust"
+    );
+
+const customerPhotos =
+    document.getElementById(
+        "customerPhotos"
+    );
+
+
+/* =========================================================
+   LOAD PRODUCT IMAGE
+========================================================= */
+
+function loadProductImage() {
+
+    const image =
+        document.getElementById(
+            "productImage"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "productIcon"
+        );
+
+
+    if (!image) {
+
+        console.error(
+            "productImage element not found in HTML."
+        );
+
+        return;
+
+    }
+
+
+    /* =========================================
+       HIDE ICON FIRST
+    ========================================= */
+
+    if (icon) {
+
+        icon.style.display =
+            "none";
+
+    }
+
+
+    /* =========================================
+       SET IMAGE
+    ========================================= */
+
+    image.src =
+        selectedProduct.image;
+
+    image.alt =
+        selectedProduct.name;
+
+
+    image.style.display =
+        "block";
+
+    image.style.visibility =
+        "visible";
+
+    image.style.width =
+        "100%";
+
+    image.style.height =
+        "100%";
+
+    image.style.objectFit =
+        "contain";
+
+
+    /* =========================================
+       IMAGE SUCCESS
+    ========================================= */
+
+    image.onload =
+        function () {
+
+            console.log(
+                "Image loaded successfully:",
+                selectedProduct.image
+            );
+
+
+            image.style.display =
+                "block";
+
+
+            if (icon) {
+
+                icon.style.display =
+                    "none";
+
+            }
+
+        };
+
+
+    /* =========================================
+       IMAGE ERROR
+    ========================================= */
+
+    image.onerror =
+        function () {
+
+            console.error(
+                "Image not found:",
+                selectedProduct.image
+            );
+
+
+            image.style.display =
+                "none";
+
+
+            if (icon) {
+
+                icon.textContent =
+                    selectedProduct.icon ||
+                    "📦";
+
+                icon.style.display =
+                    "flex";
+
+            }
+
+        };
+
+}
+
+
+/* =========================================================
+   LOAD PRODUCT DETAILS
+========================================================= */
+
+function loadProductDetails() {
+
+    if (!selectedProduct) {
+
+        console.error(
+            "Selected product not found."
+        );
+
+        return;
+
+    }
+
+
+    if (productName) {
+
+        productName.textContent =
+            selectedProduct.name;
+
+    }
+
+
+    if (productCategory) {
+
+        productCategory.textContent =
+            selectedProduct.category.toUpperCase();
+
+    }
+
+
+    if (productPrice) {
+
+        productPrice.textContent =
+            `₹${selectedProduct.price}`;
+
+    }
+
+
+    if (oldPrice) {
+
+        oldPrice.textContent =
+            `₹${selectedProduct.oldPrice}`;
+
+    }
+
+
+    if (discount) {
+
+        discount.textContent =
+            `${selectedProduct.discount}% OFF`;
+
+    }
+
+
+    if (rating) {
+
+        rating.textContent =
+            `⭐ ${selectedProduct.rating}`;
+
+    }
+
+
+    if (reviewCount) {
+
+        reviewCount.textContent =
+            `${selectedProduct.reviews} Verified Buyer Reviews`;
+
+    }
+
+
+    if (trustScore) {
+
+        trustScore.textContent =
+            `${selectedProduct.trustScore}/100`;
+
+    }
+
+
+    if (sellerName) {
+
+        sellerName.textContent =
+            selectedProduct.seller;
+
+    }
+
+
+    if (sellerTrust) {
+
+        sellerTrust.textContent =
+            `${selectedProduct.sellerTrustScore}/100`;
+
+    }
+
+
+    if (customerPhotos) {
+
+        customerPhotos.textContent =
+            selectedProduct.customerPhotos;
+
+    }
+
+
+    loadProductImage();
+
+
+    document.title =
+        `${selectedProduct.name} - Wiz Commerce`;
+
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+function getCart() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "wizCart"
+            )
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Cart data error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+function addToCart() {
+
+    const cart =
+        getCart();
+
+
+    const existing =
+        cart.find(
+            item =>
+                Number(item.id) ===
+                Number(selectedProduct.id)
+        );
+
+
+    if (existing) {
+
+        existing.quantity =
+            Number(
+                existing.quantity || 0
+            ) + 1;
+
+    } else {
+
+        cart.push({
+
+            id:
+                selectedProduct.id,
+
+            name:
+                selectedProduct.name,
+
+            price:
+                selectedProduct.price,
+
+            oldPrice:
+                selectedProduct.oldPrice,
+
+            category:
+                selectedProduct.category,
+
+            image:
+                selectedProduct.image,
+
+            icon:
+                selectedProduct.icon,
+
+            quantity:
+                1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "wizCart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+
+    showToast(
+        `✓ ${selectedProduct.name} added to cart`
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
+
+    const cart =
+        getCart();
+
+
+    const count =
+        cart.reduce(
+            (
+                total,
+                item
+            ) => {
+
+                return (
+                    total +
+                    Number(
+                        item.quantity || 0
+                    )
+                );
+
+            },
+            0
+        );
+
+
+    document
+        .querySelectorAll(
+            ".cart-count"
+        )
+        .forEach(
+            element => {
+
+                element.textContent =
+                    count;
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   GO TO CART
+========================================================= */
+
+function goToCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+function toggleWishlist() {
+
+    let wishlist =
+        JSON.parse(
+            localStorage.getItem(
+                "wizWishlist"
+            )
+        ) || [];
+
+
+    const index =
+        wishlist.indexOf(
+            selectedProduct.id
+        );
+
+
+    if (index === -1) {
+
+        wishlist.push(
+            selectedProduct.id
+        );
+
+
+        showToast(
+            "❤️ Added to wishlist"
+        );
+
+    } else {
+
+        wishlist.splice(
+            index,
+            1
+        );
+
+
+        showToast(
+            "♡ Removed from wishlist"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "wizWishlist",
+        JSON.stringify(
+            wishlist
+        )
+    );
+
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+function openVideo() {
+
+    const modal =
+        document.getElementById(
+            "videoModal"
+        );
+
+
+    if (!modal) return;
+
+
+    const title =
+        modal.querySelector(
+            "h2"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            `🎥 ${selectedProduct.name} — Real Product Video`;
+
+    }
+
+
+    const screen =
+        modal.querySelector(
+            ".video-screen"
+        );
+
+
+    if (screen) {
+
+        screen.innerHTML = `
+
+            <div class="play">
+                ▶
+            </div>
+
+            <strong>
+                ${selectedProduct.name}
+            </strong>
+
+            <span>
+                ✓ Verified Product Demonstration
+            </span>
+
+        `;
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE VIDEO
+========================================================= */
+
+function closeVideo() {
+
+    const modal =
+        document.getElementById(
+            "videoModal"
+        );
+
+
+    if (!modal) return;
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================================
+   AI ADVISOR
+========================================================= */
+
+function openAIAdvisor() {
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.className =
+        "modal show";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="max-width:520px;"
+        >
+
+            <button
+                class="close"
+                onclick="this.closest('.modal').remove()"
+            >
+                ×
+            </button>
+
+            <h2>
+                🤖 Wiz AI Product Advisor
+            </h2>
+
+            <p
+                style="
+                    margin-top:10px;
+                    color:#64748b;
+                "
+            >
+                Let Wiz AI help you decide
+                whether this product is suitable.
+            </p>
+
+
+            <div
+                style="
+                    display:grid;
+                    gap:10px;
+                    margin-top:20px;
+                "
+            >
+
+                <button
+                    class="cart-btn"
+                    onclick="aiRecommendation('budget')"
+                >
+                    💰 Is it budget friendly?
+                </button>
+
+                <button
+                    class="cart-btn"
+                    onclick="aiRecommendation('quality')"
+                >
+                    🛡️ Is the quality trustworthy?
+                </button>
+
+                <button
+                    class="cart-btn"
+                    onclick="aiRecommendation('rating')"
+                >
+                    ⭐ Are buyers happy?
+                </button>
+
+            </div>
+
+
+            <div
+                id="aiResult"
+                style="
+                    margin-top:18px;
+                    padding:15px;
+                    background:#eff6ff;
+                    border-radius:12px;
+                    display:none;
+                "
+            ></div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   AI RECOMMENDATION
+========================================================= */
+
+function aiRecommendation(
+    type
+) {
+
+    const result =
+        document.getElementById(
+            "aiResult"
+        );
+
+
+    if (!result) return;
+
+
+    let message = "";
+
+
+    if (type === "budget") {
+
+        message =
+            `💰 At ₹${selectedProduct.price}, this product offers a ${selectedProduct.discount}% discount and is a budget-friendly option.`;
+
+    }
+
+
+    if (type === "quality") {
+
+        message =
+            `🛡️ This product has a Trust Score of ${selectedProduct.trustScore}/100.`;
+
+    }
+
+
+    if (type === "rating") {
+
+        message =
+            `⭐ ${selectedProduct.rating}/5 rating from ${selectedProduct.reviews} verified buyers shows good customer satisfaction.`;
+
+    }
+
+
+    result.textContent =
+        message;
+
+
+    result.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   COMPARISON
+========================================================= */
+
+function openComparison() {
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.className =
+        "modal show";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="max-width:750px;"
+        >
+
+            <button
+                class="close"
+                onclick="this.closest('.modal').remove()"
+            >
+                ×
+            </button>
+
+            <h2>
+                📊 Smart Product Comparison
+            </h2>
+
+            <table
+                style="
+                    width:100%;
+                    margin-top:20px;
+                    border-collapse:collapse;
+                "
+            >
+
+                <tr>
+                    <th>Feature</th>
+                    <th>${selectedProduct.name}</th>
+                </tr>
+
+                <tr>
+                    <td>Price</td>
+                    <td>₹${selectedProduct.price}</td>
+                </tr>
+
+                <tr>
+                    <td>Rating</td>
+                    <td>⭐ ${selectedProduct.rating}</td>
+                </tr>
+
+                <tr>
+                    <td>Reviews</td>
+                    <td>${selectedProduct.reviews}</td>
+                </tr>
+
+                <tr>
+                    <td>Trust Score</td>
+                    <td>🛡️ ${selectedProduct.trustScore}/100</td>
+                </tr>
+
+                <tr>
+                    <td>Seller</td>
+                    <td>✓ ${selectedProduct.seller}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   AUTHENTICITY
+========================================================= */
+
+function checkProductAuthenticity() {
+
+    showToast(
+        `🛡️ ${selectedProduct.name} passed Wiz Commerce verification`
+    );
+
+}
+
+
+/* =========================================================
+   DELIVERY
+========================================================= */
+
+function trackDelivery() {
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.className =
+        "modal show";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="max-width:500px;"
+        >
+
+            <button
+                class="close"
+                onclick="this.closest('.modal').remove()"
+            >
+                ×
+            </button>
+
+            <h2>
+                🚚 Delivery Tracking
+            </h2>
+
+            <div
+                style="
+                    display:grid;
+                    gap:14px;
+                    margin-top:20px;
+                "
+            >
+
+                <div>✓ Order Confirmed</div>
+
+                <div>✓ Seller Packed</div>
+
+                <div>🚚 Shipped</div>
+
+                <div>📍 Out for Delivery</div>
+
+                <div>○ Delivered</div>
+
+            </div>
+
+            <p
+                style="
+                    margin-top:18px;
+                    color:#64748b;
+                "
+            >
+                Expected Delivery:
+                <strong>
+                    ${selectedProduct.deliveryDate}
+                </strong>
+            </p>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   RETURN
+========================================================= */
+
+function startReturn() {
+
+    const confirmReturn =
+        confirm(
+            `Start return for ${selectedProduct.name}?`
+        );
+
+
+    if (!confirmReturn) return;
+
+
+    showToast(
+        "🔄 Return request created successfully"
+    );
+
+
+    setTimeout(
+        () => {
+
+            showToast(
+                "📦 Pickup will be scheduled soon"
+            );
+
+        },
+        1800
+    );
+
+}
+
+
+/* =========================================================
+   REFUND
+========================================================= */
+
+function trackRefund() {
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.className =
+        "modal show";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="max-width:500px;"
+        >
+
+            <button
+                class="close"
+                onclick="this.closest('.modal').remove()"
+            >
+                ×
+            </button>
+
+            <h2>
+                🔔 Live Refund Tracking
+            </h2>
+
+            <div
+                style="
+                    display:grid;
+                    gap:15px;
+                    margin-top:20px;
+                "
+            >
+
+                <div>✓ Return Request Created</div>
+
+                <div>✓ Pickup Completed</div>
+
+                <div>🔍 Product Verification</div>
+
+                <div>🔄 Refund Processing</div>
+
+                <div>○ Refund Credited</div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   CUSTOMER PHOTOS
+========================================================= */
+
+function viewCustomerPhotos() {
+
+    const section =
+        document.querySelector(
+            ".customer-photos"
+        );
+
+
+    if (section) {
+
+        section.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    showToast(
+        `🖼️ ${selectedProduct.customerPhotos} verified customer photos`
+    );
+
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+function submitReview() {
+
+    const review =
+        prompt(
+            "Write your review:"
+        );
+
+
+    if (!review) return;
+
+
+    showToast(
+        "✓ Review submitted for verification"
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message
+) {
+
+    let toast =
+        document.getElementById(
+            "wizToast"
+        );
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement(
+                "div"
+            );
+
+
+        toast.id =
+            "wizToast";
+
+
+        toast.style.cssText = `
+
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            z-index:9999;
+
+            background:#0f172a;
+            color:#fff;
+
+            padding:13px 18px;
+
+            border-radius:10px;
+
+            font-size:13px;
+            font-weight:600;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.2);
+
+            opacity:0;
+
+            transform:
+                translateY(15px);
+
+            transition:.3s ease;
+
+        `;
+
+
+        document.body.appendChild(
+            toast
+        );
+
+    }
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.opacity =
+        "1";
+
+
+    toast.style.transform =
+        "translateY(0)";
+
+
+    clearTimeout(
+        window.wizToastTimer
+    );
+
+
+    window.wizToastTimer =
+        setTimeout(
+            () => {
+
+                toast.style.opacity =
+                    "0";
+
+                toast.style.transform =
+                    "translateY(15px)";
+
+            },
+            2300
+        );
+
+}
+
+
+/* =========================================================
+   SCROLL ANIMATION
+========================================================= */
+
+function setupScrollAnimation() {
+
+    const elements =
+        document.querySelectorAll(
+            ".product-main, .smart-card, .section"
+        );
+
+
+    if (
+        !(
+            "IntersectionObserver"
+            in window
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.style.opacity =
+                                "1";
+
+                            entry.target.style.transform =
+                                "translateY(0)";
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold:0.12
+            }
+        );
+
+
+    elements.forEach(
+        element => {
+
+            element.style.opacity =
+                "0";
+
+            element.style.transform =
+                "translateY(25px)";
+
+            element.style.transition =
+                "opacity .6s ease, transform .6s ease";
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            document.querySelector(
+                "#videoModal"
+            )
+        ) {
+
+            closeVideo();
+
+        }
+
+
+        const close =
+            event.target.closest(
+                ".close"
+            );
+
+
+        if (!close) return;
+
+
+        const modal =
+            close.closest(
+                ".modal"
+            );
+
+
+        if (modal) {
+
+            modal.remove();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadProductDetails();
+
+        updateCartCount();
+
+        setupScrollAnimation();
+
+
+        console.log(
+            "Wiz Commerce Product Details:",
+            selectedProduct.name,
+            "ID:",
+            selectedProduct.id
+        );
+
+    }
+);
+
+
+/* =========================================================
+   GLOBAL FUNCTIONS
+========================================================= */
+
+window.addToCart =
+    addToCart;
+
+window.goToCart =
+    goToCart;
+
+window.toggleWishlist =
+    toggleWishlist;
+
+window.openVideo =
+    openVideo;
+
+window.closeVideo =
+    closeVideo;
+
+window.openAIAdvisor =
+    openAIAdvisor;
+
+window.openComparison =
+    openComparison;
+
+window.aiRecommendation =
+    aiRecommendation;
+
+window.checkProductAuthenticity =
+    checkProductAuthenticity;
+
+window.trackDelivery =
+    trackDelivery;
+
+window.startReturn =
+    startReturn;
+
+window.trackRefund =
+    trackRefund;
+
+window.viewCustomerPhotos =
+    viewCustomerPhotos;
+
+window.submitReview =
+    submitReview;
+
+window.showToast =
+    showToast;
