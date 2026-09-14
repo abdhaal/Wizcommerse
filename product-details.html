@@ -1,315 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiz Commerce - Product Details</title>
-    <meta name="description" content="Wiz Commerce product details with real product video, verified reviews, trust score and transparent pricing.">
-    <link rel="stylesheet" href="css/product-details.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Product Details - Wiz Commerce</title>
+
+    <link
+        rel="stylesheet"
+        href="css/product-details.css"
+    >
+
 </head>
 
 <body>
 
-    <div class="topbar">
-        🛡️ Shop with Confidence — Verified Products • Verified Sellers • Transparent Pricing
-    </div>
 
-    <header>
-        <nav class="nav">
-            <a href="index.html" class="logo">Wiz Commerce</a>
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-            <div class="search">
-                <input type="search" placeholder="Search products...">
-            </div>
+<header class="header">
 
-            <div class="nav-actions">
-                <button class="nav-btn" onclick="showToast('Wishlist opened')">♡ Wishlist</button>
-                <button class="nav-btn" onclick="window.location.href='cart.html'">🛒 Cart</button>
-            </div>
-        </nav>
-    </header>
+    <div class="container header-inner">
 
-    <main class="container">
 
-        <div class="breadcrumb">
-            Home / Electronics / Smart LED Bulb
+        <a
+            href="index.html"
+            class="logo"
+        >
+            WIZ<span>COMMERCE</span>
+        </a>
+
+
+        <div class="header-actions">
+
+            <a
+                href="products.html"
+                class="header-link"
+            >
+                ← All Products
+            </a>
+
+
+            <a
+                href="cart.html"
+                class="cart-link"
+            >
+                🛒 Cart
+
+                <span class="cart-count">
+                    0
+                </span>
+
+            </a>
+
         </div>
 
-        <section class="product-main">
+    </div>
 
-            <div class="gallery">
+</header>
 
-                <div class="main-image">
 
-                    <span class="verified-label">
-                        ✓ Product Verified
+<!-- =====================================================
+     BREADCRUMB
+===================================================== -->
+
+<div class="container breadcrumb">
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <span>
+        /
+    </span>
+
+    <a href="products.html">
+        Products
+    </a>
+
+    <span>
+        /
+    </span>
+
+    <strong id="breadcrumbName">
+        Product
+    </strong>
+
+</div>
+
+
+<!-- =====================================================
+     PRODUCT DETAILS
+===================================================== -->
+
+<main>
+
+<section class="product-details-section">
+
+<div class="container">
+
+
+    <div class="product-main">
+
+
+        <!-- =================================================
+             PRODUCT IMAGE
+        ================================================= -->
+
+        <div class="product-gallery">
+
+
+            <div class="image-box">
+
+
+                <span
+                    id="productIcon"
+                    class="product-icon"
+                >
+                    📦
+                </span>
+
+
+                <img
+                    id="productImage"
+                    class="product-image"
+                    src=""
+                    alt="Product"
+                >
+
+
+                <span
+                    id="discount"
+                    class="discount-badge"
+                >
+                    0% OFF
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="video-button"
+                onclick="openVideo()"
+            >
+                🎥 View Product Video
+            </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             PRODUCT INFORMATION
+        ================================================= -->
+
+        <div class="product-information">
+
+
+            <div
+                id="productCategory"
+                class="product-category"
+            >
+                ELECTRONICS
+            </div>
+
+
+            <h1
+                id="productName"
+                class="product-name"
+            >
+                Product Name
+            </h1>
+
+
+            <div class="rating-line">
+
+                <span id="rating">
+                    ⭐ 0
+                </span>
+
+                <span class="separator">
+                    |
+                </span>
+
+                <span id="reviewCount">
+                    0 Verified Buyer Reviews
+                </span>
+
+            </div>
+
+
+            <!-- PRICE -->
+
+            <div class="price-box">
+
+                <span
+                    id="productPrice"
+                    class="product-price"
+                >
+                    ₹0
+                </span>
+
+                <del
+                    id="oldPrice"
+                    class="old-price"
+                >
+                    ₹0
+                </del>
+
+            </div>
+
+
+            <!-- TRUST -->
+
+            <div class="trust-card">
+
+                <div class="trust-icon">
+                    🛡️
+                </div>
+
+                <div>
+
+                    <strong>
+                        Wiz Trust Score
+                    </strong>
+
+                    <p>
+                        <span id="trustScore">
+                            0/100
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SELLER -->
+
+            <div class="seller-card">
+
+                <div>
+
+                    <span class="small-label">
+                        Seller
                     </span>
 
-                    <div class="product-emoji">
-                        💡
-                    </div>
-
-                    <button class="video-btn" onclick="openVideo()">
-                        ▶ Watch Real Product Video
-                    </button>
+                    <strong id="sellerName">
+                        Seller
+                    </strong>
 
                 </div>
 
-                <div class="thumbs">
-                    <div class="thumb">💡</div>
-                    <div class="thumb">📦</div>
-                    <div class="thumb">🖼️</div>
-                    <div class="thumb">🎥</div>
-                </div>
 
-            </div>
+                <div class="seller-score">
 
-            <div class="details">
-
-                <span class="category">ELECTRONICS</span>
-
-                <h1>Smart LED Bulb</h1>
-
-                <div class="rating">
-                    <strong>⭐ 4.6</strong>
-                    <span>128 Verified Buyer Reviews</span>
-                </div>
-
-                <div class="price">
-                    <strong>₹299</strong>
-                    <del>₹499</del>
-                    <span class="discount">40% OFF</span>
-                </div>
-
-                <div class="trust-box">
-                    <div class="trust-head">
-                        <span>🛡️ Product Trust Score</span>
-                        <span>94/100</span>
-                    </div>
-
-                    <div class="trust-bar">
-                        <div class="trust-fill"></div>
-                    </div>
-
-                    <small>
-                        Quality verified • Product details checked • Low fake-product risk
-                    </small>
-                </div>
-
-                <div class="seller">
-                    <div>
-                        <strong>Wiz Verified Store</strong>
-                        <small>Seller Trust Score: 96/100</small>
-                    </div>
-
-                    <span class="verified">
-                        ✓ Verified Seller
+                    <span>
+                        Seller Trust
                     </span>
-                </div>
 
-                <div class="features">
-                    <div class="feature">🎥 Real Product Video</div>
-                    <div class="feature">🖼️ 48 Customer Photos</div>
-                    <div class="feature">🔐 Verified Reviews</div>
-                    <div class="feature">🚨 Fake Product Alert</div>
-                    <div class="feature">🔄 One-Tap Return</div>
-                    <div class="feature">🔔 Live Refund Tracking</div>
-                </div>
+                    <strong id="sellerTrust">
+                        0/100
+                    </strong>
 
-                <div class="price-box">
-                    <div class="price-row">
-                        <span>Product Price</span>
-                        <strong>₹299</strong>
-                    </div>
-
-                    <div class="price-row">
-                        <span>Delivery</span>
-                        <span>FREE</span>
-                    </div>
-
-                    <div class="price-row">
-                        <span>Platform Charges</span>
-                        <span>₹0</span>
-                    </div>
-
-                    <div class="price-row final-price">
-                        <span>Final Price</span>
-                        <strong>₹299</strong>
-                    </div>
-                </div>
-
-                <div class="actions">
-                    <button class="cart-btn" onclick="addToCart()">
-                        🛒 Add to Cart
-                    </button>
-
-                    <button class="buy-btn" onclick="showToast('Demo checkout opened')">
-                        Buy Now
-                    </button>
                 </div>
 
             </div>
 
-        </section>
 
-        <section class="smart-grid">
+            <!-- DELIVERY -->
 
-            <div class="smart-card">
-                <h3>🤖 AI Product Advisor</h3>
-                <p>
-                    Not sure whether this product is right for you?
-                    Wiz Commerce can help you choose based on your needs.
-                </p>
-                <button class="buy-btn" style="margin-top:12px; padding:9px 13px;"
-                        onclick="showToast('AI Product Advisor started')">
-                    Ask AI
+            <div class="delivery-card">
+
+                <span>
+                    🚚
+                </span>
+
+                <div>
+
+                    <strong>
+                        Fast Delivery
+                    </strong>
+
+                    <p>
+                        Get this product delivered quickly.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="action-buttons">
+
+
+                <button
+                    type="button"
+                    class="add-cart-btn"
+                    onclick="addToCart()"
+                >
+                    🛒 Add to Cart
                 </button>
-            </div>
 
-            <div class="smart-card">
-                <h3>📊 Smart Comparison</h3>
-                <p>
-                    Compare price, rating, reviews and trust score before buying.
-                </p>
-                <button class="cart-btn" style="margin-top:12px; padding:9px 13px;"
-                        onclick="showToast('Comparison added')">
-                    Compare
+
+                <button
+                    type="button"
+                    class="buy-now-btn"
+                    onclick="buyNow()"
+                >
+                    ⚡ Buy Now
                 </button>
-            </div>
 
-            <div class="smart-card">
-                <h3>🚚 Delivery Confidence</h3>
-                <p>
-                    Expected delivery: <strong>18 Sep 2026</strong>.
-                    Track your order live after purchase.
-                </p>
-            </div>
-
-        </section>
-
-        <section class="section">
-
-            <h2>⭐ Verified Buyer Reviews</h2>
-
-            <div class="review">
-
-                <div class="review-top">
-                    <strong>⭐ 5.0 — Excellent product</strong>
-                    <span class="buyer">✓ Verified Buyer</span>
-                </div>
-
-                <p>
-                    Product looks exactly like the video. Brightness is good
-                    and the packaging was safe.
-                </p>
 
             </div>
 
-            <div class="review">
 
-                <div class="review-top">
-                    <strong>⭐ 4.0 — Good value</strong>
-                    <span class="buyer">✓ Verified Buyer</span>
-                </div>
+            <!-- EXTRA ACTIONS -->
 
-                <p>
-                    Price is reasonable and delivery was on time.
-                </p>
+            <div class="extra-actions">
 
-            </div>
 
-            <div class="review">
+                <button
+                    type="button"
+                    onclick="toggleWishlist()"
+                >
+                    ❤️ Wishlist
+                </button>
 
-                <div class="review-top">
-                    <strong>⭐ 5.0 — Worth buying</strong>
-                    <span class="buyer">✓ Verified Buyer</span>
-                </div>
 
-                <p>
-                    I checked the real product video before ordering.
-                    The actual product matched the listing.
-                </p>
+                <button
+                    type="button"
+                    onclick="openAIAdvisor()"
+                >
+                    🤖 AI Advisor
+                </button>
 
-            </div>
 
-        </section>
-
-        <section class="section">
-
-            <h2>🖼️ Real Customer Photos</h2>
-
-            <div class="customer-photos">
-                <div class="customer-photo">💡</div>
-                <div class="customer-photo">📦</div>
-                <div class="customer-photo">🏠</div>
-                <div class="customer-photo">✨</div>
-            </div>
-
-        </section>
-
-        <section class="section">
-
-            <h2>🔄 Easy Return & Refund</h2>
-
-            <div class="features">
-
-                <div class="feature">
-                    <strong>1️⃣ One-Tap Return</strong><br>
-                    Simple return request without complicated steps.
-                </div>
-
-                <div class="feature">
-                    <strong>2️⃣ Pickup Tracking</strong><br>
-                    Track return pickup status.
-                </div>
-
-                <div class="feature">
-                    <strong>3️⃣ Live Refund Tracking</strong><br>
-                    Know exactly where your refund is.
-                </div>
-
-                <div class="feature">
-                    <strong>4️⃣ Refund Complete</strong><br>
-                    Get notified when refund is completed.
-                </div>
+                <button
+                    type="button"
+                    onclick="openComparison()"
+                >
+                    📊 Compare
+                </button>
 
             </div>
 
-        </section>
 
-    </main>
+        </div>
 
-    <footer>
-        © 2026 Wiz Commerce — Shop Smarter. Shop Safer.
-    </footer>
+    </div>
 
-    <div class="modal" id="videoModal">
 
-        <div class="modal-box">
+    <!-- =================================================
+         SMART FEATURES
+    ================================================= -->
 
-            <button class="close" onclick="closeVideo()">×</button>
+    <div class="smart-features">
 
-            <h2 style="margin-bottom:14px;">
-                🎥 Real Product Video
-            </h2>
 
-            <div class="video-screen">
-                <div class="play">▶</div>
-                <strong>Smart LED Bulb</strong>
-                <span>Verified Product Demonstration</span>
+        <div class="smart-card">
+
+            <div class="smart-icon">
+                🛡️
             </div>
 
-            <p style="margin-top:12px; color:#64748b; font-size:13px;">
-                This demo represents the Real Product Video feature.
-                In the final version, the actual seller/product video
-                will be loaded from the backend.
+            <h3>
+                Authentic Product
+            </h3>
+
+            <p>
+                Product verification available.
             </p>
 
+            <button
+                type="button"
+                onclick="checkProductAuthenticity()"
+            >
+                Check Authenticity
+            </button>
+
+        </div>
+
+
+        <div class="smart-card">
+
+            <div class="smart-icon">
+                🚚
+            </div>
+
+            <h3>
+                Track Delivery
+            </h3>
+
+            <p>
+                See the delivery status.
+            </p>
+
+            <button
+                type="button"
+                onclick="trackDelivery()"
+            >
+                Track Delivery
+            </button>
+
+        </div>
+
+
+        <div class="smart-card">
+
+            <div class="smart-icon">
+                🔄
+            </div>
+
+            <h3>
+                Easy Returns
+            </h3>
+
+            <p>
+                Simple return request system.
+            </p>
+
+            <button
+                type="button"
+                onclick="startReturn()"
+            >
+                Start Return
+            </button>
+
+        </div>
+
+
+        <div class="smart-card">
+
+            <div class="smart-icon">
+                💰
+            </div>
+
+            <h3>
+                Refund Tracking
+            </h3>
+
+            <p>
+                Track refund progress.
+            </p>
+
+            <button
+                type="button"
+                onclick="trackRefund()"
+            >
+                Track Refund
+            </button>
+
         </div>
 
     </div>
 
-    <div class="toast" id="toast"></div>
-    <script src="js/product-details.js"></script>
+
+    <!-- =================================================
+         CUSTOMER PHOTOS
+    ================================================= -->
+
+    <section class="section customer-photos">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Customer Photos
+                </h2>
+
+                <p>
+                    Verified customer uploads
+                </p>
+
+            </div>
+
+
+            <strong id="customerPhotos">
+                0
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="secondary-button"
+            onclick="viewCustomerPhotos()"
+        >
+            🖼️ View Customer Photos
+        </button>
+
+    </section>
+
+
+    <!-- =================================================
+         REVIEW
+    ================================================= -->
+
+    <section class="section review-section">
+
+        <h2>
+            Verified Buyer Reviews
+        </h2>
+
+        <p>
+            Share your experience after purchasing this product.
+        </p>
+
+
+        <button
+            type="button"
+            class="secondary-button"
+            onclick="submitReview()"
+        >
+            ✍️ Write a Review
+        </button>
+
+    </section>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     VIDEO MODAL
+===================================================== -->
+
+<div
+    id="videoModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <button
+            type="button"
+            class="close"
+            onclick="closeVideo()"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            🎥 Product Video
+        </h2>
+
+
+        <div class="video-screen">
+
+            <div class="play">
+                ▶
+            </div>
+
+            <strong>
+                Product Video
+            </strong>
+
+            <span>
+                ✓ Verified Product Demonstration
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="wizToast"
+    class="wiz-toast"
+></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/product-details.js"></script>
+
 </body>
+
 </html>
