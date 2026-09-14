@@ -1,101 +1,338 @@
 /* =========================================================
    WIZ COMMERCE
-   PRODUCT-DETAILS.JS
-   PART 1/4 — Product Data + Cart
+   PRODUCT DETAILS JS
+   PART 1/4
+   Dynamic Product Data + URL Product ID
 ========================================================= */
 
-const product = {
-    id: 1,
-    name: "Smart LED Bulb",
-    category: "Electronics",
-    price: 299,
-    oldPrice: 499,
-    discount: 40,
-    rating: 4.6,
-    reviews: 128,
-    trustScore: 94,
-    seller: "Wiz Verified Store",
-    sellerTrustScore: 96,
-    customerPhotos: 48,
-    deliveryDate: "18 Sep 2026"
+
+/* =========================================================
+   PRODUCT DATABASE
+========================================================= */
+
+const productDatabase = {
+
+    1: {
+        id: 1,
+        name: "Smart LED Bulb",
+        category: "Electronics",
+        price: 299,
+        oldPrice: 499,
+        discount: 40,
+        rating: 4.6,
+        reviews: 128,
+        trustScore: 94,
+        seller: "Wiz Verified Store",
+        sellerTrustScore: 96,
+        customerPhotos: 48,
+        icon: "💡",
+        deliveryDate: "18 Sep 2026"
+    },
+
+    2: {
+        id: 2,
+        name: "Portable Mini Fan",
+        category: "Electronics",
+        price: 399,
+        oldPrice: 699,
+        discount: 43,
+        rating: 4.5,
+        reviews: 87,
+        trustScore: 91,
+        seller: "Smart Deals",
+        sellerTrustScore: 94,
+        customerPhotos: 32,
+        icon: "🌀",
+        deliveryDate: "18 Sep 2026"
+    },
+
+    3: {
+        id: 3,
+        name: "Kitchen Storage Box",
+        category: "Home & Kitchen",
+        price: 249,
+        oldPrice: 399,
+        discount: 38,
+        rating: 4.4,
+        reviews: 64,
+        trustScore: 89,
+        seller: "Home Store",
+        sellerTrustScore: 92,
+        customerPhotos: 27,
+        icon: "📦",
+        deliveryDate: "19 Sep 2026"
+    },
+
+    4: {
+        id: 4,
+        name: "Wireless Bluetooth Speaker",
+        category: "Electronics",
+        price: 699,
+        oldPrice: 1199,
+        discount: 42,
+        rating: 4.7,
+        reviews: 214,
+        trustScore: 96,
+        seller: "Wiz Audio",
+        sellerTrustScore: 97,
+        customerPhotos: 82,
+        icon: "🔊",
+        deliveryDate: "17 Sep 2026"
+    },
+
+    5: {
+        id: 5,
+        name: "Premium Cotton T-Shirt",
+        category: "Fashion",
+        price: 349,
+        oldPrice: 599,
+        discount: 42,
+        rating: 4.3,
+        reviews: 156,
+        trustScore: 88,
+        seller: "Fashion Hub",
+        sellerTrustScore: 90,
+        customerPhotos: 63,
+        icon: "👕",
+        deliveryDate: "20 Sep 2026"
+    },
+
+    6: {
+        id: 6,
+        name: "Rechargeable Emergency Light",
+        category: "Electronics",
+        price: 449,
+        oldPrice: 799,
+        discount: 44,
+        rating: 4.5,
+        reviews: 103,
+        trustScore: 92,
+        seller: "Bright Store",
+        sellerTrustScore: 94,
+        customerPhotos: 41,
+        icon: "🔦",
+        deliveryDate: "19 Sep 2026"
+    },
+
+    7: {
+        id: 7,
+        name: "Stainless Steel Water Bottle",
+        category: "Home & Kitchen",
+        price: 299,
+        oldPrice: 499,
+        discount: 40,
+        rating: 4.6,
+        reviews: 91,
+        trustScore: 93,
+        seller: "Daily Needs",
+        sellerTrustScore: 95,
+        customerPhotos: 35,
+        icon: "🥤",
+        deliveryDate: "18 Sep 2026"
+    },
+
+    8: {
+        id: 8,
+        name: "Smart Watch",
+        category: "Electronics",
+        price: 899,
+        oldPrice: 1599,
+        discount: 44,
+        rating: 4.4,
+        reviews: 189,
+        trustScore: 90,
+        seller: "Tech World",
+        sellerTrustScore: 93,
+        customerPhotos: 71,
+        icon: "⌚",
+        deliveryDate: "18 Sep 2026"
+    }
+
 };
+
+
+/* =========================================================
+   READ PRODUCT ID FROM URL
+========================================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const productId =
+    Number(
+        urlParams.get("id")
+    );
+
+
+/* =========================================================
+   SELECT PRODUCT
+========================================================= */
+
+const selectedProduct =
+    productDatabase[productId] ||
+    productDatabase[1];
 
 
 /* =========================================================
    DOM ELEMENTS
 ========================================================= */
 
-const videoModal =
-    document.getElementById("videoModal");
+const productName =
+    document.getElementById(
+        "productName"
+    );
 
-const toast =
-    document.getElementById("toast");
+const productCategory =
+    document.getElementById(
+        "productCategory"
+    );
+
+const productPrice =
+    document.getElementById(
+        "productPrice"
+    );
+
+const oldPrice =
+    document.getElementById(
+        "oldPrice"
+    );
+
+const discount =
+    document.getElementById(
+        "discount"
+    );
+
+const rating =
+    document.getElementById(
+        "rating"
+    );
+
+const reviewCount =
+    document.getElementById(
+        "reviewCount"
+    );
+
+const trustScore =
+    document.getElementById(
+        "trustScore"
+    );
+
+const sellerName =
+    document.getElementById(
+        "sellerName"
+    );
+
+const sellerTrust =
+    document.getElementById(
+        "sellerTrust"
+    );
+
+const customerPhotos =
+    document.getElementById(
+        "customerPhotos"
+    );
+
+const productIcon =
+    document.getElementById(
+        "productIcon"
+    );
 
 
 /* =========================================================
-   ADD TO CART
+   LOAD PRODUCT DETAILS
 ========================================================= */
 
-function addToCart() {
+function loadProductDetails() {
 
-    let cart =
-        JSON.parse(
-            localStorage.getItem("wizCart")
-        ) || [];
-
-
-    const cartProduct = {
-
-        id: product.id,
-
-        name: product.name,
-
-        price: product.price,
-
-        oldPrice: product.oldPrice,
-
-        quantity: 1,
-
-        category: product.category
-
-    };
+    if (productName)
+        productName.textContent =
+            selectedProduct.name;
 
 
-    const existing =
-        cart.find(
-            item =>
-                item.id === product.id
-        );
+    if (productCategory)
+        productCategory.textContent =
+            selectedProduct.category.toUpperCase();
 
 
-    if (existing) {
-
-        existing.quantity += 1;
-
-    } else {
-
-        cart.push(
-            cartProduct
-        );
-
-    }
+    if (productPrice)
+        productPrice.textContent =
+            `₹${selectedProduct.price}`;
 
 
-    localStorage.setItem(
-        "wizCart",
-        JSON.stringify(cart)
-    );
+    if (oldPrice)
+        oldPrice.textContent =
+            `₹${selectedProduct.oldPrice}`;
 
 
-    showToast(
-        "✓ Product added to cart"
-    );
+    if (discount)
+        discount.textContent =
+            `${selectedProduct.discount}% OFF`;
+
+
+    if (rating)
+        rating.textContent =
+            `⭐ ${selectedProduct.rating}`;
+
+
+    if (reviewCount)
+        reviewCount.textContent =
+            `${selectedProduct.reviews} Verified Buyer Reviews`;
+
+
+    if (trustScore)
+        trustScore.textContent =
+            `${selectedProduct.trustScore}/100`;
+
+
+    if (sellerName)
+        sellerName.textContent =
+            selectedProduct.seller;
+
+
+    if (sellerTrust)
+        sellerTrust.textContent =
+            `${selectedProduct.sellerTrustScore}/100`;
+
+
+    if (customerPhotos)
+        customerPhotos.textContent =
+            selectedProduct.customerPhotos;
+
+
+    if (productIcon)
+        productIcon.textContent =
+            selectedProduct.icon;
+
+
+    document.title =
+        `${selectedProduct.name} - Wiz Commerce`;
 
 }
 
 
 /* =========================================================
-   GET CART
+   INITIAL LOAD
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadProductDetails();
+
+    }
+);
+/* =========================================================
+   PART 2/4
+   Cart + Wishlist + Real Product Video
+========================================================= */
+
+
+/* =========================================================
+   CART FUNCTIONS
 ========================================================= */
 
 function getCart() {
@@ -110,27 +347,100 @@ function getCart() {
 
 
 /* =========================================================
-   CART TOTAL
+   ADD TO CART
 ========================================================= */
 
-function getCartTotal() {
+function addToCart() {
+
+    let cart =
+        getCart();
+
+
+    const existing =
+        cart.find(
+            item =>
+                item.id ===
+                selectedProduct.id
+        );
+
+
+    if (existing) {
+
+        existing.quantity += 1;
+
+    } else {
+
+        cart.push({
+
+            id: selectedProduct.id,
+
+            name: selectedProduct.name,
+
+            price: selectedProduct.price,
+
+            oldPrice:
+                selectedProduct.oldPrice,
+
+            category:
+                selectedProduct.category,
+
+            icon:
+                selectedProduct.icon,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "wizCart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+
+    showToast(
+        `✓ ${selectedProduct.name} added to cart`
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount() {
 
     const cart =
         getCart();
 
 
-    return cart.reduce(
-        (total, item) => {
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total +
+                item.quantity,
+            0
+        );
 
-            return total +
-                (
-                    item.price *
-                    item.quantity
-                );
 
-        },
-        0
-    );
+    document
+        .querySelectorAll(
+            ".cart-count"
+        )
+        .forEach(
+            element => {
+
+                element.textContent =
+                    count;
+
+            }
+        );
 
 }
 
@@ -148,85 +458,124 @@ function goToCart() {
 
 
 /* =========================================================
-   UPDATE CART COUNT
+   WISHLIST
 ========================================================= */
 
-function updateCartCount() {
+function toggleWishlist() {
 
-    const cart =
-        getCart();
+    let wishlist =
+        JSON.parse(
+            localStorage.getItem(
+                "wizWishlist"
+            )
+        ) || [];
 
 
-    const totalItems =
-        cart.reduce(
-            (total, item) =>
-                total +
-                item.quantity,
-            0
+    const index =
+        wishlist.indexOf(
+            selectedProduct.id
         );
 
 
-    const cartElements =
-        document.querySelectorAll(
-            ".cart-count"
+    if (index === -1) {
+
+        wishlist.push(
+            selectedProduct.id
         );
 
 
-    cartElements.forEach(
-        element => {
+        showToast(
+            "❤️ Added to wishlist"
+        );
 
-            element.textContent =
-                totalItems;
+    } else {
 
-        }
+        wishlist.splice(
+            index,
+            1
+        );
+
+
+        showToast(
+            "♡ Removed from wishlist"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "wizWishlist",
+        JSON.stringify(
+            wishlist
+        )
     );
 
 }
 
 
 /* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        updateCartCount();
-
-        console.log(
-            "Wiz Commerce Product Details Loaded"
-        );
-
-    }
-);
-/* =========================================================
-   PART 2/4
-   Video + Wishlist + AI Advisor
-========================================================= */
-
-
-/* =========================================================
-   OPEN VIDEO
+   REAL PRODUCT VIDEO
 ========================================================= */
 
 function openVideo() {
 
-    if (!videoModal) return;
+    const modal =
+        document.getElementById(
+            "videoModal"
+        );
 
 
-    videoModal.classList.add(
+    if (!modal) return;
+
+
+    const videoTitle =
+        modal.querySelector(
+            "h2"
+        );
+
+
+    if (videoTitle) {
+
+        videoTitle.textContent =
+            `🎥 ${selectedProduct.name} — Real Product Video`;
+
+    }
+
+
+    const videoScreen =
+        modal.querySelector(
+            ".video-screen"
+        );
+
+
+    if (videoScreen) {
+
+        videoScreen.innerHTML = `
+
+            <div class="play">
+                ▶
+            </div>
+
+            <strong>
+                ${selectedProduct.name}
+            </strong>
+
+            <span>
+                ✓ Verified Product Demonstration
+            </span>
+
+        `;
+
+    }
+
+
+    modal.classList.add(
         "show"
     );
 
 
     document.body.style.overflow =
         "hidden";
-
-
-    showToast(
-        "🎥 Verified product video opened"
-    );
 
 }
 
@@ -237,41 +586,22 @@ function openVideo() {
 
 function closeVideo() {
 
-    if (!videoModal) return;
+    const modal =
+        document.getElementById(
+            "videoModal"
+        );
 
 
-    videoModal.classList.remove(
+    if (!modal) return;
+
+
+    modal.classList.remove(
         "show"
     );
 
 
     document.body.style.overflow =
         "";
-
-}
-
-
-/* =========================================================
-   VIDEO MODAL CLICK
-========================================================= */
-
-if (videoModal) {
-
-    videoModal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                videoModal
-            ) {
-
-                closeVideo();
-
-            }
-
-        }
-    );
 
 }
 
@@ -297,67 +627,34 @@ document.addEventListener(
 
 
 /* =========================================================
-   WISHLIST
+   VIDEO MODAL OUTSIDE CLICK
 ========================================================= */
 
-function toggleWishlist() {
+document.addEventListener(
+    "click",
+    event => {
 
-    let wishlist =
-        JSON.parse(
-            localStorage.getItem(
-                "wizWishlist"
-            )
-        ) || [];
-
-
-    const index =
-        wishlist.indexOf(
-            product.id
-        );
+        const modal =
+            document.getElementById(
+                "videoModal"
+            );
 
 
-    if (index === -1) {
+        if (
+            modal &&
+            event.target === modal
+        ) {
 
-        wishlist.push(
-            product.id
-        );
+            closeVideo();
 
-
-        localStorage.setItem(
-            "wizWishlist",
-            JSON.stringify(
-                wishlist
-            )
-        );
-
-
-        showToast(
-            "❤️ Added to wishlist"
-        );
-
-    } else {
-
-        wishlist.splice(
-            index,
-            1
-        );
-
-
-        localStorage.setItem(
-            "wizWishlist",
-            JSON.stringify(
-                wishlist
-            )
-        );
-
-
-        showToast(
-            "Wishlist removed"
-        );
+        }
 
     }
-
-}
+);
+/* =========================================================
+   PART 3/4
+   AI Advisor + Smart Comparison + Trust Features
+========================================================= */
 
 
 /* =========================================================
@@ -400,8 +697,8 @@ function openAIAdvisor() {
                     color:#64748b;
                 "
             >
-                Tell us what you need.
-                AI will help you decide.
+                Let Wiz AI help you decide
+                whether this product is suitable.
             </p>
 
 
@@ -417,30 +714,31 @@ function openAIAdvisor() {
                     class="cart-btn"
                     onclick="aiRecommendation('budget')"
                 >
-                    💰 Best for my budget
+                    💰 Is it budget friendly?
                 </button>
 
                 <button
                     class="cart-btn"
                     onclick="aiRecommendation('quality')"
                 >
-                    🛡️ Best quality
+                    🛡️ Is the quality trustworthy?
                 </button>
 
                 <button
                     class="cart-btn"
                     onclick="aiRecommendation('rating')"
                 >
-                    ⭐ Best rated
+                    ⭐ Are buyers happy?
                 </button>
 
             </div>
+
 
             <div
                 id="aiResult"
                 style="
                     margin-top:18px;
-                    padding:14px;
+                    padding:15px;
                     background:#eff6ff;
                     border-radius:12px;
                     display:none;
@@ -460,7 +758,7 @@ function openAIAdvisor() {
 
 
 /* =========================================================
-   AI RECOMMENDATION
+   AI RESULT
 ========================================================= */
 
 function aiRecommendation(
@@ -479,26 +777,30 @@ function aiRecommendation(
     let message = "";
 
 
-    if (type === "budget") {
+    switch (type) {
 
-        message =
-            "💰 This product is a good budget choice at ₹299.";
+        case "budget":
 
-    }
+            message =
+                `💰 At ₹${selectedProduct.price}, this product offers a ${selectedProduct.discount}% discount and is a budget-friendly option.`;
 
-
-    if (type === "quality") {
-
-        message =
-            "🛡️ Trust Score 94/100 indicates strong product confidence.";
-
-    }
+            break;
 
 
-    if (type === "rating") {
+        case "quality":
 
-        message =
-            "⭐ This product has a 4.6/5 rating from 128 verified buyers.";
+            message =
+                `🛡️ This product has a Trust Score of ${selectedProduct.trustScore}/100, indicating strong purchase confidence.`;
+
+            break;
+
+
+        case "rating":
+
+            message =
+                `⭐ ${selectedProduct.rating}/5 rating from ${selectedProduct.reviews} verified buyers shows good customer satisfaction.`;
+
+            break;
 
     }
 
@@ -511,50 +813,6 @@ function aiRecommendation(
         "block";
 
 }
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function searchProduct() {
-
-    const input =
-        document.querySelector(
-            ".search input"
-        );
-
-
-    if (!input) return;
-
-
-    const value =
-        input.value
-            .trim();
-
-
-    if (!value) {
-
-        showToast(
-            "Please enter a product name"
-        );
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "products.html?search=" +
-        encodeURIComponent(
-            value
-        );
-
-}
-/* =========================================================
-   PART 3/4
-   Comparison + Reviews + Return + Refund
-========================================================= */
 
 
 /* =========================================================
@@ -577,7 +835,7 @@ function openComparison() {
 
         <div
             class="modal-box"
-            style="max-width:700px;"
+            style="max-width:750px;"
         >
 
             <button
@@ -587,9 +845,11 @@ function openComparison() {
                 ×
             </button>
 
+
             <h2>
                 📊 Smart Product Comparison
             </h2>
+
 
             <div
                 style="
@@ -606,63 +866,80 @@ function openComparison() {
                 >
 
                     <tr>
+
                         <th style="padding:12px;text-align:left;">
                             Feature
                         </th>
 
                         <th style="padding:12px;">
-                            Smart LED Bulb
+                            ${selectedProduct.name}
                         </th>
+
                     </tr>
 
+
                     <tr>
+
                         <td style="padding:12px;">
                             Price
                         </td>
 
                         <td style="padding:12px;">
-                            ₹299
+                            ₹${selectedProduct.price}
                         </td>
+
                     </tr>
 
+
                     <tr>
+
                         <td style="padding:12px;">
                             Rating
                         </td>
 
                         <td style="padding:12px;">
-                            ⭐ 4.6
+                            ⭐ ${selectedProduct.rating}
                         </td>
+
                     </tr>
 
+
                     <tr>
+
                         <td style="padding:12px;">
                             Verified Reviews
                         </td>
 
                         <td style="padding:12px;">
-                            128
+                            ${selectedProduct.reviews}
                         </td>
+
                     </tr>
 
+
                     <tr>
+
                         <td style="padding:12px;">
                             Trust Score
                         </td>
 
                         <td style="padding:12px;">
-                            🛡️ 94/100
+                            🛡️ ${selectedProduct.trustScore}/100
                         </td>
+
                     </tr>
 
+
                     <tr>
+
                         <td style="padding:12px;">
                             Seller
                         </td>
 
                         <td style="padding:12px;">
-                            ✓ Verified
+                            ✓ ${selectedProduct.seller}
                         </td>
+
                     </tr>
 
                 </table>
@@ -682,186 +959,13 @@ function openComparison() {
 
 
 /* =========================================================
-   VERIFIED REVIEW
-========================================================= */
-
-function submitReview() {
-
-    const review =
-        prompt(
-            "Write your review:"
-        );
-
-
-    if (!review) return;
-
-
-    showToast(
-        "✓ Review submitted for verification"
-    );
-
-}
-
-
-/* =========================================================
-   REAL CUSTOMER PHOTO
-========================================================= */
-
-function viewCustomerPhotos() {
-
-    showToast(
-        "🖼️ Showing verified customer photos"
-    );
-
-
-    const section =
-        document.querySelector(
-            ".customer-photos"
-        );
-
-
-    if (section) {
-
-        section.scrollIntoView({
-            behavior: "smooth"
-        });
-
-    }
-
-}
-
-
-/* =========================================================
-   RETURN PRODUCT
-========================================================= */
-
-function startReturn() {
-
-    const confirmed =
-        confirm(
-            "Do you want to start a return request?"
-        );
-
-
-    if (!confirmed) return;
-
-
-    showToast(
-        "🔄 Return request created successfully"
-    );
-
-
-    setTimeout(
-        () => {
-
-            showToast(
-                "📦 Pickup will be scheduled soon"
-            );
-
-        },
-        1800
-    );
-
-}
-
-
-/* =========================================================
-   REFUND TRACKING
-========================================================= */
-
-function trackRefund() {
-
-    const modal =
-        document.createElement(
-            "div"
-        );
-
-
-    modal.className =
-        "modal show";
-
-
-    modal.innerHTML = `
-
-        <div
-            class="modal-box"
-            style="max-width:500px;"
-        >
-
-            <button
-                class="close"
-                onclick="this.closest('.modal').remove()"
-            >
-                ×
-            </button>
-
-            <h2>
-                🔔 Live Refund Tracking
-            </h2>
-
-
-            <div
-                style="
-                    margin-top:20px;
-                    display:grid;
-                    gap:15px;
-                "
-            >
-
-                <div>
-                    ✓ Return Request Created
-                </div>
-
-                <div>
-                    ✓ Product Pickup Completed
-                </div>
-
-                <div>
-                    🔄 Quality Verification
-                </div>
-
-                <div>
-                    ⏳ Refund Processing
-                </div>
-
-                <div>
-                    ○ Refund Credited
-                </div>
-
-            </div>
-
-
-            <p
-                style="
-                    margin-top:20px;
-                    color:#64748b;
-                    font-size:13px;
-                "
-            >
-                Demo tracking timeline for
-                Wiz Commerce.
-            </p>
-
-        </div>
-
-    `;
-
-
-    document.body.appendChild(
-        modal
-    );
-
-}
-
-
-/* =========================================================
-   FAKE PRODUCT DETECTION
+   AUTHENTICITY CHECK
 ========================================================= */
 
 function checkProductAuthenticity() {
 
     showToast(
-        "🛡️ Product authenticity verified — Low risk"
+        `🛡️ ${selectedProduct.name} passed Wiz Commerce verification`
     );
 
 }
@@ -897,15 +1001,17 @@ function trackDelivery() {
                 ×
             </button>
 
+
             <h2>
                 🚚 Delivery Tracking
             </h2>
 
+
             <div
                 style="
-                    margin-top:20px;
                     display:grid;
                     gap:14px;
+                    margin-top:20px;
                 "
             >
 
@@ -931,14 +1037,18 @@ function trackDelivery() {
 
             </div>
 
-            <strong
+
+            <p
                 style="
-                    display:block;
-                    margin-top:20px;
+                    margin-top:18px;
+                    color:#64748b;
                 "
             >
-                Delivery Confidence: 94%
-            </strong>
+                Expected Delivery:
+                <strong>
+                    ${selectedProduct.deliveryDate}
+                </strong>
+            </p>
 
         </div>
 
@@ -949,11 +1059,185 @@ function trackDelivery() {
         modal
     );
 
-      }
+       }
 /* =========================================================
    PART 4/4
-   Toast + Animation + Interactions
+   Return + Refund + Animation + Final Setup
 ========================================================= */
+
+
+/* =========================================================
+   START RETURN
+========================================================= */
+
+function startReturn() {
+
+    const confirmReturn =
+        confirm(
+            `Start return for ${selectedProduct.name}?`
+        );
+
+
+    if (!confirmReturn) return;
+
+
+    showToast(
+        "🔄 Return request created successfully"
+    );
+
+
+    setTimeout(
+        () => {
+
+            showToast(
+                "📦 Pickup will be scheduled soon"
+            );
+
+        },
+        1800
+    );
+
+}
+
+
+/* =========================================================
+   LIVE REFUND TRACKING
+========================================================= */
+
+function trackRefund() {
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.className =
+        "modal show";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="modal-box"
+            style="max-width:500px;"
+        >
+
+            <button
+                class="close"
+                onclick="this.closest('.modal').remove()"
+            >
+                ×
+            </button>
+
+
+            <h2>
+                🔔 Live Refund Tracking
+            </h2>
+
+
+            <div
+                style="
+                    display:grid;
+                    gap:15px;
+                    margin-top:20px;
+                "
+            >
+
+                <div>
+                    ✓ Return Request Created
+                </div>
+
+                <div>
+                    ✓ Pickup Completed
+                </div>
+
+                <div>
+                    🔍 Product Verification
+                </div>
+
+                <div>
+                    🔄 Refund Processing
+                </div>
+
+                <div>
+                    ○ Refund Credited
+                </div>
+
+            </div>
+
+
+            <p
+                style="
+                    margin-top:18px;
+                    color:#64748b;
+                    font-size:13px;
+                "
+            >
+                This is a demo live-refund
+                tracking system for Wiz Commerce.
+            </p>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   CUSTOMER PHOTOS
+========================================================= */
+
+function viewCustomerPhotos() {
+
+    const section =
+        document.querySelector(
+            ".customer-photos"
+        );
+
+
+    if (section) {
+
+        section.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+
+    showToast(
+        `🖼️ ${selectedProduct.customerPhotos} verified customer photos`
+    );
+
+}
+
+
+/* =========================================================
+   VERIFIED REVIEW
+========================================================= */
+
+function submitReview() {
+
+    const review =
+        prompt(
+            "Write your review:"
+        );
+
+
+    if (!review) return;
+
+
+    showToast(
+        "✓ Review submitted for verification"
+    );
+
+}
 
 
 /* =========================================================
@@ -964,16 +1248,71 @@ function showToast(
     message
 ) {
 
-    if (!toast) return;
+    let toast =
+        document.getElementById(
+            "wizToast"
+        );
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement(
+                "div"
+            );
+
+
+        toast.id =
+            "wizToast";
+
+
+        toast.style.cssText = `
+
+            position:fixed;
+            right:20px;
+            bottom:20px;
+            z-index:9999;
+
+            background:#0f172a;
+            color:white;
+
+            padding:13px 18px;
+
+            border-radius:10px;
+
+            font-size:13px;
+            font-weight:600;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.2);
+
+            opacity:0;
+            transform:translateY(15px);
+
+            transition:
+                .3s ease;
+
+        `;
+
+
+        document.body.appendChild(
+            toast
+        );
+
+    }
 
 
     toast.textContent =
         message;
 
 
-    toast.classList.add(
-        "show"
-    );
+    toast.style.opacity =
+        "1";
+
+
+    toast.style.transform =
+        "translateY(0)";
 
 
     clearTimeout(
@@ -985,12 +1324,14 @@ function showToast(
         setTimeout(
             () => {
 
-                toast.classList.remove(
-                    "show"
-                );
+                toast.style.opacity =
+                    "0";
+
+                toast.style.transform =
+                    "translateY(15px)";
 
             },
-            2500
+            2300
         );
 
 }
@@ -1004,7 +1345,7 @@ function setupScrollAnimation() {
 
     const elements =
         document.querySelectorAll(
-            ".product-main, .smart-card, .section, .feature"
+            ".product-main, .smart-card, .section"
         );
 
 
@@ -1013,31 +1354,9 @@ function setupScrollAnimation() {
             in window)
     ) {
 
-        elements.forEach(
-            element =>
-                element.style.opacity =
-                    "1"
-        );
-
         return;
 
     }
-
-
-    elements.forEach(
-        element => {
-
-            element.style.opacity =
-                "0";
-
-            element.style.transform =
-                "translateY(25px)";
-
-            element.style.transition =
-                "opacity .6s ease, transform .6s ease";
-
-        }
-    );
 
 
     const observer =
@@ -1074,48 +1393,20 @@ function setupScrollAnimation() {
 
 
     elements.forEach(
-        element =>
+        element => {
+
+            element.style.opacity =
+                "0";
+
+            element.style.transform =
+                "translateY(25px)";
+
+            element.style.transition =
+                "opacity .6s ease, transform .6s ease";
+
+
             observer.observe(
                 element
-            )
-    );
-
-}
-
-
-/* =========================================================
-   BUTTON RIPPLE EFFECT
-========================================================= */
-
-function setupButtonAnimation() {
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            const button =
-                event.target.closest(
-                    "button"
-                );
-
-
-            if (!button) return;
-
-
-            button.classList.add(
-                "clicked"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    button.classList.remove(
-                        "clicked"
-                    );
-
-                },
-                180
             );
 
         }
@@ -1125,65 +1416,29 @@ function setupButtonAnimation() {
 
 
 /* =========================================================
-   SEARCH ENTER
-========================================================= */
-
-function setupSearch() {
-
-    const input =
-        document.querySelector(
-            ".search input"
-        );
-
-
-    if (!input) return;
-
-
-    input.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                searchProduct();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   MODAL CLEANUP
+   CLOSE DYNAMIC MODALS
 ========================================================= */
 
 document.addEventListener(
     "click",
     event => {
 
-        const closeButton =
+        const close =
             event.target.closest(
                 ".close"
             );
 
 
-        if (
-            closeButton
-        ) {
-
-            const modal =
-                closeButton.closest(
-                    ".modal"
-                );
+        if (!close) return;
 
 
-            modal?.remove();
+        const modal =
+            close.closest(
+                ".modal"
+            );
 
-        }
+
+        modal?.remove();
 
     }
 );
@@ -1197,16 +1452,14 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
+        loadProductDetails();
+
         updateCartCount();
 
         setupScrollAnimation();
 
-        setupButtonAnimation();
-
-        setupSearch();
-
         console.log(
-            "🚀 Wiz Commerce Product Details Ready"
+            `Wiz Commerce: ${selectedProduct.name} loaded`
         );
 
     }
@@ -1223,14 +1476,14 @@ window.addToCart =
 window.goToCart =
     goToCart;
 
+window.toggleWishlist =
+    toggleWishlist;
+
 window.openVideo =
     openVideo;
 
 window.closeVideo =
     closeVideo;
-
-window.toggleWishlist =
-    toggleWishlist;
 
 window.openAIAdvisor =
     openAIAdvisor;
@@ -1238,17 +1491,8 @@ window.openAIAdvisor =
 window.openComparison =
     openComparison;
 
-window.submitReview =
-    submitReview;
-
-window.viewCustomerPhotos =
-    viewCustomerPhotos;
-
-window.startReturn =
-    startReturn;
-
-window.trackRefund =
-    trackRefund;
+window.aiRecommendation =
+    aiRecommendation;
 
 window.checkProductAuthenticity =
     checkProductAuthenticity;
@@ -1256,8 +1500,17 @@ window.checkProductAuthenticity =
 window.trackDelivery =
     trackDelivery;
 
-window.searchProduct =
-    searchProduct;
+window.startReturn =
+    startReturn;
+
+window.trackRefund =
+    trackRefund;
+
+window.viewCustomerPhotos =
+    viewCustomerPhotos;
+
+window.submitReview =
+    submitReview;
 
 window.showToast =
     showToast;
