@@ -1029,3 +1029,49 @@ window.continueShopping =
 
 window.showToast =
     showToast;
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const placeOrderBtn =
+        document.getElementById("placeOrderBtn");
+
+    if (!placeOrderBtn) {
+        console.error("Place Order button not found!");
+        return;
+    }
+
+    placeOrderBtn.addEventListener("click", function (event) {
+
+        event.preventDefault();
+
+        console.log("Place Order clicked");
+
+        // Save checkout order data
+        const orderData = {
+            orderId: "WIZ" + Date.now(),
+            items: checkoutCart || [],
+            paymentStatus: "Pending",
+            createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(
+            "wizPaymentOrder",
+            JSON.stringify(orderData)
+        );
+
+        // Button loading
+        placeOrderBtn.disabled = true;
+
+        placeOrderBtn.innerHTML =
+            "⏳ Opening Payment...";
+
+        // Open payment page
+        setTimeout(function () {
+
+            window.location.href = "payment.html";
+
+        }, 300);
+
+    });
+
+});
