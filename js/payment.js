@@ -160,7 +160,23 @@ function loadPaymentProducts(
 /* =====================================================
    LOAD SUMMARY
 ===================================================== */
+/* =====================================================
+   SET TEXT HELPER
+===================================================== */
 
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
+
+}
 function loadPaymentSummary(
     pricing
 ) {
