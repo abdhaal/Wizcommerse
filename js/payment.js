@@ -729,9 +729,9 @@ function processPayment() {
 
 }
 
-
 /* =====================================================
    COMPLETE PAYMENT
+   PAYMENT SUCCESS → ORDER SUCCESS PAGE
 ===================================================== */
 
 function completePayment() {
@@ -740,19 +740,37 @@ function completePayment() {
         getPaymentOrder();
 
 
-    if (!order)
+    if (!order) {
+
+        showToast(
+            "⚠️ Order information missing"
+        );
+
         return;
 
+    }
+
+
+    /* ================================================
+       GENERATE FINAL ORDER ID
+    ================================================= */
 
     const orderId =
         generateOrderId();
 
 
+    /* ================================================
+       CREATE FINAL ORDER
+    ================================================= */
+
     const finalOrder = {
 
         ...order,
 
-        orderId,
+        orderId:
+
+            order.orderId ||
+            orderId,
 
         paymentMethod:
             currentMethod,
@@ -763,14 +781,18 @@ function completePayment() {
         orderStatus:
             "Order Confirmed",
 
-        createdAt:
-            new Date().toISOString(),
-
         trackingStatus:
-            "Order Confirmed"
+            "Order Confirmed",
+
+        createdAt:
+            new Date().toISOString()
 
     };
 
+
+    /* ================================================
+       SAVE FINAL ORDER
+    ================================================= */
 
     localStorage.setItem(
         "wizLastOrder",
@@ -779,6 +801,26 @@ function completePayment() {
         )
     );
 
+
+    localStorage.setItem(
+        "wizPaymentOrder",
+        JSON.stringify(
+            finalOrder
+        )
+    );
+
+
+    localStorage.setItem(
+        "currentOrder",
+        JSON.stringify(
+            finalOrder
+        )
+    );
+
+
+    /* ================================================
+       HIDE PROCESSING OVERLAY
+    ================================================= */
 
     const overlay =
         document.getElementById(
@@ -795,8 +837,27 @@ function completePayment() {
     }
 
 
-    showSuccess(
-        finalOrder
+    /* ================================================
+       SHOW SUCCESS MESSAGE
+    ================================================= */
+
+    showToast(
+        "✓ Payment successful"
+    );
+
+
+    /* ================================================
+       OPEN ORDER SUCCESS PAGE
+    ================================================= */
+
+    setTimeout(
+        function () {
+
+            window.location.href =
+                "order-success.html";
+
+        },
+        700
     );
 
 }
