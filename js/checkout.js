@@ -1,58 +1,75 @@
-/* =====================================================
+/* =========================================================
    WIZ COMMERCE
    CHECKOUT.JS
-   PART 1/4
-===================================================== */
+   PART 1 OF 4
+========================================================= */
 
+"use strict";
 
-/* =====================================================
-   GLOBAL VARIABLES
-===================================================== */
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
 
 let checkoutCart = [];
 
 let selectedDelivery = "standard";
 
-let selectedPayment = "upi";
+let selectedPayment = "cod";
 
 
-/* =====================================================
-   LOCAL STORAGE HELPERS
-===================================================== */
+/* =========================================================
+   STORAGE KEYS
+========================================================= */
 
-function getStoredCart() {
+const CART_KEYS = [
+    "wizCart",
+    "cart",
+    "shoppingCart",
+    "imaCart",
+    "cartItems"
+];
 
-    const possibleKeys = [
-        "wizCart",
-        "cart",
-        "shoppingCart",
-        "imaCart"
-    ];
+const ADDRESS_KEY = "wizDeliveryAddress";
 
-    for (const key of possibleKeys) {
+const ORDER_KEY = "wizPaymentOrder";
 
-        const data =
+
+/* =========================================================
+   GET CART FROM LOCAL STORAGE
+========================================================= */
+
+function getCartFromStorage() {
+
+    for (const key of CART_KEYS) {
+
+        const stored =
             localStorage.getItem(key);
 
-        if (!data)
+        if (!stored) {
             continue;
+        }
 
         try {
 
-            const parsed =
-                JSON.parse(data);
+            const data =
+                JSON.parse(stored);
 
-            if (Array.isArray(parsed)) {
+            if (Array.isArray(data) && data.length > 0) {
 
-                return parsed;
+                console.log(
+                    "🛒 Cart found:",
+                    key
+                );
+
+                return data;
 
             }
 
         } catch (error) {
 
-            console.log(
-                "Cart parse error:",
-                error
+            console.warn(
+                "Cart read error:",
+                key
             );
 
         }
@@ -64,66 +81,49 @@ function getStoredCart() {
 }
 
 
-/* =====================================================
-   SAVE CART
-===================================================== */
+/* =========================================================
+   NORMALIZE PRODUCT
+========================================================= */
 
-function saveCart(cart) {
-
-    localStorage.setItem(
-        "wizCart",
-        JSON.stringify(cart)
-    );
-
-}
-
-
-/* =====================================================
-   NORMALIZE CART ITEM
-===================================================== */
-
-function normalizeCartItem(item) {
-
-    const productName =
-        item.name ||
-        item.title ||
-        item.productName ||
-        "Product";
-
-
-    const quantity =
-        Number(
-            item.quantity ||
-            item.qty ||
-            1
-        );
-
+function normalizeProduct(item) {
 
     const price =
         Number(
-            item.price ||
-            item.salePrice ||
-            item.currentPrice ||
+            item.price ??
+            item.salePrice ??
+            item.currentPrice ??
+            item.sellingPrice ??
             0
         );
 
-
     const oldPrice =
         Number(
-            item.oldPrice ||
-            item.originalPrice ||
-            item.mrp ||
+            item.oldPrice ??
+            item.originalPrice ??
+            item.mrp ??
             price
+        );
+
+    const quantity =
+        Number(
+            item.quantity ??
+            item.qty ??
+            1
         );
 
 
     return {
 
         id:
-            item.id,
+            item.id ??
+            item.productId ??
+            Date.now(),
 
         name:
-            productName,
+            item.name ??
+            item.title ??
+            item.productName ??
+            "Product",
 
         price:
             price,
@@ -137,44 +137,50 @@ function normalizeCartItem(item) {
                 : 1,
 
         image:
-            item.image ||
-            item.img ||
-            "",
-
-        category:
-            item.category ||
-            "",
+            item.image ??
+            item.img ??
+            item.imageUrl ??
+            "assets/images/product.jpg",
 
         seller:
-            item.seller ||
-            "Wiz Verified Seller"
+            item.seller ??
+            item.sellerName ??
+            "Wiz Verified Seller",
+
+        category:
+            item.category ??
+            "General"
 
     };
 
 }
 
 
-/* =====================================================
-   LOAD CART
-===================================================== */
+/* =========================================================
+   LOAD CHECKOUT CART
+========================================================= */
 
 function loadCheckoutCart() {
 
     const rawCart =
-        getStoredCart();
+        getCartFromStorage();
 
 
     checkoutCart =
         rawCart.map(
-            normalizeCartItem
+            normalizeProduct
         );
 
 
-    if (
-        checkoutCart.length === 0
-    ) {
+    console.log(
+        "Checkout cart:",
+        checkoutCart
+    );
 
-        showEmptyCheckout();
+
+    if (checkoutCart.length === 0) {
+
+        showEmptyCart();
 
         return false;
 
@@ -186,11 +192,91 @@ function loadCheckoutCart() {
 }
 
 
-/* =====================================================
-   EMPTY CHECKOUT
-===================================================== */
+/* =========================================================
+   TOTAL PRODUCT PRICE
+========================================================= */
 
-function showEmptyCheckout() {
+function getSubtotal() {
+
+    return checkoutCart.reduce(
+        function(total, product) {
+
+            return total +
+                (
+                    product.price *
+                    product.quantity
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   ORIGINAL PRICE
+========================================================= */
+
+function getOriginalTotal() {
+
+    return checkoutCart.reduce(
+        function(total, product) {
+
+            return total +
+                (
+                    product.oldPrice *
+                    product.quantity
+                );
+
+        },
+        0
+    );
+
+}
+
+
+/* =========================================================
+   DISCOUNT
+========================================================= */
+
+function getDiscount() {
+
+    const original =
+        getOriginalTotal();
+
+    const subtotal =
+        getSubtotal();
+
+
+    return Math.max(
+        0,
+        original - subtotal
+    );
+
+}
+
+
+/* =========================================================
+   PRICE FORMAT
+========================================================= */
+
+function formatPrice(value) {
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "en-IN"
+    );
+
+}
+
+
+/* =========================================================
+   EMPTY CART
+========================================================= */
+
+function showEmptyCart() {
 
     const container =
         document.getElementById(
@@ -202,35 +288,24 @@ function showEmptyCheckout() {
 
         container.innerHTML = `
 
-            <div class="empty-checkout">
+            <div class="checkout-empty">
 
-                <div style="
-                    font-size:45px;
-                    margin-bottom:12px;
-                ">
+                <div class="empty-icon">
                     🛒
                 </div>
 
                 <h2>
-                    Your cart is empty
+                    Your Cart is Empty
                 </h2>
 
                 <p>
-                    Add products to continue
-                    checkout.
+                    Please add products
+                    before checkout.
                 </p>
 
                 <button
+                    type="button"
                     onclick="goToProducts()"
-                    style="
-                        margin-top:15px;
-                        padding:12px 20px;
-                        border:0;
-                        border-radius:8px;
-                        background:#1769e0;
-                        color:white;
-                        cursor:pointer;
-                    "
                 >
                     Continue Shopping
                 </button>
@@ -242,104 +317,28 @@ function showEmptyCheckout() {
     }
 
 
-    const placeButton =
+    const button =
         document.querySelector(
             ".place-order-btn"
         );
 
 
-    if (placeButton) {
+    if (button) {
 
-        placeButton.disabled =
-            true;
-
-        placeButton.style.opacity =
-            "0.5";
+        button.disabled = true;
 
     }
 
 }
+/* =========================================================
+   PART 2 OF 4
+   RENDER PRODUCTS + PRICE SUMMARY
+========================================================= */
 
 
-/* =====================================================
-   CALCULATE PRODUCT TOTAL
-===================================================== */
-
-function getProductTotal() {
-
-    return checkoutCart.reduce(
-        (
-            total,
-            item
-        ) => {
-
-            return total +
-                (
-                    Number(item.price) *
-                    Number(item.quantity)
-                );
-
-        },
-        0
-    );
-
-}
-
-
-/* =====================================================
-   CALCULATE ORIGINAL TOTAL
-===================================================== */
-
-function getOriginalTotal() {
-
-    return checkoutCart.reduce(
-        (
-            total,
-            item
-        ) => {
-
-            return total +
-                (
-                    Number(item.oldPrice) *
-                    Number(item.quantity)
-                );
-
-        },
-        0
-    );
-
-}
-
-
-/* =====================================================
-   CALCULATE DISCOUNT
-===================================================== */
-
-function getDiscount() {
-
-    const original =
-        getOriginalTotal();
-
-
-    const productTotal =
-        getProductTotal();
-
-
-    return Math.max(
-        0,
-        original - productTotal
-    );
-
-           }
-/* =====================================================
-   PART 2/4
-   RENDER PRODUCTS + PRICE
-===================================================== */
-
-
-/* =====================================================
+/* =========================================================
    RENDER CHECKOUT PRODUCTS
-===================================================== */
+========================================================= */
 
 function renderCheckoutProducts() {
 
@@ -349,13 +348,11 @@ function renderCheckoutProducts() {
         );
 
 
-    if (!container)
-        return;
+    if (!container) {
 
-
-    if (
-        checkoutCart.length === 0
-    ) {
+        console.warn(
+            "checkoutItems element not found"
+        );
 
         return;
 
@@ -364,11 +361,11 @@ function renderCheckoutProducts() {
 
     container.innerHTML =
         checkoutCart.map(
-            item => {
+            function(product) {
 
-                const total =
-                    item.price *
-                    item.quantity;
+                const itemTotal =
+                    product.price *
+                    product.quantity;
 
 
                 return `
@@ -377,22 +374,11 @@ function renderCheckoutProducts() {
 
                         <div class="checkout-product-image">
 
-                            ${
-                                item.image
-                                ?
-                                `
-                                <img
-                                    src="${item.image}"
-                                    alt="${item.name}"
-                                >
-                                `
-                                :
-                                `
-                                <div>
-                                    📦
-                                </div>
-                                `
-                            }
+                            <img
+                                src="${product.image}"
+                                alt="${product.name}"
+                                onerror="this.style.display='none'"
+                            >
 
                         </div>
 
@@ -400,15 +386,16 @@ function renderCheckoutProducts() {
                         <div class="checkout-product-info">
 
                             <h3>
-                                ${item.name}
+                                ${product.name}
                             </h3>
 
                             <p>
-                                ${item.seller}
+                                ${product.seller}
                             </p>
 
                             <span>
-                                Qty: ${item.quantity}
+                                Quantity:
+                                ${product.quantity}
                             </span>
 
                         </div>
@@ -417,20 +404,20 @@ function renderCheckoutProducts() {
                         <div class="checkout-product-price">
 
                             <strong>
-                                ₹${formatPrice(total)}
+                                ₹${formatPrice(itemTotal)}
                             </strong>
 
                             ${
-                                item.oldPrice >
-                                item.price
+                                product.oldPrice >
+                                product.price
                                 ?
                                 `
-                                <small>
+                                <del>
                                     ₹${formatPrice(
-                                        item.oldPrice *
-                                        item.quantity
+                                        product.oldPrice *
+                                        product.quantity
                                     )}
-                                </small>
+                                </del>
                                 `
                                 :
                                 ""
@@ -448,14 +435,14 @@ function renderCheckoutProducts() {
 }
 
 
-/* =====================================================
-   CALCULATE CHECKOUT
-===================================================== */
+/* =========================================================
+   CALCULATE ALL PRICES
+========================================================= */
 
-function calculateCheckout() {
+function calculatePrices() {
 
-    const productTotal =
-        getProductTotal();
+    const subtotal =
+        getSubtotal();
 
 
     const originalTotal =
@@ -463,19 +450,10 @@ function calculateCheckout() {
 
 
     const discount =
-        Math.max(
-            0,
-            originalTotal -
-            productTotal
-        );
+        getDiscount();
 
 
-    /*
-       STANDARD DELIVERY = FREE
-       EXPRESS DELIVERY = ₹49
-    */
-
-    let delivery = 0;
+    let deliveryCharge = 0;
 
 
     if (
@@ -483,23 +461,18 @@ function calculateCheckout() {
         "express"
     ) {
 
-        delivery = 49;
+        deliveryCharge = 49;
 
     }
 
 
-    /*
-       Platform charge
-       Demo amount
-    */
-
-    const platform = 0;
+    const platformCharge = 0;
 
 
-    const finalPrice =
-        productTotal +
-        delivery +
-        platform;
+    const finalTotal =
+        subtotal +
+        deliveryCharge +
+        platformCharge;
 
 
     return {
@@ -507,199 +480,194 @@ function calculateCheckout() {
         originalTotal:
             originalTotal,
 
-        productTotal:
-            productTotal,
+        subtotal:
+            subtotal,
 
         discount:
             discount,
 
-        delivery:
-            delivery,
+        deliveryCharge:
+            deliveryCharge,
 
-        platform:
-            platform,
+        platformCharge:
+            platformCharge,
 
-        finalPrice:
-            finalPrice
+        finalTotal:
+            finalTotal
 
     };
 
 }
 
 
-/* =====================================================
-   UPDATE PRICE UI
-===================================================== */
+/* =========================================================
+   UPDATE PRICE ELEMENT
+========================================================= */
 
-function updateCheckoutPrices() {
-
-    const pricing =
-        calculateCheckout();
-
-
-    setPrice(
-        "originalTotal",
-        pricing.originalTotal
-    );
-
-
-    setPrice(
-        "productTotal",
-        pricing.productTotal
-    );
-
-
-    setPrice(
-        "discountAmount",
-        pricing.discount
-    );
-
-
-    setDeliveryPrice(
-        "deliveryCharge",
-        pricing.delivery
-    );
-
-
-    setPrice(
-        "platformCharge",
-        pricing.platform
-    );
-
-
-    setPrice(
-        "finalPrice",
-        pricing.finalPrice
-    );
-
-
-    /*
-       Support alternative IDs
-    */
-
-    setPrice(
-        "subtotal",
-        pricing.productTotal
-    );
-
-
-    setPrice(
-        "totalAmount",
-        pricing.finalPrice
-    );
-
-
-    setPrice(
-        "grandTotal",
-        pricing.finalPrice
-    );
-
-
-    setPrice(
-        "checkoutTotal",
-        pricing.finalPrice
-    );
-
-
-    updatePlaceOrderButton(
-        pricing.finalPrice
-    );
-
-}
-
-
-/* =====================================================
-   SET PRICE
-===================================================== */
-
-function setPrice(
+function updatePriceElement(
     id,
-    amount
+    value
 ) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
-    if (!element)
+    if (!element) {
         return;
+    }
 
 
     element.textContent =
-        `₹${formatPrice(amount)}`;
+        "₹" +
+        formatPrice(value);
 
 }
 
 
-/* =====================================================
-   DELIVERY PRICE
-===================================================== */
+/* =========================================================
+   UPDATE DELIVERY ELEMENT
+========================================================= */
 
-function setDeliveryPrice(
+function updateDeliveryElement(
     id,
-    amount
+    value
 ) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
-    if (!element)
+    if (!element) {
         return;
+    }
 
 
-    if (
-        Number(amount) === 0
-    ) {
+    if (value === 0) {
 
         element.textContent =
             "FREE";
 
-        element.classList.add(
-            "free"
-        );
-
     } else {
 
         element.textContent =
-            `₹${formatPrice(amount)}`;
-
-        element.classList.remove(
-            "free"
-        );
+            "₹" +
+            formatPrice(value);
 
     }
 
 }
 
 
-/* =====================================================
-   FORMAT PRICE
-===================================================== */
+/* =========================================================
+   UPDATE CHECKOUT SUMMARY
+========================================================= */
 
-function formatPrice(
-    amount
-) {
+function updateCheckoutSummary() {
 
-    return Number(
-        amount || 0
-    ).toLocaleString(
-        "en-IN"
+    const prices =
+        calculatePrices();
+
+
+    console.log(
+        "💰 Checkout prices:",
+        prices
+    );
+
+
+    /* Original price */
+
+    updatePriceElement(
+        "originalTotal",
+        prices.originalTotal
+    );
+
+
+    /* Subtotal */
+
+    updatePriceElement(
+        "subtotal",
+        prices.subtotal
+    );
+
+
+    updatePriceElement(
+        "productTotal",
+        prices.subtotal
+    );
+
+
+    /* Discount */
+
+    updatePriceElement(
+        "discountAmount",
+        prices.discount
+    );
+
+
+    updatePriceElement(
+        "discount",
+        prices.discount
+    );
+
+
+    /* Delivery */
+
+    updateDeliveryElement(
+        "deliveryCharge",
+        prices.deliveryCharge
+    );
+
+
+    /* Platform charge */
+
+    updatePriceElement(
+        "platformCharge",
+        prices.platformCharge
+    );
+
+
+    /* Final total */
+
+    updatePriceElement(
+        "finalPrice",
+        prices.finalTotal
+    );
+
+
+    updatePriceElement(
+        "totalAmount",
+        prices.finalTotal
+    );
+
+
+    updatePriceElement(
+        "grandTotal",
+        prices.finalTotal
+    );
+
+
+    updatePriceElement(
+        "checkoutTotal",
+        prices.finalTotal
+    );
+
+
+    /* Button amount */
+
+    updatePlaceOrderButton(
+        prices.finalTotal
     );
 
 }
 
 
-/* =====================================================
-   UPDATE PLACE ORDER BUTTON
-===================================================== */
+/* =========================================================
+   PLACE ORDER BUTTON TEXT
+========================================================= */
 
 function updatePlaceOrderButton(
-    amount
+    total
 ) {
 
     const button =
@@ -708,18 +676,16 @@ function updatePlaceOrderButton(
         );
 
 
-    if (!button)
+    if (!button) {
         return;
+    }
 
 
     button.innerHTML = `
 
+        🔒
         <span>
-            🔒
-        </span>
-
-        <span>
-            Place Order · ₹${formatPrice(amount)}
+            Place Order · ₹${formatPrice(total)}
         </span>
 
     `;
@@ -727,9 +693,9 @@ function updatePlaceOrderButton(
 }
 
 
-/* =====================================================
-   DELIVERY METHOD
-===================================================== */
+/* =========================================================
+   DELIVERY SELECTION
+========================================================= */
 
 function selectDelivery(
     type
@@ -744,7 +710,7 @@ function selectDelivery(
             ".delivery-option"
         )
         .forEach(
-            option => {
+            function(option) {
 
                 option.classList.toggle(
                     "active",
@@ -756,20 +722,16 @@ function selectDelivery(
         );
 
 
-    updateCheckoutPrices();
+    updateCheckoutSummary();
 
 }
-/* =====================================================
-   PART 3/4
-   ADDRESS + PAYMENT + ORDER
-===================================================== */
 
 
-/* =====================================================
-   SELECT PAYMENT
-===================================================== */
+/* =========================================================
+   PAYMENT SELECTION
+========================================================= */
 
-function selectCheckoutPayment(
+function selectPayment(
     method
 ) {
 
@@ -779,27 +741,10 @@ function selectCheckoutPayment(
 
     document
         .querySelectorAll(
-            ".checkout-payment-option"
-        )
-        .forEach(
-            option => {
-
-                option.classList.toggle(
-                    "active",
-                    option.dataset.payment ===
-                    method
-                );
-
-            }
-        );
-
-
-    document
-        .querySelectorAll(
             ".payment-option"
         )
         .forEach(
-            option => {
+            function(option) {
 
                 option.classList.toggle(
                     "active",
@@ -810,175 +755,79 @@ function selectCheckoutPayment(
             }
         );
 
-}
+       }
+/* =========================================================
+   PART 3 OF 4
+   ADDRESS + ORDER CREATION
+========================================================= */
 
 
-/* =====================================================
-   GET ADDRESS
-===================================================== */
+/* =========================================================
+   GET INPUT
+========================================================= */
 
-function getCheckoutAddress() {
-
-    const saved =
-        localStorage.getItem(
-            "wizDeliveryAddress"
-        );
-
-
-    if (saved) {
-
-        try {
-
-            return JSON.parse(
-                saved
-            );
-
-        } catch (error) {
-
-            console.log(
-                "Address parse error"
-            );
-
-        }
-
-    }
-
-
-    /*
-       Try form fields
-    */
-
-    const name =
-        getValue(
-            "fullName"
-        );
-
-
-    const phone =
-        getValue(
-            "phone"
-        );
-
-
-    const address =
-        getValue(
-            "address"
-        );
-
-
-    const city =
-        getValue(
-            "city"
-        );
-
-
-    const state =
-        getValue(
-            "state"
-        );
-
-
-    const pincode =
-        getValue(
-            "pincode"
-        );
-
-
-    if (
-        name ||
-        phone ||
-        address ||
-        city ||
-        state ||
-        pincode
-    ) {
-
-        return {
-
-            name,
-            phone,
-            address,
-            city,
-            state,
-            pincode
-
-        };
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =====================================================
-   GET INPUT VALUE
-===================================================== */
-
-function getValue(
-    id
-) {
+function getInputValue(id) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
-    return element
-        ? element.value.trim()
-        : "";
+    if (!element) {
+        return "";
+    }
+
+
+    return element.value.trim();
 
 }
 
 
-/* =====================================================
+/* =========================================================
    SAVE ADDRESS
-===================================================== */
+========================================================= */
 
-function saveDeliveryAddress() {
+function saveAddress() {
 
     const name =
-        getValue(
+        getInputValue(
             "fullName"
         );
 
 
     const phone =
-        getValue(
+        getInputValue(
             "phone"
         );
 
 
     const address =
-        getValue(
+        getInputValue(
             "address"
         );
 
 
     const city =
-        getValue(
+        getInputValue(
             "city"
         );
 
 
     const state =
-        getValue(
+        getInputValue(
             "state"
         );
 
 
     const pincode =
-        getValue(
+        getInputValue(
             "pincode"
         );
 
 
     if (!name) {
 
-        showCheckoutToast(
-            "⚠️ Enter your full name"
+        showToast(
+            "Please enter your name"
         );
 
         return false;
@@ -987,11 +836,11 @@ function saveDeliveryAddress() {
 
 
     if (
-        phone.length < 10
+        !/^[0-9]{10}$/.test(phone)
     ) {
 
-        showCheckoutToast(
-            "⚠️ Enter valid phone number"
+        showToast(
+            "Please enter a valid 10-digit phone number"
         );
 
         return false;
@@ -1001,8 +850,8 @@ function saveDeliveryAddress() {
 
     if (!address) {
 
-        showCheckoutToast(
-            "⚠️ Enter delivery address"
+        showToast(
+            "Please enter your address"
         );
 
         return false;
@@ -1012,8 +861,8 @@ function saveDeliveryAddress() {
 
     if (!city) {
 
-        showCheckoutToast(
-            "⚠️ Enter city"
+        showToast(
+            "Please enter your city"
         );
 
         return false;
@@ -1023,8 +872,8 @@ function saveDeliveryAddress() {
 
     if (!state) {
 
-        showCheckoutToast(
-            "⚠️ Enter state"
+        showToast(
+            "Please enter your state"
         );
 
         return false;
@@ -1033,11 +882,11 @@ function saveDeliveryAddress() {
 
 
     if (
-        pincode.length !== 6
+        !/^[0-9]{6}$/.test(pincode)
     ) {
 
-        showCheckoutToast(
-            "⚠️ Enter valid pincode"
+        showToast(
+            "Please enter a valid 6-digit pincode"
         );
 
         return false;
@@ -1069,138 +918,99 @@ function saveDeliveryAddress() {
 
 
     localStorage.setItem(
-        "wizDeliveryAddress",
+        ADDRESS_KEY,
         JSON.stringify(
             deliveryAddress
         )
     );
 
 
-    renderSavedAddress(
-        deliveryAddress
-    );
-
-
-    return true;
+    return deliveryAddress;
 
 }
 
 
-/* =====================================================
-   RENDER SAVED ADDRESS
-===================================================== */
-
-function renderSavedAddress(
-    address
-) {
-
-    const element =
-        document.getElementById(
-            "savedAddress"
-        );
-
-
-    if (!element)
-        return;
-
-
-    element.innerHTML = `
-
-        <strong>
-            ${address.name}
-        </strong>
-
-        <p>
-            ${address.address},
-            ${address.city},
-            ${address.state}
-            - ${address.pincode}
-        </p>
-
-        <small>
-            📞 ${address.phone}
-        </small>
-
-    `;
-
-}
-
-
-/* =====================================================
+/* =========================================================
    LOAD SAVED ADDRESS
-===================================================== */
+========================================================= */
 
 function loadSavedAddress() {
 
-    const address =
-        getCheckoutAddress();
+    const saved =
+        localStorage.getItem(
+            ADDRESS_KEY
+        );
 
 
-    if (!address)
+    if (!saved) {
         return;
+    }
 
 
-    renderSavedAddress(
-        address
-    );
+    try {
+
+        const address =
+            JSON.parse(saved);
 
 
-    /*
-       Fill form fields
-    */
-
-    setValue(
-        "fullName",
-        address.name
-    );
+        setInput(
+            "fullName",
+            address.name
+        );
 
 
-    setValue(
-        "phone",
-        address.phone
-    );
+        setInput(
+            "phone",
+            address.phone
+        );
 
 
-    setValue(
-        "address",
-        address.address
-    );
+        setInput(
+            "address",
+            address.address
+        );
 
 
-    setValue(
-        "city",
-        address.city
-    );
+        setInput(
+            "city",
+            address.city
+        );
 
 
-    setValue(
-        "state",
-        address.state
-    );
+        setInput(
+            "state",
+            address.state
+        );
 
 
-    setValue(
-        "pincode",
-        address.pincode
-    );
+        setInput(
+            "pincode",
+            address.pincode
+        );
 
+
+    } catch (error) {
+
+        console.warn(
+            "Saved address error"
+        );
+
+    }
 
 }
 
 
-/* =====================================================
-   SET INPUT VALUE
-===================================================== */
+/* =========================================================
+   SET INPUT
+========================================================= */
 
-function setValue(
+function setInput(
     id,
     value
 ) {
 
     const element =
-        document.getElementById(
-            id
-        );
+        document.getElementById(id);
 
 
     if (element) {
@@ -1213,57 +1023,56 @@ function setValue(
 }
 
 
-/* =====================================================
+/* =========================================================
+   GET SAVED ADDRESS
+========================================================= */
+
+function getSavedAddress() {
+
+    const saved =
+        localStorage.getItem(
+            ADDRESS_KEY
+        );
+
+
+    if (!saved) {
+        return null;
+    }
+
+
+    try {
+
+        return JSON.parse(
+            saved
+        );
+
+    } catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
    PLACE ORDER
-===================================================== */
+========================================================= */
 
 function placeOrder() {
 
-    /*
-       Make sure cart exists
-    */
+    console.log(
+        "🛒 Place Order clicked"
+    );
+
 
     if (
         checkoutCart.length === 0
     ) {
 
-        showCheckoutToast(
-            "⚠️ Your cart is empty"
+        showToast(
+            "Your cart is empty"
         );
-
-        return;
-
-    }
-
-
-    /*
-       Save address first
-    */
-
-    const address =
-        getCheckoutAddress();
-
-
-    if (!address) {
-
-        showCheckoutToast(
-            "⚠️ Please enter delivery address"
-        );
-
-        const addressSection =
-            document.querySelector(
-                ".address-section"
-            );
-
-
-        if (addressSection) {
-
-            addressSection.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }
 
         return;
 
@@ -1274,18 +1083,11 @@ function placeOrder() {
        Validate address
     */
 
-    if (
-        !address.name ||
-        !address.phone ||
-        !address.address ||
-        !address.city ||
-        !address.state ||
-        !address.pincode
-    ) {
+    const address =
+        saveAddress();
 
-        showCheckoutToast(
-            "⚠️ Please complete delivery address"
-        );
+
+    if (!address) {
 
         return;
 
@@ -1296,15 +1098,27 @@ function placeOrder() {
        Calculate final price
     */
 
-    const pricing =
-        calculateCheckout();
+    const prices =
+        calculatePrices();
 
 
     /*
-       Create payment order
+       Generate order ID
     */
 
-    const paymentOrder = {
+    const orderId =
+        "WIZ" +
+        Date.now();
+
+
+    /*
+       Create order object
+    */
+
+    const order = {
+
+        orderId:
+            orderId,
 
         items:
             checkoutCart,
@@ -1312,14 +1126,17 @@ function placeOrder() {
         address:
             address,
 
-        delivery:
+        deliveryMethod:
             selectedDelivery,
 
-        payment:
+        paymentMethod:
             selectedPayment,
 
         pricing:
-            pricing,
+            prices,
+
+        status:
+            "Payment Pending",
 
         createdAt:
             new Date().toISOString()
@@ -1328,19 +1145,37 @@ function placeOrder() {
 
 
     /*
-       Save for payment page
+       Save order for payment page
     */
 
     localStorage.setItem(
-        "wizPaymentOrder",
+        ORDER_KEY,
         JSON.stringify(
-            paymentOrder
+            order
         )
     );
 
 
     /*
-       Disable button
+       Also save current order
+    */
+
+    localStorage.setItem(
+        "currentOrder",
+        JSON.stringify(
+            order
+        )
+    );
+
+
+    console.log(
+        "✅ Order created:",
+        order
+    );
+
+
+    /*
+       Button loading
     */
 
     const button =
@@ -1355,57 +1190,67 @@ function placeOrder() {
             true;
 
         button.innerHTML = `
-            <span>
-                ⏳
-            </span>
-
-            <span>
-                Opening Payment...
-            </span>
+            ⏳ Opening Payment...
         `;
 
     }
 
 
     /*
-       Open Payment Page
+       Open payment page
     */
 
     setTimeout(
-        () => {
+        function() {
 
             window.location.href =
                 "payment.html";
 
         },
-        400
+        500
     );
 
 }
-/* =====================================================
-   PART 4/4
-   TOAST + INIT + NAVIGATION
-===================================================== */
 
 
-/* =====================================================
-   TOAST
-===================================================== */
+/* =========================================================
+   SAVE ADDRESS BUTTON
+========================================================= */
 
-function showCheckoutToast(
+function handleSaveAddress() {
+
+    const address =
+        saveAddress();
+
+
+    if (address) {
+
+        showToast(
+            "✅ Address saved successfully"
+        );
+
+    }
+
+       }
+/* =========================================================
+   PART 4 OF 4
+   BUTTONS + ANIMATION + INITIALIZATION
+========================================================= */
+
+
+/* =========================================================
+   TOAST MESSAGE
+========================================================= */
+
+function showToast(
     message
 ) {
 
     let toast =
         document.getElementById(
-            "checkoutToast"
+            "wizCheckoutToast"
         );
 
-
-    /*
-       Create toast automatically
-       if HTML doesn't contain one
-    */
 
     if (!toast) {
 
@@ -1415,16 +1260,20 @@ function showCheckoutToast(
             );
 
         toast.id =
-            "checkoutToast";
+            "wizCheckoutToast";
+
 
         toast.style.position =
             "fixed";
 
-        toast.style.bottom =
-            "20px";
+        toast.style.left =
+            "50%";
 
-        toast.style.right =
-            "20px";
+        toast.style.bottom =
+            "25px";
+
+        toast.style.transform =
+            "translateX(-50%)";
 
         toast.style.background =
             "#111827";
@@ -1433,19 +1282,23 @@ function showCheckoutToast(
             "#ffffff";
 
         toast.style.padding =
-            "13px 18px";
+            "13px 20px";
 
         toast.style.borderRadius =
-            "9px";
+            "10px";
 
         toast.style.fontSize =
-            "12px";
+            "14px";
+
+        toast.style.fontWeight =
+            "600";
 
         toast.style.zIndex =
             "99999";
 
-        toast.style.transition =
-            "0.3s";
+        toast.style.boxShadow =
+            "0 8px 25px rgba(0,0,0,.25)";
+
 
         document.body.appendChild(
             toast
@@ -1457,27 +1310,22 @@ function showCheckoutToast(
     toast.textContent =
         message;
 
+
     toast.style.opacity =
         "1";
 
-    toast.style.transform =
-        "translateY(0)";
-
 
     clearTimeout(
-        window.checkoutToastTimer
+        window.wizToastTimer
     );
 
 
-    window.checkoutToastTimer =
+    window.wizToastTimer =
         setTimeout(
-            () => {
+            function() {
 
                 toast.style.opacity =
                     "0";
-
-                toast.style.transform =
-                    "translateY(10px)";
 
             },
             2500
@@ -1486,35 +1334,11 @@ function showCheckoutToast(
 }
 
 
-/* =====================================================
-   PRODUCTS PAGE
-===================================================== */
+/* =========================================================
+   PLACE ORDER BUTTON SETUP
+========================================================= */
 
-function goToProducts() {
-
-    window.location.href =
-        "products.html";
-
-}
-
-
-/* =====================================================
-   BACK TO CART
-===================================================== */
-
-function goBackToCart() {
-
-    window.location.href =
-        "cart.html";
-
-}
-
-
-/* =====================================================
-   AUTO PLACE ORDER BUTTON
-===================================================== */
-
-function setupPlaceOrderButton() {
+function setupPlaceOrder() {
 
     const button =
         document.querySelector(
@@ -1522,17 +1346,23 @@ function setupPlaceOrderButton() {
         );
 
 
-    if (!button)
+    if (!button) {
+
+        console.warn(
+            "Place order button not found"
+        );
+
         return;
+
+    }
 
 
     /*
-       Remove old onclick
-       event conflicts
+       Prevent HTML onclick
+       conflicts
     */
 
-    button.onclick =
-        null;
+    button.onclick = null;
 
 
     button.addEventListener(
@@ -1551,26 +1381,27 @@ function setupPlaceOrderButton() {
 }
 
 
-/* =====================================================
-   DELIVERY OPTIONS
-===================================================== */
+/* =========================================================
+   DELIVERY BUTTON SETUP
+========================================================= */
 
-function setupDeliveryOptions() {
+function setupDelivery() {
 
     document
         .querySelectorAll(
             ".delivery-option"
         )
         .forEach(
-            option => {
+            function(option) {
 
                 option.addEventListener(
                     "click",
-                    () => {
+                    function() {
 
                         const type =
                             option.dataset.delivery ||
                             "standard";
+
 
                         selectDelivery(
                             type
@@ -1585,28 +1416,29 @@ function setupDeliveryOptions() {
 }
 
 
-/* =====================================================
-   PAYMENT OPTIONS
-===================================================== */
+/* =========================================================
+   PAYMENT BUTTON SETUP
+========================================================= */
 
-function setupPaymentOptions() {
+function setupPayment() {
 
     document
         .querySelectorAll(
-            ".checkout-payment-option, .payment-option"
+            ".payment-option"
         )
         .forEach(
-            option => {
+            function(option) {
 
                 option.addEventListener(
                     "click",
-                    () => {
+                    function() {
 
                         const method =
                             option.dataset.payment ||
-                            "upi";
+                            "cod";
 
-                        selectCheckoutPayment(
+
+                        selectPayment(
                             method
                         );
 
@@ -1619,23 +1451,20 @@ function setupPaymentOptions() {
 }
 
 
-/* =====================================================
-   CHECKOUT PAGE ANIMATION
-===================================================== */
+/* =========================================================
+   CHECKOUT ANIMATION
+========================================================= */
 
-function checkoutAnimation() {
+function runCheckoutAnimation() {
 
     const elements =
         document.querySelectorAll(
-            ".checkout-card, .checkout-summary, .checkout-product"
+            ".checkout-card, .checkout-product, .checkout-summary, .checkout-section"
         );
 
 
     elements.forEach(
-        (
-            element,
-            index
-        ) => {
+        function(element, index) {
 
             element.style.opacity =
                 "0";
@@ -1645,10 +1474,10 @@ function checkoutAnimation() {
 
 
             setTimeout(
-                () => {
+                function() {
 
                     element.style.transition =
-                        "opacity .4s ease, transform .4s ease";
+                        "all .4s ease";
 
                     element.style.opacity =
                         "1";
@@ -1666,9 +1495,33 @@ function checkoutAnimation() {
 }
 
 
-/* =====================================================
+/* =========================================================
+   BACK TO CART
+========================================================= */
+
+function goBackToCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+/* =========================================================
+   GO TO PRODUCTS
+========================================================= */
+
+function goToProducts() {
+
+    window.location.href =
+        "products.html";
+
+}
+
+
+/* =========================================================
    INITIALIZE CHECKOUT
-===================================================== */
+========================================================= */
 
 function initializeCheckout() {
 
@@ -1681,11 +1534,15 @@ function initializeCheckout() {
        Load cart
     */
 
-    const hasCart =
+    const cartLoaded =
         loadCheckoutCart();
 
 
-    if (!hasCart) {
+    if (!cartLoaded) {
+
+        console.log(
+            "⚠️ No products in checkout"
+        );
 
         return;
 
@@ -1700,7 +1557,7 @@ function initializeCheckout() {
 
 
     /*
-       Load address
+       Load saved address
     */
 
     loadSavedAddress();
@@ -1719,32 +1576,32 @@ function initializeCheckout() {
     */
 
     selectedPayment =
-        "upi";
+        "cod";
 
 
     /*
-       Calculate all prices
+       Calculate price
     */
 
-    updateCheckoutPrices();
+    updateCheckoutSummary();
 
 
     /*
        Setup buttons
     */
 
-    setupPlaceOrderButton();
+    setupPlaceOrder();
 
-    setupDeliveryOptions();
+    setupDelivery();
 
-    setupPaymentOptions();
+    setupPayment();
 
 
     /*
        Animation
     */
 
-    checkoutAnimation();
+    runCheckoutAnimation();
 
 
     console.log(
@@ -1754,23 +1611,30 @@ function initializeCheckout() {
 }
 
 
-/* =====================================================
+/* =========================================================
    DOM READY
-===================================================== */
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+if (
+    document.readyState ===
+    "loading"
+) {
 
-        initializeCheckout();
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeCheckout
+    );
 
-    }
-);
+} else {
+
+    initializeCheckout();
+
+}
 
 
-/* =====================================================
+/* =========================================================
    GLOBAL FUNCTIONS
-===================================================== */
+========================================================= */
 
 window.placeOrder =
     placeOrder;
@@ -1778,17 +1642,17 @@ window.placeOrder =
 window.selectDelivery =
     selectDelivery;
 
-window.selectCheckoutPayment =
-    selectCheckoutPayment;
+window.selectPayment =
+    selectPayment;
 
-window.saveDeliveryAddress =
-    saveDeliveryAddress;
+window.saveAddress =
+    saveAddress;
+
+window.handleSaveAddress =
+    handleSaveAddress;
 
 window.goBackToCart =
     goBackToCart;
 
 window.goToProducts =
     goToProducts;
-
-window.calculateCheckout =
-    calculateCheckout;
