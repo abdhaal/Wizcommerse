@@ -306,6 +306,20 @@ function loadProductDetails() {
         productIcon.textContent =
             selectedProduct.icon;
 
+   const productImage =
+    document.getElementById("productImage");
+
+if (productImage && selectedProduct.image) {
+
+    productImage.src =
+        selectedProduct.image;
+
+    productImage.alt =
+        selectedProduct.name;
+
+    productImage.style.display =
+        "block";
+}
 
     document.title =
         `${selectedProduct.name} - Wiz Commerce`;
