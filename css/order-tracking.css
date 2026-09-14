@@ -1,0 +1,876 @@
+/* =====================================================
+   WIZ COMMERCE
+   ORDER TRACKING CSS
+   PART 1/4
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.tracking-header {
+    height: 70px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+}
+
+.tracking-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    font-size: 27px;
+}
+
+.shop-link {
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.tracking-page {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.tracking-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.title-icon {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 14px;
+
+    background: #dbeafe;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+.tracking-title h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.tracking-title p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ORDER HEADER
+===================================================== */
+
+.order-header-card {
+    background: #ffffff;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.06);
+
+    margin-bottom: 18px;
+}
+
+.small-label {
+    display: block;
+
+    color: #64748b;
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+#orderId {
+    font-size: 16px;
+    color: #1d4ed8;
+}
+
+.order-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    background: #dcfce7;
+
+    color: #15803d;
+
+    padding: 9px 13px;
+
+    border-radius: 30px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+  }
+/* =====================================================
+   DELIVERY CONFIDENCE
+===================================================== */
+
+.confidence-card {
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.06);
+
+    margin-bottom: 20px;
+}
+
+.confidence-icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #fef3c7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+.confidence-content {
+    flex: 1;
+}
+
+.confidence-content span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 4px;
+}
+
+.confidence-content strong {
+    display: block;
+
+    font-size: 17px;
+
+    margin-bottom: 4px;
+}
+
+.confidence-content small {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.confidence-score {
+    text-align: center;
+}
+
+.confidence-score strong {
+    display: block;
+
+    color: #16a34a;
+
+    font-size: 24px;
+}
+
+.confidence-score span {
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   TRACKING CARD
+===================================================== */
+
+.tracking-card {
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 7px 25px rgba(15, 23, 42, 0.06);
+
+    margin-bottom: 20px;
+}
+
+.card-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.card-heading h2 {
+    font-size: 20px;
+
+    margin-bottom: 5px;
+}
+
+.card-heading p {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.live-badge {
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    padding: 7px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   TRACKING STEPS
+===================================================== */
+
+.tracking-step {
+    position: relative;
+
+    display: flex;
+
+    gap: 15px;
+
+    padding-bottom: 30px;
+}
+
+.tracking-step:last-child {
+    padding-bottom: 0;
+}
+
+.step-indicator {
+    position: relative;
+
+    width: 42px;
+    min-width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    z-index: 2;
+}
+
+.tracking-step:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+
+    left: 20px;
+    top: 42px;
+
+    width: 2px;
+    height: calc(100% - 42px);
+
+    background: #e2e8f0;
+  }
+/* =====================================================
+   TRACKING STEP STATES
+===================================================== */
+
+.tracking-step.completed .step-indicator {
+    background: #dcfce7;
+
+    color: #16a34a;
+}
+
+.tracking-step.active .step-indicator {
+    background: #dbeafe;
+
+    color: #2563eb;
+
+    animation: stepPulse 1.8s infinite;
+}
+
+.tracking-step.completed::after {
+    background: #22c55e;
+}
+
+@keyframes stepPulse {
+
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, .25);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+}
+
+.step-content {
+    padding-top: 3px;
+}
+
+.step-content strong {
+    display: block;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.step-content span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.step-content small {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    margin-top: 6px;
+}
+
+.tracking-step.completed
+.step-content small {
+    color: #16a34a;
+}
+
+.tracking-step.active
+.step-content small {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   DELIVERY CARD
+===================================================== */
+
+.delivery-card {
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.06);
+
+    margin-bottom: 18px;
+}
+
+.delivery-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.delivery-icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #dbeafe;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+.delivery-main span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 4px;
+}
+
+.delivery-main strong {
+    display: block;
+
+    font-size: 16px;
+
+    margin-bottom: 4px;
+}
+
+.delivery-main small {
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.delivery-confidence-mini {
+    text-align: right;
+}
+
+.delivery-confidence-mini span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    margin-bottom: 5px;
+}
+
+.delivery-confidence-mini strong {
+    color: #16a34a;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.address-card {
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+
+    gap: 14px;
+
+    box-shadow:
+        0 6px 20px rgba(15, 23, 42, 0.06);
+
+    margin-bottom: 20px;
+}
+
+.address-icon {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 12px;
+
+    background: #f1f5f9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.address-card > div:last-child {
+    flex: 1;
+}
+
+.address-card span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+.address-card strong {
+    display: block;
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+.address-card p {
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+/* =====================================================
+   TRUST SECTION
+===================================================== */
+
+.tracking-trust {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.trust-box {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    box-shadow:
+        0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.trust-icon {
+    font-size: 23px;
+}
+
+.trust-box strong {
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 4px;
+}
+
+.trust-box small {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.tracking-actions {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+.tracking-actions button {
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 22px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.tracking-actions button:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn {
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.secondary-btn {
+    background: #ffffff;
+
+    color: #2563eb;
+
+    border: 1px solid #2563eb !important;
+}
+
+
+/* =====================================================
+   SUPPORT
+===================================================== */
+
+.support-card {
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 25px;
+}
+
+.support-icon {
+    font-size: 25px;
+}
+
+.support-card > div:nth-child(2) {
+    flex: 1;
+}
+
+.support-card strong {
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.support-card span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+.support-card button {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    padding: 9px 13px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.tracking-footer {
+    text-align: center;
+
+    padding: 10px 0 30px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.tracking-footer span {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .tracking-header {
+        padding: 0 18px;
+    }
+
+    .tracking-logo {
+        font-size: 17px;
+    }
+
+    .shop-link {
+        font-size: 11px;
+    }
+
+    .tracking-page {
+        margin-top: 20px;
+
+        padding:
+            0 12px;
+    }
+
+    .tracking-title h1 {
+        font-size: 23px;
+    }
+
+    .confidence-card {
+        padding: 15px;
+    }
+
+    .confidence-score strong {
+        font-size: 20px;
+    }
+
+    .delivery-card {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+    .delivery-confidence-mini {
+        text-align: left;
+    }
+
+    .tracking-trust {
+        grid-template-columns: 1fr;
+    }
+
+    .tracking-actions {
+        flex-direction: column;
+    }
+
+    .tracking-actions button {
+        width: 100%;
+    }
+
+    .support-card {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .support-card button {
+        width: 100%;
+    }
+
+}
