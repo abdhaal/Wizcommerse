@@ -1,0 +1,1190 @@
+/* =====================================================
+   WIZ COMMERCE
+   COMPARE PAGE CSS
+   PART 1/4
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f8fafc;
+
+    color: #0f172a;
+
+    min-height: 100vh;
+
+}
+
+
+a {
+
+    text-decoration: none;
+
+    color: inherit;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.compare-header {
+
+    height: 70px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 6%;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+}
+
+
+.brand-icon {
+
+    font-size: 26px;
+
+}
+
+
+.header-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+}
+
+
+.header-nav a {
+
+    color: #475569;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+.header-nav a:hover {
+
+    color: #2563eb;
+
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.compare-container {
+
+    max-width: 1150px;
+
+    margin:
+        35px auto;
+
+    padding:
+        0 20px;
+
+}
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.page-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.heading-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 14px;
+
+    background: #dbeafe;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 27px;
+
+}
+
+
+.page-heading h1 {
+
+    font-size: 27px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.page-heading p {
+
+    color: #64748b;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   SMART TIP
+========================================= */
+
+.smart-tip {
+
+    background: #eff6ff;
+
+    border:
+        1px solid #bfdbfe;
+
+    border-radius: 15px;
+
+    padding: 17px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.tip-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    background: #dbeafe;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 19px;
+
+}
+
+
+.smart-tip strong {
+
+    display: block;
+
+    color: #1d4ed8;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.smart-tip p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================
+   COMPARE SECTION
+========================================= */
+
+.compare-section {
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 7px 25px
+        rgba(15, 23, 42, .06);
+
+    margin-bottom: 20px;
+
+}
+
+
+.compare-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+
+.compare-top h2 {
+
+    font-size: 19px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.compare-top p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+}
+
+
+.clear-button {
+
+    border: none;
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+    border-radius: 8px;
+
+    padding: 9px 12px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.clear-button:hover {
+
+    background: #fecaca;
+
+  }
+/* =========================================
+   COMPARISON TABLE
+========================================= */
+
+.comparison-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+.comparison-table {
+
+    min-width: 700px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(180px, 1fr));
+
+    gap: 12px;
+
+}
+
+
+/* =========================================
+   PRODUCT COMPARE CARD
+========================================= */
+
+.compare-product {
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    position: relative;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.compare-product:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(15, 23, 42, .08);
+
+}
+
+
+.compare-image {
+
+    height: 170px;
+
+    background: #f8fafc;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+}
+
+
+.compare-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+}
+
+
+.remove-product {
+
+    position: absolute;
+
+    top: 8px;
+
+    right: 8px;
+
+    width: 27px;
+
+    height: 27px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.12);
+
+    color: #ef4444;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+}
+
+
+.winner-badge {
+
+    position: absolute;
+
+    left: 8px;
+
+    top: 8px;
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+    padding:
+        5px 8px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+}
+
+
+.compare-info {
+
+    padding: 15px;
+
+}
+
+
+.compare-info h3 {
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    min-height: 36px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.compare-price {
+
+    color: #0f172a;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =========================================
+   COMPARE ROW
+========================================= */
+
+.compare-row {
+
+    border-top:
+        1px solid #f1f5f9;
+
+    padding:
+        9px 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+}
+
+
+.compare-row span {
+
+    color: #64748b;
+
+    font-size: 9px;
+
+}
+
+
+.compare-row strong {
+
+    font-size: 10px;
+
+    text-align: right;
+
+}
+
+
+.rating-value {
+
+    color: #d97706;
+
+}
+
+
+.trust-value {
+
+    color: #15803d;
+
+}
+
+
+.verified {
+
+    color: #15803d;
+
+}
+
+
+.not-verified {
+
+    color: #64748b;
+
+}
+
+
+/* =========================================
+   VIEW PRODUCT
+========================================= */
+
+.view-product {
+
+    width: 100%;
+
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+    margin-top: 9px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.view-product:hover {
+
+    background: #1d4ed8;
+
+      }
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+
+    text-align: center;
+
+    padding:
+        55px 20px;
+
+    border:
+        1px dashed #cbd5e1;
+
+    border-radius: 14px;
+
+}
+
+
+.empty-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.empty-state h2 {
+
+    font-size: 18px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.empty-state p {
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.browse-button {
+
+    display: inline-block;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    padding:
+        11px 16px;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================
+   RECOMMENDATION
+========================================= */
+
+.recommendation-card {
+
+    display: none;
+
+    background: #f0fdf4;
+
+    border:
+        1px solid #bbf7d0;
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.recommendation-card.show {
+
+    display: flex;
+
+}
+
+
+.recommendation-icon {
+
+    width: 47px;
+
+    height: 47px;
+
+    border-radius: 12px;
+
+    background: #dcfce7;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+}
+
+
+.recommendation-content {
+
+    flex: 1;
+
+}
+
+
+.recommendation-content > span {
+
+    color: #15803d;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+}
+
+
+.recommendation-content h2 {
+
+    color: #166534;
+
+    font-size: 15px;
+
+    margin:
+        4px 0;
+
+}
+
+
+.recommendation-content p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+}
+
+
+.recommendation-score {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #15803d;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    border:
+        2px solid #86efac;
+
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.feature-section {
+
+    margin-bottom: 22px;
+
+}
+
+
+.section-heading {
+
+    margin-bottom: 14px;
+
+}
+
+
+.section-heading h2 {
+
+    font-size: 18px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.section-heading p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+}
+
+
+.feature-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+}
+
+
+.feature-card {
+
+    background: #ffffff;
+
+    border-radius: 13px;
+
+    padding: 16px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(15,23,42,.04);
+
+}
+
+
+.feature-icon {
+
+    font-size: 23px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.feature-card h3 {
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.feature-card p {
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+  }
+/* =========================================
+   JUDGE CARD
+========================================= */
+
+.judge-card {
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(15,23,42,.04);
+
+    margin-bottom: 20px;
+
+}
+
+
+.judge-icon {
+
+    width: 43px;
+
+    height: 43px;
+
+    border-radius: 10px;
+
+    background: #dbeafe;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+}
+
+
+.judge-card h2 {
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.judge-card p {
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================
+   BOTTOM ACTIONS
+========================================= */
+
+.bottom-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.primary-action,
+.secondary-action {
+
+    flex: 1;
+
+    text-align: center;
+
+    border-radius: 9px;
+
+    padding: 12px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.primary-action {
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+}
+
+
+.secondary-action {
+
+    background: #e2e8f0;
+
+    color: #334155;
+
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.compare-footer {
+
+    text-align: center;
+
+    border-top:
+        1px solid #e2e8f0;
+
+    padding:
+        20px;
+
+    background: #ffffff;
+
+}
+
+
+.compare-footer strong {
+
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.compare-footer p {
+
+    color: #64748b;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .header-nav {
+
+        gap: 10px;
+
+    }
+
+
+    .header-nav a {
+
+        font-size: 10px;
+
+    }
+
+
+    .feature-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .compare-header {
+
+        padding:
+            0 15px;
+
+    }
+
+
+    .brand {
+
+        font-size: 16px;
+
+    }
+
+
+    .header-nav a:nth-child(2),
+    .header-nav a:nth-child(3) {
+
+        display: none;
+
+    }
+
+
+    .compare-container {
+
+        margin-top: 22px;
+
+        padding:
+            0 12px;
+
+    }
+
+
+    .page-heading h1 {
+
+        font-size: 21px;
+
+    }
+
+
+    .page-heading p {
+
+        font-size: 10px;
+
+    }
+
+
+    .compare-section {
+
+        padding: 15px;
+
+    }
+
+
+    .comparison-table {
+
+        grid-template-columns:
+            repeat(2, 210px);
+
+    }
+
+
+    .feature-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .recommendation-card {
+
+        align-items: flex-start;
+
+    }
+
+
+    .recommendation-score {
+
+        flex-shrink: 0;
+
+    }
+
+
+    .bottom-actions {
+
+        flex-direction: column;
+
+    }
+
+}
