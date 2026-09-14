@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Wiz Commerce - Easy Product Return"
+    >
+
+    <title>
+        Return Product | Wiz Commerce
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="return.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="return-header">
+
+        <div class="return-logo">
+
+            <span class="logo-icon">
+                🛍️
+            </span>
+
+            <span>
+                Wiz Commerce
+            </span>
+
+        </div>
+
+        <a
+            href="my-orders.html"
+            class="back-link"
+        >
+            ← My Orders
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="return-page">
+
+        <section class="page-title">
+
+            <div class="title-icon">
+                🔄
+            </div>
+
+            <div>
+
+                <h1>
+                    Easy Return
+                </h1>
+
+                <p>
+                    Return your product in just a few steps
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             ORDER INFO
+        ====================================== -->
+
+        <section class="return-order-card">
+
+            <div class="product-preview">
+
+                <div
+                    class="product-image"
+                    id="productImage"
+                >
+                    📦
+                </div>
+
+                <div class="product-info">
+
+                    <span>
+                        Order ID
+                    </span>
+
+                    <strong
+                        id="returnOrderId"
+                    >
+                        -
+                    </strong>
+
+                    <h2
+                        id="productName"
+                    >
+                        Product
+                    </h2>
+
+                    <p
+                        id="productPrice"
+                    >
+                        ₹0
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="verified-label">
+                ✓ Eligible for Return
+            </div>
+
+        </section>
+                <!-- =====================================
+             RETURN REASON
+        ====================================== -->
+
+        <section class="return-card">
+
+            <div class="section-heading">
+
+                <span class="heading-icon">
+                    📝
+                </span>
+
+                <div>
+
+                    <h2>
+                        Why do you want to return?
+                    </h2>
+
+                    <p>
+                        Select the reason that best matches
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="reason-list"
+                id="reasonList"
+            >
+
+                <label class="reason-option">
+
+                    <input
+                        type="radio"
+                        name="returnReason"
+                        value="Product damaged"
+                    >
+
+                    <span class="custom-radio"></span>
+
+                    <span class="reason-content">
+
+                        <strong>
+                            📦 Product is damaged
+                        </strong>
+
+                        <small>
+                            Product arrived damaged or broken
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="reason-option">
+
+                    <input
+                        type="radio"
+                        name="returnReason"
+                        value="Wrong product"
+                    >
+
+                    <span class="custom-radio"></span>
+
+                    <span class="reason-content">
+
+                        <strong>
+                            ❌ Wrong product received
+                        </strong>
+
+                        <small>
+                            I received a different product
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="reason-option">
+
+                    <input
+                        type="radio"
+                        name="returnReason"
+                        value="Quality issue"
+                    >
+
+                    <span class="custom-radio"></span>
+
+                    <span class="reason-content">
+
+                        <strong>
+                            ⭐ Quality issue
+                        </strong>
+
+                        <small>
+                            Product quality is not as expected
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="reason-option">
+
+                    <input
+                        type="radio"
+                        name="returnReason"
+                        value="Product not as described"
+                    >
+
+                    <span class="custom-radio"></span>
+
+                    <span class="reason-content">
+
+                        <strong>
+                            🔍 Not as described
+                        </strong>
+
+                        <small>
+                            Product differs from listing
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="reason-option">
+
+                    <input
+                        type="radio"
+                        name="returnReason"
+                        value="Other"
+                    >
+
+                    <span class="custom-radio"></span>
+
+                    <span class="reason-content">
+
+                        <strong>
+                            💬 Other reason
+                        </strong>
+
+                        <small>
+                            Something else
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+                <!-- =====================================
+             ADDITIONAL MESSAGE
+        ====================================== -->
+
+        <section class="return-card">
+
+            <div class="section-heading">
+
+                <span class="heading-icon">
+                    💬
+                </span>
+
+                <div>
+
+                    <h2>
+                        Additional details
+                    </h2>
+
+                    <p>
+                        Tell us more about the issue (optional)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <textarea
+                id="returnMessage"
+                class="return-message"
+                maxlength="300"
+                placeholder="Describe the issue with your product..."
+            ></textarea>
+
+
+            <div class="character-count">
+
+                <span id="characterCount">
+                    0
+                </span>
+
+                / 300
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             REFUND INFORMATION
+        ====================================== -->
+
+        <section class="refund-card">
+
+            <div class="refund-icon">
+                💰
+            </div>
+
+            <div class="refund-content">
+
+                <span>
+                    Estimated Refund
+                </span>
+
+                <strong id="refundAmount">
+                    ₹0
+                </strong>
+
+                <small>
+                    Refund will be processed after return verification
+                </small>
+
+            </div>
+
+            <div class="refund-method">
+
+                <span>
+                    Refund Method
+                </span>
+
+                <strong id="refundMethod">
+                    Original Payment
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             RETURN STEPS
+        ====================================== -->
+
+        <section class="return-steps">
+
+            <div class="return-step active">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <span>
+                    Request
+                </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="return-step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <span>
+                    Pickup
+                </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="return-step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <span>
+                    Verification
+                </span>
+
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="return-step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <span>
+                    Refund
+                </span>
+
+            </div>
+
+        </section>
+                <!-- =====================================
+             RETURN ACTION
+        ====================================== -->
+
+        <section class="return-action">
+
+            <div class="action-info">
+
+                <span>
+                    ⚡ Simple & Fast
+                </span>
+
+                <p>
+                    No complicated forms. Submit your return request
+                    with one tap.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="submitReturnBtn"
+                class="return-button"
+            >
+                🔄 Submit Return Request
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             SUCCESS MODAL
+        ====================================== -->
+
+        <div
+            class="success-modal"
+            id="successModal"
+        >
+
+            <div class="modal-overlay"></div>
+
+            <div class="success-box">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <h2>
+                    Return Request Submitted!
+                </h2>
+
+                <p>
+                    Your return request has been successfully
+                    submitted.
+                </p>
+
+                <div class="return-reference">
+
+                    <span>
+                        Return ID
+                    </span>
+
+                    <strong id="returnId">
+                        -
+                    </strong>
+
+                </div>
+
+                <p class="refund-note">
+                    🔔 You can track your refund status from
+                    the Refund Tracking page.
+                </p>
+
+                <div class="success-actions">
+
+                    <button
+                        type="button"
+                        id="trackRefundBtn"
+                        class="primary-btn"
+                    >
+                        🔔 Track Refund
+                    </button>
+
+                    <button
+                        type="button"
+                        id="myOrdersBtn"
+                        class="secondary-btn"
+                    >
+                        My Orders
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="return-footer">
+
+            <strong>
+                💙 Wiz Commerce
+            </strong>
+
+            <span>
+                Simple Returns • Fast Refunds • Customer First
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="return.js"></script>
+
+</body>
+
+</html>
