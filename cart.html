@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Cart - Wiz Commerce
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/cart.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="cart-header">
+
+    <div class="header-left">
+
+        <button
+            class="back-btn"
+            onclick="goBack()"
+        >
+            ←
+        </button>
+
+        <div>
+
+            <h1>
+                🛒 Your Cart
+            </h1>
+
+            <p>
+                Review your products before checkout
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-security">
+
+        🔒 Secure Cart
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<main class="cart-container">
+
+
+    <!-- =================================================
+         CART PRODUCTS
+    ================================================== -->
+
+    <section class="cart-products">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Your Products
+                </h2>
+
+                <span id="cartItemCount">
+                    0 items
+                </span>
+
+            </div>
+
+            <button
+                class="clear-btn"
+                onclick="clearCart()"
+            >
+                Clear Cart
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCTS WILL LOAD HERE -->
+
+        <div
+            id="cartItems"
+            class="cart-items"
+        >
+
+            <!-- JavaScript will insert products -->
+
+        </div>
+
+
+        <!-- EMPTY CART -->
+
+        <div
+            id="emptyCart"
+            class="empty-cart"
+            style="display:none;"
+        >
+
+            <div class="empty-icon">
+                🛒
+            </div>
+
+            <h2>
+                Your cart is empty
+            </h2>
+
+            <p>
+                Add some products and come back here.
+            </p>
+
+            <button
+                class="shop-btn"
+                onclick="continueShopping()"
+            >
+                Continue Shopping
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ORDER SUMMARY
+    ================================================== -->
+
+    <aside class="order-summary">
+
+        <h2>
+            Price Details
+        </h2>
+
+
+        <div class="price-row">
+
+            <span>
+                Product Price
+            </span>
+
+            <strong id="subtotal">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Discount
+            </span>
+
+            <strong
+                id="discount"
+                class="discount-price"
+            >
+                - ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Delivery Charge
+            </span>
+
+            <strong id="deliveryCharge">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                Platform Charge
+            </span>
+
+            <strong id="platformCharge">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="price-divider"></div>
+
+
+        <div class="final-price">
+
+            <span>
+                Final Price
+            </span>
+
+            <strong id="finalPrice">
+                ₹0
+            </strong>
+
+        </div>
+
+
+        <div class="transparent-box">
+
+            <span>
+                ✓
+            </span>
+
+            <div>
+
+                <strong>
+                    Transparent Pricing
+                </strong>
+
+                <p>
+                    No hidden charges at checkout.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="checkoutBtn"
+            class="checkout-btn"
+            onclick="proceedToCheckout()"
+        >
+            Proceed to Checkout →
+        </button>
+
+
+        <button
+            class="continue-btn"
+            onclick="continueShopping()"
+        >
+            ← Continue Shopping
+        </button>
+
+    </aside>
+
+</main>
+<!-- =====================================================
+     TRUST FEATURES
+===================================================== -->
+
+<section class="cart-trust-section">
+
+
+    <div class="trust-card">
+
+        <div class="trust-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <h3>
+                Verified Products
+            </h3>
+
+            <p>
+                Products are checked before delivery.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-card">
+
+        <div class="trust-icon">
+            💰
+        </div>
+
+        <div>
+
+            <h3>
+                Transparent Price
+            </h3>
+
+            <p>
+                Final amount is shown before payment.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-card">
+
+        <div class="trust-icon">
+            🔒
+        </div>
+
+        <div>
+
+            <h3>
+                Secure Checkout
+            </h3>
+
+            <p>
+                Your checkout experience is protected.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-card">
+
+        <div class="trust-icon">
+            🔄
+        </div>
+
+        <div>
+
+            <h3>
+                Simple Returns
+            </h3>
+
+            <p>
+                Easy return process after purchase.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY WIZ COMMERCE
+===================================================== -->
+
+<section class="why-wiz">
+
+    <div class="why-header">
+
+        <span class="mini-badge">
+            WIZ COMMERCE
+        </span>
+
+        <h2>
+            Why Shop With Us?
+        </h2>
+
+        <p>
+            We designed shopping around customer trust.
+        </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+
+        <div class="why-card">
+
+            <div>
+                🎥
+            </div>
+
+            <h3>
+                Real Product Video
+            </h3>
+
+            <p>
+                See how the actual product looks
+                before buying.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>
+                ⭐
+            </div>
+
+            <h3>
+                Verified Reviews
+            </h3>
+
+            <p>
+                Reviews are collected from
+                verified buyers.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>
+                🤖
+            </div>
+
+            <h3>
+                AI Product Advisor
+            </h3>
+
+            <p>
+                Get smart product suggestions
+                before purchase.
+            </p>
+
+        </div>
+
+
+        <div class="why-card">
+
+            <div>
+                📍
+            </div>
+
+            <h3>
+                Delivery Confidence
+            </h3>
+
+            <p>
+                Track your order and delivery
+                status easily.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     CHECKOUT INFORMATION
+===================================================== -->
+
+<section class="checkout-info">
+
+
+    <div class="info-box">
+
+        <div class="info-icon">
+            💵
+        </div>
+
+        <div>
+
+            <h3>
+                No Hidden Charges
+            </h3>
+
+            <p>
+                What you see in the cart is what
+                you pay at checkout.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="info-box">
+
+        <div class="info-icon">
+            🚚
+        </div>
+
+        <div>
+
+            <h3>
+                Delivery Information
+            </h3>
+
+            <p>
+                Expected delivery date will be
+                shown before placing your order.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="info-box">
+
+        <div class="info-icon">
+            🔔
+        </div>
+
+        <div>
+
+            <h3>
+                Live Order Updates
+            </h3>
+
+            <p>
+                Get updates about packing,
+                shipping and delivery.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CUSTOMER PROMISE
+===================================================== -->
+
+<section class="customer-promise">
+
+    <div class="promise-content">
+
+        <span class="promise-label">
+            WIZ COMMERCE PROMISE
+        </span>
+
+        <h2>
+            Shop With Confidence.
+        </h2>
+
+        <p>
+            Real products. Verified sellers.
+            Genuine reviews. Transparent pricing.
+            Simple returns.
+        </p>
+
+    </div>
+
+
+    <div class="promise-points">
+
+        <div>
+            ✓ Verified Seller
+        </div>
+
+        <div>
+            ✓ Verified Buyer Reviews
+        </div>
+
+        <div>
+            ✓ Product Trust Score
+        </div>
+
+        <div>
+            ✓ Transparent Final Price
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="cart-footer">
+
+    <div>
+
+        <strong>
+            Wiz Commerce
+        </strong>
+
+        <p>
+            A smarter and safer way to shop online.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <span>
+            Privacy
+        </span>
+
+        <span>
+            Terms
+        </span>
+
+        <span>
+            Help & Support
+        </span>
+
+    </div>
+
+
+    <div class="footer-copy">
+
+        © 2026 Wiz Commerce
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="cartToast"
+    class="cart-toast"
+>
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/cart.js"></script>
+
+
+</body>
+
+</html>
