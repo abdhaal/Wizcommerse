@@ -750,77 +750,139 @@ function placeOrder() {
     if (
         !validateCheckout()
     ) {
+function placeOrder() {
+
+    console.log("Place Order clicked");
+
+
+    /* ===============================
+       GET CART DATA
+    =============================== */
+
+    let cart = [];
+
+    const cartKeys = [
+        "wizCart",
+        "wizCheckoutCart",
+        "cart",
+        "shoppingCart",
+        "cartItems"
+    ];
+
+
+    for (const key of cartKeys) {
+
+        const stored =
+            localStorage.getItem(key);
+
+        if (!stored) {
+            continue;
+        }
+
+        try {
+
+            const data =
+                JSON.parse(stored);
+
+            if (Array.isArray(data)) {
+
+                cart = data;
+
+                console.log(
+                    "Cart found:",
+                    key
+                );
+
+                break;
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Cart data error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* ===============================
+       CHECK CART
+    =============================== */
+
+    if (cart.length === 0) {
+
+        showToast(
+            "Your cart is empty"
+        );
 
         return;
 
     }
 
 
+    /* ===============================
+       CREATE ORDER ID
+    =============================== */
+
     const orderId =
-        generateOrderId();
+        "WIZ" + Date.now();
 
 
-    const order =
-        saveOrder(
-            orderId
-        );
+    /* ===============================
+       CREATE ORDER
+    =============================== */
+
+    const order = {
+
+        orderId:
+            orderId,
+
+        items:
+            cart,
+
+        status:
+            "Payment Pending",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
 
 
-    const orderIdElement =
-        document.getElementById(
-            "orderId"
-        );
+    /* ===============================
+       SAVE ORDER
+    =============================== */
 
-
-    if (orderIdElement) {
-
-        orderIdElement.textContent =
-            order.orderId;
-
-    }
-
-
-    const modal =
-        document.getElementById(
-            "successModal"
-        );
-
-
-    if (modal) {
-
-        modal.classList.add(
-            "show"
-        );
-
-    }
-
-
-    /*
-       Demo:
-       Remove purchased products
-       from cart.
-    */
-
-    localStorage.removeItem(
-        "wizCart"
+    localStorage.setItem(
+        "wizPaymentOrder",
+        JSON.stringify(order)
     );
 
 
-    localStorage.removeItem(
-        "wizCheckoutCart"
+    localStorage.setItem(
+        "currentOrder",
+        JSON.stringify(order)
     );
 
 
-    localStorage.removeItem(
-        "wizCheckoutTotal"
+    console.log(
+        "Order created:",
+        order
     );
 
 
-    showToast(
-        "✓ Order placed successfully"
-    );
+    /* ===============================
+       OPEN PAYMENT PAGE
+    =============================== */
 
-       }
+    window.location.href =
+        "payment.html";
+
+}
 /* =====================================================
    PART 4/4
    Navigation + Animation + Initialize
