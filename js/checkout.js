@@ -747,52 +747,77 @@ function saveOrder(
 
 function placeOrder() {
 
-    if (
-        !validateCheckout()
-    ) {
+    // Check cart
+    const cart = getCart();
+
+    if (!cart || cart.length === 0) {
+
+        showToast("⚠️ Your cart is empty");
 
         return;
-
     }
 
 
-    const orderId =
-        generateOrderId();
-
-
-    const order =
-        saveOrder(
-            orderId
+    // Check address
+    const address =
+        JSON.parse(
+            localStorage.getItem("wizDeliveryAddress")
         );
 
 
-    const orderIdElement =
-        document.getElementById(
-            "orderId"
+    if (!address) {
+
+        showToast(
+            "⚠️ Please save your delivery address"
         );
 
+        document
+            .getElementById("fullName")
+            ?.focus();
 
-    if (orderIdElement) {
-
-        orderIdElement.textContent =
-            order.orderId;
-
+        return;
     }
 
 
-    const modal =
-        document.getElementById(
-            "successModal"
-        );
+    // Calculate amount
+    const price =
+        calculateCheckout();
 
 
-    if (modal) {
+    // Create temporary payment order
+    const paymentOrder = {
 
-        modal.classList.add(
-            "show"
-        );
+        items: cart,
 
-    }
+        address: address,
+
+        delivery:
+            selectedDelivery,
+
+        payment:
+            selectedPayment,
+
+        pricing:
+            price,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    // Save payment data
+    localStorage.setItem(
+        "wizPaymentOrder",
+        JSON.stringify(paymentOrder)
+    );
+
+
+    // Open Payment Page
+    window.location.href =
+        "payment.html";
+
+}
 
 
     /*
