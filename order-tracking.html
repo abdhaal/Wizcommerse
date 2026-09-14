@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Wiz Commerce Order Tracking"
+    >
+
+    <title>
+        Track Order | Wiz Commerce
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="js/order-tracking.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="tracking-header">
+
+        <div class="tracking-logo">
+
+            <span class="logo-icon">
+                🛍️
+            </span>
+
+            <span>
+                Wiz Commerce
+            </span>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a
+                href="products.html"
+                class="shop-link"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="tracking-page">
+
+
+        <!-- =================================================
+             PAGE TITLE
+        ================================================== -->
+
+        <section class="tracking-title">
+
+            <span class="title-icon">
+                📍
+            </span>
+
+            <div>
+
+                <h1>
+                    Track Your Order
+                </h1>
+
+                <p>
+                    Follow your order from confirmation
+                    to delivery.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ORDER HEADER
+        ================================================== -->
+
+        <section class="order-header-card">
+
+            <div>
+
+                <span class="small-label">
+                    Order ID
+                </span>
+
+                <strong id="orderId">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="order-status-badge">
+
+                <span class="status-dot"></span>
+
+                <span id="orderStatus">
+                    Order Confirmed
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DELIVERY CONFIDENCE
+        ================================================== -->
+
+        <section class="confidence-card">
+
+            <div class="confidence-icon">
+                🎯
+            </div>
+
+
+            <div class="confidence-content">
+
+                <span>
+                    Delivery Confidence
+                </span>
+
+                <strong id="confidenceText">
+                    High Confidence
+                </strong>
+
+                <small>
+                    Your order is on track for delivery.
+                </small>
+
+            </div>
+
+
+            <div class="confidence-score">
+
+                <strong id="confidenceScore">
+                    94%
+                </strong>
+
+                <span>
+                    On Time
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TRACKING TIMELINE
+        ================================================== -->
+
+        <section class="tracking-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2>
+                        Order Journey
+                    </h2>
+
+                    <p>
+                        Real-time order status
+                    </p>
+
+                </div>
+
+                <span class="live-badge">
+                    ● LIVE
+                </span>
+
+            </div>
+
+
+
+            <!-- STEP 1 -->
+
+            <div
+                class="tracking-step completed"
+                id="stepConfirmed"
+            >
+
+                <div class="step-indicator">
+
+                    <span>
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="step-content">
+
+                    <strong>
+                        Order Confirmed
+                    </strong>
+
+                    <span>
+                        Your order has been successfully
+                        confirmed.
+                    </span>
+
+                    <small id="confirmedTime">
+                        Completed
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 2 -->
+
+            <div
+                class="tracking-step active"
+                id="stepPacked"
+            >
+
+                <div class="step-indicator">
+
+                    <span>
+                        📦
+                    </span>
+
+                </div>
+
+
+                <div class="step-content">
+
+                    <strong>
+                        Product Packed
+                    </strong>
+
+                    <span>
+                        Your product is being prepared
+                        for dispatch.
+                    </span>
+
+                    <small id="packedTime">
+                        In Progress
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 3 -->
+
+            <div
+                class="tracking-step"
+                id="stepShipped"
+            >
+
+                <div class="step-indicator">
+
+                    <span>
+                        🚚
+                    </span>
+
+                </div>
+
+
+                <div class="step-content">
+
+                    <strong>
+                        Shipped
+                    </strong>
+
+                    <span>
+                        Your order will be handed over
+                        to the delivery partner.
+                    </span>
+
+                    <small id="shippedTime">
+                        Waiting
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 4 -->
+
+            <div
+                class="tracking-step"
+                id="stepOut"
+            >
+
+                <div class="step-indicator">
+
+                    <span>
+                        🛵
+                    </span>
+
+                </div>
+
+
+                <div class="step-content">
+
+                    <strong>
+                        Out for Delivery
+                    </strong>
+
+                    <span>
+                        Your order is on the way to
+                        your delivery address.
+                    </span>
+
+                    <small id="outTime">
+                        Waiting
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 5 -->
+
+            <div
+                class="tracking-step"
+                id="stepDelivered"
+            >
+
+                <div class="step-indicator">
+
+                    <span>
+                        🏠
+                    </span>
+
+                </div>
+
+
+                <div class="step-content">
+
+                    <strong>
+                        Delivered
+                    </strong>
+
+                    <span>
+                        Your order will be delivered
+                        to your address.
+                    </span>
+
+                    <small id="deliveredTime">
+                        Expected Soon
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             EXPECTED DELIVERY
+        ================================================== -->
+
+        <section class="delivery-card">
+
+            <div class="delivery-main">
+
+                <div class="delivery-icon">
+                    🚚
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Expected Delivery
+                    </span>
+
+                    <strong id="expectedDelivery">
+                        Loading...
+                    </strong>
+
+                    <small>
+                        Delivery date may vary
+                        depending on location.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="delivery-confidence-mini">
+
+                <span>
+                    Delivery Confidence
+                </span>
+
+                <strong>
+                    High
+                </strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DELIVERY ADDRESS
+        ================================================== -->
+
+        <section class="address-card">
+
+            <div class="address-icon">
+                📍
+            </div>
+
+
+            <div>
+
+                <span>
+                    Delivery Address
+                </span>
+
+                <strong id="customerName">
+                    Customer
+                </strong>
+
+                <p id="deliveryAddress">
+                    Loading address...
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             TRUST FEATURES
+        ================================================== -->
+
+        <section class="tracking-trust">
+
+
+            <div class="trust-box">
+
+                <span class="trust-icon">
+                    🛡️
+                </span>
+
+                <div>
+
+                    <strong>
+                        Verified Order
+                    </strong>
+
+                    <small>
+                        Order authenticity verified
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="trust-box">
+
+                <span class="trust-icon">
+                    📦
+                </span>
+
+                <div>
+
+                    <strong>
+                        Product Protection
+                    </strong>
+
+                    <small>
+                        Product verification enabled
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="trust-box">
+
+                <span class="trust-icon">
+                    🔄
+                </span>
+
+                <div>
+
+                    <strong>
+                        Easy Returns
+                    </strong>
+
+                    <small>
+                        Simple return support available
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACTION BUTTONS
+        ================================================== -->
+
+        <section class="tracking-actions">
+
+            <button
+                type="button"
+                id="continueShoppingBtn"
+                class="primary-btn"
+            >
+                🛍️ Continue Shopping
+            </button>
+
+
+            <button
+                type="button"
+                id="ordersBtn"
+                class="secondary-btn"
+            >
+                📦 My Orders
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SUPPORT
+        ================================================== -->
+
+        <section class="support-card">
+
+            <div class="support-icon">
+                💬
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Need Help?
+                </strong>
+
+                <span>
+                    Our support team is ready to help
+                    with your order.
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="supportBtn"
+            >
+                Contact Support
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="tracking-footer">
+
+            <p>
+                💙 Wiz Commerce
+            </p>
+
+            <span>
+                Secure • Verified • Transparent
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script
+        src="js/order-tracking.js"
+    ></script>
+
+
+</body>
+
+  </html>
