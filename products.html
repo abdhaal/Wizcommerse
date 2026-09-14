@@ -5,21 +5,47 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>All Products - Wiz Commerce</title>
+    <meta name="description"
+          content="Wiz Commerce - Verified Products, Real Reviews and Trusted Sellers">
+
+    <title>Products | Wiz Commerce</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link
-        rel="stylesheet"
-        href="css/products.css"
-    >
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/products.css">
 
 </head>
 
 <body>
+
+
+<!-- =====================================================
+     ANNOUNCEMENT BAR
+===================================================== -->
+
+<div class="announcement-bar">
+
+    🛡️ Verified Products
+    <span>•</span>
+    ⭐ Verified Reviews
+    <span>•</span>
+    💰 Transparent Pricing
+
+</div>
+
 
 
 <!-- =====================================================
@@ -28,53 +54,114 @@
 
 <header class="header">
 
-    <div class="container header-inner">
+    <div class="header-container">
 
-        <a
-            href="index.html"
-            class="logo"
-        >
-            WIZ<span>COMMERCE</span>
+
+        <!-- LOGO -->
+
+        <a href="index.html"
+           class="logo">
+
+            <span class="logo-icon">
+                W
+            </span>
+
+            <div class="logo-text">
+
+                <strong>
+                    Wiz
+                </strong>
+
+                <span>
+                    Commerce
+                </span>
+
+            </div>
+
         </a>
 
+
+
+        <!-- SEARCH -->
 
         <div class="search-box">
 
             <input
-                type="search"
+                type="text"
                 id="productSearch"
-                placeholder="Search products..."
+                placeholder="Search products, brands and categories..."
+                autocomplete="off"
             >
 
             <button
                 type="button"
-                onclick="document.getElementById('productSearch').focus()"
-            >
+                id="searchButton">
+
                 🔍
+
             </button>
 
         </div>
 
 
+
+        <!-- HEADER ACTIONS -->
+
         <div class="header-actions">
 
-            <a
-                href="index.html"
-                class="header-link"
-            >
-                Home
+
+            <a href="ai-advisor.html"
+               class="header-action">
+
+                <span>🤖</span>
+
+                <small>
+                    AI Advisor
+                </small>
+
             </a>
 
 
-            <a
-                href="cart.html"
-                class="cart-link"
-            >
-                🛒 Cart
+            <a href="compare.html"
+               class="header-action">
 
-                <span class="cart-count">
+                <span>⚖️</span>
+
+                <small>
+                    Compare
+                </small>
+
+            </a>
+
+
+            <a href="orders.html"
+               class="header-action">
+
+                <span>📦</span>
+
+                <small>
+                    Orders
+                </small>
+
+            </a>
+
+
+            <a href="cart.html"
+               class="cart-action">
+
+                🛒
+
+                <span id="cartCount">
                     0
                 </span>
+
+            </a>
+
+
+            <a href="login.html"
+               class="account-action">
+
+                👤
 
             </a>
 
@@ -85,64 +172,562 @@
 </header>
 
 
+
 <!-- =====================================================
-     MAIN
+     NAVIGATION
 ===================================================== -->
 
-<main>
+<nav class="navigation">
 
-    <section class="products-section">
+    <div class="nav-container">
 
-        <div class="container">
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="products.html"
+           class="active">
+            All Products
+        </a>
+
+        <a href="products.html?category=electronics">
+            Electronics
+        </a>
+
+        <a href="products.html?category=fashion">
+            Fashion
+        </a>
+
+        <a href="products.html?category=home">
+            Home & Kitchen
+        </a>
+
+        <a href="products.html?category=beauty">
+            Beauty
+        </a>
+
+        <a href="products.html?sort=bestseller">
+            🔥 Best Sellers
+        </a>
+
+        <a href="products.html?sort=deals">
+            🏷️ Deals
+        </a>
+
+    </div>
+
+</nav>
 
 
-            <!-- PAGE TITLE -->
 
-            <div class="page-heading">
+<!-- =====================================================
+     PAGE HERO
+===================================================== -->
+
+<section class="products-hero">
+
+    <div class="products-hero-container">
+
+
+        <!-- BREADCRUMB -->
+
+        <div class="breadcrumb">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <span>
+                /
+            </span>
+
+            <strong>
+                Products
+            </strong>
+
+        </div>
+
+
+
+        <div class="products-hero-content">
+
+
+            <div class="hero-text">
+
+                <span class="hero-label">
+                    TRUSTED SHOPPING
+                </span>
+
+                <h1>
+                    Find Products
+                    You Can Trust
+                </h1>
+
+                <p>
+                    Compare real product information,
+                    verified reviews, seller trust scores
+                    and transparent prices before buying.
+                </p>
+
+            </div>
+
+
+
+            <!-- TRUST CARD -->
+
+            <div class="hero-trust-card">
+
+                <div class="trust-card-icon">
+                    🛡️
+                </div>
 
                 <div>
 
-                    <p class="eyebrow">
-                        WIZ COMMERCE
-                    </p>
+                    <strong>
+                        Wiz Trust System
+                    </strong>
 
-                    <h1>
+                    <span>
+                        Every product is evaluated
+                        for customer confidence.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MAIN PRODUCTS AREA
+===================================================== -->
+
+<main class="products-main">
+
+    <div class="products-layout">
+
+
+        <!-- =================================================
+             FILTER SIDEBAR
+        ================================================= -->
+
+        <aside class="filter-sidebar">
+
+
+            <div class="filter-header">
+
+                <h2>
+                    Filters
+                </h2>
+
+                <button
+                    type="button"
+                    id="clearFilters">
+
+                    Clear All
+
+                </button>
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <div class="filter-group">
+
+                <h3>
+                    Category
+                </h3>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="category"
+                        value="all"
+                        checked
+                    >
+
+                    <span>
                         All Products
-                    </h1>
+                    </span>
 
-                    <p>
-                        Discover trusted products at the best prices.
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="category"
+                        value="electronics"
+                    >
+
+                    <span>
+                        Electronics
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="category"
+                        value="fashion"
+                    >
+
+                    <span>
+                        Fashion
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="category"
+                        value="home"
+                    >
+
+                    <span>
+                        Home & Kitchen
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="category"
+                        value="beauty"
+                    >
+
+                    <span>
+                        Beauty
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- PRICE -->
+
+            <div class="filter-group">
+
+                <h3>
+                    Price Range
+                </h3>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="checkbox"
+                        value="0-500"
+                        class="price-filter"
+                    >
+
+                    <span>
+                        Under ₹500
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="checkbox"
+                        value="500-1000"
+                        class="price-filter"
+                    >
+
+                    <span>
+                        ₹500 - ₹1,000
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="checkbox"
+                        value="1000-2500"
+                        class="price-filter"
+                    >
+
+                    <span>
+                        ₹1,000 - ₹2,500
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="checkbox"
+                        value="2500+"
+                        class="price-filter"
+                    >
+
+                    <span>
+                        ₹2,500+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- RATING -->
+
+            <div class="filter-group">
+
+                <h3>
+                    Customer Rating
+                </h3>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="rating"
+                        value="4"
+                    >
+
+                    <span>
+                        ⭐ 4.0 & above
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="rating"
+                        value="4.5"
+                    >
+
+                    <span>
+                        ⭐ 4.5 & above
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="rating"
+                        value="4.8"
+                    >
+
+                    <span>
+                        ⭐ 4.8 & above
+                    </span>
+
+                </label>
+
+            </div>
+            <!-- =================================================
+                 TRUST SCORE FILTER
+            ================================================= -->
+
+            <div class="filter-group">
+
+                <h3>
+                    Trust Score
+                </h3>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="trust"
+                        value="80"
+                    >
+
+                    <span>
+                        🛡️ 80+ Trust Score
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="trust"
+                        value="90"
+                    >
+
+                    <span>
+                        🛡️ 90+ Trust Score
+                    </span>
+
+                </label>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="radio"
+                        name="trust"
+                        value="95"
+                    >
+
+                    <span>
+                        🛡️ 95+ Trust Score
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 VERIFIED SELLER
+            ================================================= -->
+
+            <div class="filter-group">
+
+                <h3>
+                    Seller
+                </h3>
+
+
+                <label class="filter-option">
+
+                    <input
+                        type="checkbox"
+                        id="verifiedSeller"
+                    >
+
+                    <span>
+                        ✔ Verified Sellers Only
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TRUST EXPLANATION
+            ================================================= -->
+
+            <div class="filter-trust-box">
+
+                <div class="filter-trust-icon">
+                    🛡️
+                </div>
+
+                <strong>
+                    Why Trust Score?
+                </strong>
+
+                <p>
+                    Trust Score combines reviews,
+                    seller verification, product
+                    quality and customer experience.
+                </p>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =================================================
+             PRODUCTS CONTENT
+        ================================================= -->
+
+        <section class="products-content">
+
+
+            <!-- PRODUCTS TOP -->
+
+            <div class="products-top">
+
+
+                <div class="products-title">
+
+                    <span>
+                        WIZ COMMERCE
+                    </span>
+
+                    <h2>
+                        Trusted Products
+                    </h2>
+
+                    <p id="resultCount">
+                        Showing 6 products
                     </p>
 
                 </div>
 
 
-                <!-- CATEGORY -->
 
-                <div class="filter-box">
+                <!-- SORT -->
 
-                    <label for="categoryFilter">
-                        Category
+                <div class="sort-area">
+
+                    <label for="sortProducts">
+                        Sort by
                     </label>
 
                     <select
-                        id="categoryFilter"
-                    >
+                        id="sortProducts">
 
-                        <option value="All">
-                            All Products
+                        <option value="recommended">
+                            Recommended
                         </option>
 
-                        <option value="Electronics">
-                            Electronics
+                        <option value="popular">
+                            Most Popular
                         </option>
 
-                        <option value="Fashion">
-                            Fashion
+                        <option value="rating">
+                            Highest Rated
                         </option>
 
-                        <option value="Home & Kitchen">
-                            Home & Kitchen
+                        <option value="price-low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="price-high">
+                            Price: High to Low
+                        </option>
+
+                        <option value="trust">
+                            Highest Trust Score
                         </option>
 
                     </select>
@@ -152,32 +737,1255 @@
             </div>
 
 
-            <!-- PRODUCT GRID -->
+
+            <!-- =================================================
+                 ACTIVE FILTERS
+            ================================================= -->
 
             <div
-                id="productsGrid"
-                class="products-grid"
-            >
+                class="active-filters"
+                id="activeFilters">
 
-                <!-- Products generated by products.js -->
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCT GRID
+            ================================================= -->
+
+            <div
+                class="product-grid"
+                id="productGrid">
+
+
+                <!-- =================================================
+                     PRODUCT 1
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="1"
+                    data-category="electronics"
+                    data-price="299"
+                    data-rating="4.6"
+                    data-trust="94"
+                    data-verified="true"
+                >
+
+
+                    <div class="product-image">
+
+
+                        <span class="product-badge">
+                            BEST SELLER
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button"
+                            aria-label="Add to wishlist">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            💡
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="product-info">
+
+
+                        <span class="product-category">
+                            Electronics
+                        </span>
+
+
+                        <h3>
+                            Smart LED Bulb
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.6
+                            </span>
+
+                            <span class="review-count">
+                                128 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹299
+                            </strong>
+
+                            <del>
+                                ₹499
+                            </del>
+
+                            <span class="discount">
+                                40% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                94/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Wiz Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PRODUCT 2
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="2"
+                    data-category="electronics"
+                    data-price="399"
+                    data-rating="4.5"
+                    data-trust="91"
+                    data-verified="true"
+                >
+
+                    <div class="product-image">
+
+                        <span class="product-badge">
+                            HIGH TRUST
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            🌀
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            Electronics
+                        </span>
+
+
+                        <h3>
+                            Portable Mini Fan
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.5
+                            </span>
+
+                            <span class="review-count">
+                                87 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹399
+                            </strong>
+
+                            <del>
+                                ₹699
+                            </del>
+
+                            <span class="discount">
+                                43% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                91/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+                <!-- =================================================
+                     PRODUCT 3
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="3"
+                    data-category="home"
+                    data-price="249"
+                    data-rating="4.4"
+                    data-trust="89"
+                    data-verified="true"
+                >
+
+                    <div class="product-image">
+
+                        <span class="product-badge">
+                            TOP RATED
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            🍱
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            Home & Kitchen
+                        </span>
+
+
+                        <h3>
+                            Kitchen Storage Box
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.4
+                            </span>
+
+                            <span class="review-count">
+                                64 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹249
+                            </strong>
+
+                            <del>
+                                ₹399
+                            </del>
+
+                            <span class="discount">
+                                38% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                89/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PRODUCT 4
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="4"
+                    data-category="fashion"
+                    data-price="599"
+                    data-rating="4.7"
+                    data-trust="96"
+                    data-verified="true"
+                >
+
+                    <div class="product-image">
+
+                        <span class="product-badge">
+                            TRUSTED
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            👕
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            Fashion
+                        </span>
+
+
+                        <h3>
+                            Premium Casual Shirt
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.7
+                            </span>
+
+                            <span class="review-count">
+                                214 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹599
+                            </strong>
+
+                            <del>
+                                ₹999
+                            </del>
+
+                            <span class="discount">
+                                40% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                96/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Wiz Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PRODUCT 5
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="5"
+                    data-category="beauty"
+                    data-price="449"
+                    data-rating="4.8"
+                    data-trust="97"
+                    data-verified="true"
+                >
+
+                    <div class="product-image">
+
+                        <span class="product-badge">
+                            TOP RATED
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            🧴
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            Beauty
+                        </span>
+
+
+                        <h3>
+                            Daily Care Essentials
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.8
+                            </span>
+
+                            <span class="review-count">
+                                356 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹449
+                            </strong>
+
+                            <del>
+                                ₹699
+                            </del>
+
+                            <span class="discount">
+                                36% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                97/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PRODUCT 6
+                ================================================= -->
+
+                <article
+                    class="product-card"
+                    data-product-id="6"
+                    data-category="home"
+                    data-price="799"
+                    data-rating="4.6"
+                    data-trust="93"
+                    data-verified="true"
+                >
+
+                    <div class="product-image">
+
+                        <span class="product-badge">
+                            POPULAR
+                        </span>
+
+
+                        <button
+                            class="wishlist-btn"
+                            type="button">
+
+                            ♡
+
+                        </button>
+
+
+                        <div class="product-placeholder">
+                            🏠
+                        </div>
+
+
+                        <button
+                            class="real-video-btn"
+                            type="button">
+
+                            ▶ Real Product Video
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            Home & Kitchen
+                        </span>
+
+
+                        <h3>
+                            Smart Home Organizer
+                        </h3>
+
+
+                        <div class="rating-row">
+
+                            <span class="rating">
+                                ⭐ 4.6
+                            </span>
+
+                            <span class="review-count">
+                                143 Verified Reviews
+                            </span>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <strong>
+                                ₹799
+                            </strong>
+
+                            <del>
+                                ₹1,199
+                            </del>
+
+                            <span class="discount">
+                                33% OFF
+                            </span>
+
+                        </div>
+
+
+                        <div class="trust-row">
+
+                            <span>
+                                🛡️ Trust Score
+                            </span>
+
+                            <strong>
+                                93/100
+                            </strong>
+
+                        </div>
+
+
+                        <div class="seller-row">
+
+                            <span>
+                                ✔
+                            </span>
+
+                            <span>
+                                Wiz Verified Seller
+                            </span>
+
+                        </div>
+
+
+                        <div class="customer-photo">
+
+                            🖼️ Real Customer Photos
+
+                        </div>
+
+
+                        <div class="product-actions">
+
+                            <button
+                                class="compare-btn"
+                                type="button">
+
+                                ⚖ Compare
+
+                            </button>
+
+
+                            <button
+                                class="add-cart-btn"
+                                type="button">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+            <!-- =================================================
+                 NO PRODUCTS FOUND
+            ================================================= -->
+
+            <div
+                class="no-products"
+                id="noProducts"
+                hidden>
+
+                <div class="no-products-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    No products found
+                </h3>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+                <button
+                    type="button"
+                    id="resetSearch">
+
+                    Reset Filters
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     WIZ TRUST BANNER
+===================================================== -->
+
+<section class="trust-banner">
+
+    <div class="trust-banner-container">
+
+
+        <div class="trust-banner-icon">
+            🛡️
+        </div>
+
+
+        <div class="trust-banner-content">
+
+            <span>
+                WIZ COMMERCE TRUST SYSTEM
+            </span>
+
+            <h2>
+                Don't Just See the Product.
+                Understand It.
+            </h2>
+
+            <p>
+                Before buying, check the real product
+                video, verified buyer reviews, seller
+                trust score and final price.
+            </p>
+
+        </div>
+
+
+        <a href="how-it-works.html"
+           class="trust-banner-btn">
+
+            Learn How It Works →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <a href="index.html"
+               class="logo">
+
+                <span class="logo-icon">
+                    W
+                </span>
+
+                <div class="logo-text">
+
+                    <strong>
+                        Wiz
+                    </strong>
+
+                    <span>
+                        Commerce
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <p>
+                Smart shopping powered by
+                trust, transparency and technology.
+            </p>
+
+        </div>
+
+
+
+        <!-- SHOP -->
+
+        <div class="footer-column">
+
+            <h3>
+                Shop
+            </h3>
+
+            <a href="products.html">
+                All Products
+            </a>
+
+            <a href="products.html?sort=bestseller">
+                Best Sellers
+            </a>
+
+            <a href="products.html?sort=deals">
+                Deals
+            </a>
+
+            <a href="compare.html">
+                Compare Products
+            </a>
+
+        </div>
+
+
+
+        <!-- CUSTOMER -->
+
+        <div class="footer-column">
+
+            <h3>
+                Customer
+            </h3>
+
+            <a href="orders.html">
+                Track Order
+            </a>
+
+            <a href="return.html">
+                Easy Return
+            </a>
+
+            <a href="refund-tracking.html">
+                Refund Tracking
+            </a>
+
+            <a href="support.html">
+                Customer Support
+            </a>
+
+        </div>
+
+
+
+        <!-- TRUST -->
+
+        <div class="footer-column">
+
+            <h3>
+                Trust & Safety
+            </h3>
+
+            <a href="reviews.html">
+                Verified Reviews
+            </a>
+
+            <a href="seller.html">
+                Verified Sellers
+            </a>
+
+            <a href="trust-score.html">
+                Trust Score
+            </a>
+
+            <a href="fake-product.html">
+                Fake Product Alert
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Wiz Commerce.
+            All rights reserved.
+        </p>
+
+
+        <div class="footer-security">
+
+            <span>
+                🔒 Secure Shopping
+            </span>
+
+            <span>
+                🛡️ Trusted Platform
+            </span>
+
+            <span>
+                💰 Transparent Pricing
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     QUICK VIEW / VIDEO MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="productModal"
+    hidden>
+
+
+    <div class="product-modal">
+
+
+        <button
+            type="button"
+            class="modal-close"
+            id="modalClose">
+
+            ×
+
+        </button>
+
+
+        <div class="modal-video-area">
+
+            <div class="modal-video-placeholder">
+
+                <span class="play-icon">
+                    ▶
+                </span>
+
+                <span>
+                    Real Product Video
+                </span>
 
             </div>
 
         </div>
 
-    </section>
 
-</main>
+        <div class="modal-content">
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
+            <span class="verified-video">
 
-<div
-    id="productsToast"
-    class="products-toast"
-></div>
+                ✓ Verified Product Video
+
+            </span>
+
+
+            <h2 id="modalProductName">
+                Product
+            </h2>
+
+
+            <p>
+                Watch the real product demonstration
+                before making your purchase.
+            </p>
+
+
+            <div class="modal-trust">
+
+                <span>
+                    🛡️ Trust Score
+                </span>
+
+                <strong id="modalTrustScore">
+                    94/100
+                </strong>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-buy-btn">
+
+                🛒 Continue Shopping
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 
 <!-- =====================================================
@@ -185,6 +1993,7 @@
 ===================================================== -->
 
 <script src="js/products.js"></script>
+
 
 </body>
 
