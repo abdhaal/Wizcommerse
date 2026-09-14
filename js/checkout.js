@@ -747,115 +747,55 @@ function saveOrder(
 
 function placeOrder() {
 
-    if (
-        !validateCheckout()
-    ) {
-function placeOrder() {
-
-    console.log("Place Order clicked");
+    console.log("🛒 Place Order clicked");
 
 
-    /* ===============================
-       GET CART DATA
-    =============================== */
+    /* ================================================
+       GET CART
+    ================================================= */
 
-    let cart = [];
-
-    const cartKeys = [
-        "wizCart",
-        "wizCheckoutCart",
-        "cart",
-        "shoppingCart",
-        "cartItems"
-    ];
+    const cart = getCart();
 
 
-    for (const key of cartKeys) {
+    if (!cart || cart.length === 0) {
 
-        const stored =
-            localStorage.getItem(key);
-
-        if (!stored) {
-            continue;
-        }
-
-        try {
-
-            const data =
-                JSON.parse(stored);
-
-            if (Array.isArray(data)) {
-
-                cart = data;
-
-                console.log(
-                    "Cart found:",
-                    key
-                );
-
-                break;
-
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Cart data error:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* ===============================
-       CHECK CART
-    =============================== */
-
-    if (cart.length === 0) {
-
-        showToast(
-            "Your cart is empty"
-        );
+        showToast("⚠️ Your cart is empty");
 
         return;
 
     }
 
 
-    /* ===============================
-       CREATE ORDER ID
-    =============================== */
+    /* ================================================
+       CHECK ADDRESS
+    ================================================= */
+
+    if (!validateCheckout()) {
+
+        return;
+
+    }
+
+
+    /* ================================================
+       GENERATE ORDER ID
+    ================================================= */
 
     const orderId =
-        "WIZ" + Date.now();
+        generateOrderId();
 
 
-    /* ===============================
+    /* ================================================
        CREATE ORDER
-    =============================== */
+    ================================================= */
 
-    const order = {
-
-        orderId:
-            orderId,
-
-        items:
-            cart,
-
-        status:
-            "Payment Pending",
-
-        createdAt:
-            new Date().toISOString()
-
-    };
+    const order =
+        saveOrder(orderId);
 
 
-    /* ===============================
-       SAVE ORDER
-    =============================== */
+    /* ================================================
+       SAVE PAYMENT ORDER
+    ================================================= */
 
     localStorage.setItem(
         "wizPaymentOrder",
@@ -869,18 +809,27 @@ function placeOrder() {
     );
 
 
+    /* ================================================
+       OPEN PAYMENT PAGE
+    ================================================= */
+
     console.log(
-        "Order created:",
+        "✅ Order created:",
         order
     );
 
 
-    /* ===============================
-       OPEN PAYMENT PAGE
-    =============================== */
+    showToast(
+        "✓ Proceeding to payment..."
+    );
 
-    window.location.href =
-        "payment.html";
+
+    setTimeout(function () {
+
+        window.location.href =
+            "payment.html";
+
+    }, 400);
 
 }
 /* =====================================================
