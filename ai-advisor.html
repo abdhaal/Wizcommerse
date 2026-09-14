@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Product Advisor | Wiz Commerce</title>
+
+    <link
+        rel="stylesheet"
+        href="ai-advisor.css"
+    >
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span class="logo-icon">W</span>
+            <span>Wiz Commerce</span>
+        </div>
+
+        <nav class="nav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="compare.html">
+                Compare
+            </a>
+
+            <a
+                href="ai-advisor.html"
+                class="active"
+            >
+                AI Advisor
+            </a>
+
+            <a href="cart.html">
+                Cart
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="main-container">
+
+        <!-- HERO -->
+
+        <section class="advisor-hero">
+
+            <div class="ai-icon">
+                🤖
+            </div>
+
+            <h1>
+                AI Product Advisor
+            </h1>
+
+            <p>
+                Confused about which product to buy?
+                Tell us what you need and Wiz Commerce
+                will suggest suitable products.
+            </p>
+
+        </section>
+
+
+        <!-- ADVISOR CARD -->
+
+        <section class="advisor-card">
+
+            <div class="progress-area">
+
+                <span id="stepText">
+                    Step 1 of 3
+                </span>
+
+                <div class="progress-bar">
+
+                    <div
+                        id="progress"
+                        class="progress"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 1 -->
+
+            <div
+                id="step1"
+                class="advisor-step active-step"
+            >
+
+                <div class="question-number">
+                    01
+                </div>
+
+                <h2>
+                    What type of product are you looking for?
+                </h2>
+
+                <p class="question-description">
+                    Select a category that matches your requirement.
+                </p>
+
+
+                <div class="option-grid">
+
+                    <button
+                        class="option-btn"
+                        data-category="Electronics"
+                    >
+                        <span>📱</span>
+                        <strong>Electronics</strong>
+                        <small>
+                            Gadgets & electronic products
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="option-btn"
+                        data-category="Fashion"
+                    >
+                        <span>👕</span>
+                        <strong>Fashion</strong>
+                        <small>
+                            Clothes & fashion products
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="option-btn"
+                        data-category="Kitchen"
+                    >
+                        <span>🍳</span>
+                        <strong>Kitchen</strong>
+                        <small>
+                            Kitchen & home products
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="option-btn"
+                        data-category="All"
+                    >
+                        <span>🛍️</span>
+                        <strong>Any Category</strong>
+                        <small>
+                            Show all suitable products
+                        </small>
+                    </button>
+
+                </div>
+
+
+                <button
+                    id="step1Next"
+                    class="next-btn"
+                    disabled
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div
+                id="step2"
+                class="advisor-step"
+            >
+
+                <div class="question-number">
+                    02
+                </div>
+
+                <h2>
+                    What is your budget?
+                </h2>
+
+                <p class="question-description">
+                    Select your maximum budget.
+                </p>
+
+
+                <div class="budget-grid">
+
+                    <button
+                        class="budget-btn"
+                        data-budget="500"
+                    >
+                        <strong>Under ₹500</strong>
+                        <span>Budget friendly</span>
+                    </button>
+
+
+                    <button
+                        class="budget-btn"
+                        data-budget="1000"
+                    >
+                        <strong>Under ₹1,000</strong>
+                        <span>Popular choice</span>
+                    </button>
+
+
+                    <button
+                        class="budget-btn"
+                        data-budget="2000"
+                    >
+                        <strong>Under ₹2,000</strong>
+                        <span>More options</span>
+                    </button>
+
+
+                    <button
+                        class="budget-btn"
+                        data-budget="5000"
+                    >
+                        <strong>Under ₹5,000</strong>
+                        <span>Premium options</span>
+                    </button>
+
+                </div>
+
+
+                <div class="navigation-buttons">
+
+                    <button
+                        id="backToStep1"
+                        class="back-btn"
+                    >
+                        ← Back
+                    </button>
+
+                    <button
+                        id="step2Next"
+                        class="next-btn"
+                        disabled
+                    >
+                        Continue →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div
+                id="step3"
+                class="advisor-step"
+            >
+
+                <div class="question-number">
+                    03
+                </div>
+
+                <h2>
+                    What matters most to you?
+                </h2>
+
+                <p class="question-description">
+                    Select your main priority.
+                </p>
+
+
+                <div class="priority-grid">
+
+                    <button
+                        class="priority-btn"
+                        data-priority="trust"
+                    >
+                        🛡️
+                        <strong>
+                            High Trust
+                        </strong>
+                        <small>
+                            Verified & trusted products
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="priority-btn"
+                        data-priority="rating"
+                    >
+                        ⭐
+                        <strong>
+                            Best Rating
+                        </strong>
+                        <small>
+                            Highly rated products
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="priority-btn"
+                        data-priority="price"
+                    >
+                        💰
+                        <strong>
+                            Best Price
+                        </strong>
+                        <small>
+                            Value for money
+                        </small>
+                    </button>
+
+
+                    <button
+                        class="priority-btn"
+                        data-priority="popular"
+                    >
+                        🔥
+                        <strong>
+                            Popular
+                        </strong>
+                        <small>
+                            Popular customer choices
+                        </small>
+                    </button>
+
+                </div>
+
+
+                <div class="navigation-buttons">
+
+                    <button
+                        id="backToStep2"
+                        class="back-btn"
+                    >
+                        ← Back
+                    </button>
+
+                    <button
+                        id="getRecommendation"
+                        class="recommend-btn"
+                        disabled
+                    >
+                        🤖 Get My Recommendation
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="resultSection"
+                class="result-section"
+            >
+
+                <div class="result-header">
+
+                    <div class="result-ai-icon">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Wiz AI Recommendation
+                        </h2>
+
+                        <p id="recommendationText">
+                            Based on your requirements,
+                            these products may be suitable for you.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="recommendationProducts"
+                    class="recommendation-products"
+                ></div>
+
+
+                <div class="result-actions">
+
+                    <button
+                        id="startAgain"
+                        class="back-btn"
+                    >
+                        ↻ Start Again
+                    </button>
+
+                    <a
+                        href="products.html"
+                        class="next-btn"
+                    >
+                        View All Products →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRUST INFO -->
+
+        <section class="trust-info">
+
+            <div>
+                🛡️
+                <strong>
+                    Trust Score
+                </strong>
+                <span>
+                    Helps identify trusted products
+                </span>
+            </div>
+
+            <div>
+                ⭐
+                <strong>
+                    Verified Reviews
+                </strong>
+                <span>
+                    Review-based recommendations
+                </span>
+            </div>
+
+            <div>
+                💰
+                <strong>
+                    Budget Friendly
+                </strong>
+                <span>
+                    Recommendations based on your budget
+                </span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 Wiz Commerce.
+            Smart Shopping. Trusted Choices.
+        </p>
+
+    </footer>
+
+
+    <script src="ai-advisor.js"></script>
+
+</body>
+
+</html>
